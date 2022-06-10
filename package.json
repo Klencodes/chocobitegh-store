@@ -27,6 +27,7 @@
     "express": "^4.18.1",
     "helmet": "^5.0.2",
     "moment": "^2.29.3",
+    "ng-otp-input": "^1.8.5",
     "ngx-infinite-scroll": "^13.0.2",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-spinner": "^13.1.1",

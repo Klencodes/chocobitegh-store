@@ -13,7 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SharedPipesModule } from '../core/pipes/shared-pipes-module';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './home/home-component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,

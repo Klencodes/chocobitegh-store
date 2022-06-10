@@ -17,10 +17,6 @@ export class CreatePasswordComponent implements OnInit {
   isProcessing = false;
   hidePassword = true;
   submitted = false;
-  tokenOld = '';
-  emailOld = '';
-  tokenNew = '';
-  emailNew = '';
   pageTitle = '';
 
   constructor(
@@ -32,39 +28,15 @@ export class CreatePasswordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    this.formDataNew = this.formBuilder.group({
-      email_verification_string: [''],
-      email: [''],
-      password: ['', Validators.required, Validators.minLength(8)],
+    this.formData = this.formBuilder.group({
+      otp: ['', Validators.required],
+      password: ['', Validators.required, Validators.minLength(6)],
       confirm_password: ['', Validators.required],
     }, { validator: MustMatch('password', 'confirm_password') });
 
-    this.formData = this.formBuilder.group({
-      reset_password_string: [''],
-      email: [''],
-      new_password: ['', Validators.required, Validators.minLength(8)],
-      confirm_new_password: ['', Validators.required],
-    }, { validator: MustMatch('new_password', 'confirm_new_password') });
-
-    this.tokenNew = this.route.snapshot.queryParams['string']
-    this.emailNew = this.route.snapshot.queryParams['email']
-    this.tokenOld = this.route.snapshot.queryParams['str']
-    this.emailOld = this.route.snapshot.queryParams['em']
-
-    if (this.tokenOld !== null && this.tokenOld !== undefined && this.tokenOld !== '' && this.emailOld !== '') {
-      this.formData.get('reset_password_string').setValue(this.tokenOld);
-      this.formData.get('email').setValue(this.emailOld);
-      this.pageTitle = 'Reset Password';
-    } else {
-      this.formDataNew.get('email_verification_string').setValue(this.tokenNew)
-      this.formDataNew.get('email').setValue(this.emailNew)
-      this.pageTitle = 'Create Password';
-    }
   }
 
   onSubmit(data) {
-    if (this.tokenOld !== null && this.tokenOld !== undefined && this.tokenOld !== '' && this.emailOld !== '') {
       this.isProcessing = true;
       if (this.formData.invalid) {
         this.formData.markAllAsTouched();
@@ -78,26 +50,7 @@ export class CreatePasswordComponent implements OnInit {
           }, 2500);
         }
       })
-    }else{
-      if (this.formDataNew.invalid) {
-        this.formDataNew.markAllAsTouched();
-        return;
-      }
-      this.isProcessing = true;
-      this.authService.createNewPassword(data, (error, result) => {
-        this.isProcessing = false;
-        if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-          setTimeout(() => {
-            this.router.navigate(['/auth/signin'],)
-          }, 2500);
-        }
-      })
     }
     
-  }
-
-
-  // convenience getter for easy access to form fields
-  get f() { return this.formData.controls; }
 
 }

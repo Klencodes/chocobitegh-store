@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { map, catchError, debounceTime } from 'rxjs/operators';
-import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConstantValueService } from './constant-values.service';
 import { NetworkErrorHandlerService } from './network-error-handler.service';
-import { LocalAuthService } from './local-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataProviderService {
 
-  headers: any;
-  headersForFormData: any;
-  headersNoToken: any;
-  options: any;
-  optionsForFormData: any;
-  optionsNoToken: any;
+  headers;
+  headersForFormData;
+  headersNoToken;
+  options;
+  optionsForFormData;
+  optionsNoToken;
 
   constructor(
-    private localAuth: LocalAuthService,
     private http: HttpClient,
     private constantValues: ConstantValueService,
     private handleNetworkErrorsService: NetworkErrorHandlerService

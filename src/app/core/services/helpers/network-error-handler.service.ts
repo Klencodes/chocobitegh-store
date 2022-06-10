@@ -31,6 +31,6 @@ export class NetworkErrorHandlerService {
     } else if (err.status === 400) { 
       return throwError(() => new Error(err.error.message))
     }
-    return  throwError(() => new Error('You are offline, Please check your interne connection!!'));
+    return  throwError(() => new Error('You are offline, Please check your internet connection!!'));
   }
 }

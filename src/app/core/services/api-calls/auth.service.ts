@@ -23,6 +23,38 @@ export class AuthService {
     return this.userSubject$.value;
   }
   /**
+  * Send OTP to User
+  * @data data to submit to server
+  * @callback ICallback back function that returns an error or result
+  */
+  sendOtp(data, callback: ICallback) {
+    this.dataProvider.postNoToken(this.constantValues.SEND_OTP_ENDPOINT, data).subscribe(result => {
+      callback(null, result)
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        this.toast.success('', result.message)
+      }
+    }, error => {
+      callback(error, null)
+      this.toast.error(error.message);
+    })
+  }
+  /**
+  * Validate OTP
+  * @data data to submit to server
+  * @callback ICallback back function that returns an error or result
+  */
+  validateOtp(data, callback: ICallback) {
+    this.dataProvider.postNoToken(this.constantValues.VALIDATE_OTP_ENDPOINT, data).subscribe(result => {
+      callback(null, result)
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        this.toast.success('', result.message)
+      }
+    }, error => {
+      callback(error, null)
+      this.toast.error(error.message);
+    })
+  }
+  /**
   * Signup User
   * @data data to submit to server
   * @callback ICallback back function that returns an error or result
@@ -58,11 +90,11 @@ export class AuthService {
   }
   /**
   * Request password reset email 
-  * @email email to submit to server
+  * @data data to submit to server
   * @callback ICallback back function that returns an error or result
   */
-  forgetPassword(email, callback: ICallback) {
-    this.dataProvider.postNoToken(this.constantValues.FORGET_PASSWORD_ENDPOINT, email).subscribe(result => {
+  requestPasswordResetOtp(data, callback: ICallback) {
+    this.dataProvider.postNoToken(this.constantValues.REQUEST_PASSWORD_RESET_OTP_ENDPOINT, data).subscribe(result => {
       callback(null, result)
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
         this.toast.success('', result.message);
@@ -73,10 +105,26 @@ export class AuthService {
     })
   }
   /**
-  * reset password 
-  * @data payload to submit to server
+  * Validate reset password OTP 
+  * @data data to submit to server
   * @callback ICallback back function that returns an error or result
   */
+   validatePasswordResetOtp(data, callback: ICallback) {
+    this.dataProvider.postNoToken(this.constantValues.VALIDATE_PASSWORD_RESET_OTP_ENDPOINT, data).subscribe(result => {
+      callback(null, result)
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        this.toast.success('', result.message);
+      }
+    }, error => {
+      callback(error, null)
+      this.toast.error(error.message);
+    })
+  }
+  /**
+* Reset password
+* @data data to submit to server
+* @callback ICallback back function that returns an error or result
+*/
   resetPassword(data, callback: ICallback) {
     this.dataProvider.postNoToken(this.constantValues.RESET_PASSWORD_ENDPOINT, data).subscribe(result => {
       callback(null, result)
@@ -89,12 +137,12 @@ export class AuthService {
     })
   }
   /**
-* create new user password with email
+* Reset password
 * @data data to submit to server
 * @callback ICallback back function that returns an error or result
 */
-  createNewPassword(data, callback: ICallback) {
-    this.dataProvider.postNoToken(this.constantValues.CREATE_NEW_PASSWORD_ENDPOINT, data).subscribe(result => {
+  changePassword(data, callback: ICallback) {
+    this.dataProvider.updateData(this.constantValues.CHANGE_PASSWORD_ENDPOINT, data).subscribe(result => {
       callback(null, result)
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
         this.toast.success('', result.message);
@@ -138,7 +186,6 @@ export class AuthService {
     }, error => {
       callback(error, null)
       this.toast.error(error.message, '')
-
     })
   }
 

@@ -11,6 +11,8 @@ import { SigninComponent } from './signin/signin.component';
 import { MaterialModule } from 'src/app/core/modules/material.module';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { ValidateOtpComponent } from './validate-otp/validate-otp.component';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     CreatePasswordComponent,
     SignupComponent,
     TermsConditionsComponent,
+    ValidateOtpComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +30,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     ReactiveFormsModule,
     SharedDirectivesModule,
     MaterialModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    NgOtpInputModule,
   ]
 })
 export class AuthModule { }

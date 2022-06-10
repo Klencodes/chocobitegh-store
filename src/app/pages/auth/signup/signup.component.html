@@ -1,151 +1,137 @@
-<!-- <div class="home-btn d-none d-sm-block">
-  <a routerLink="/"><i class="mdi mdi-home-variant h2 text-white"></i></a>
-</div> -->
-<div class="d-flex-center mt-5">
-    <div class="authentication-page-size">
-        <div class="card-no-box p-4 auth-box-shadow">
-            <div class="row">
-                <div class="text-center">
-                    <!-- <div>
-                <a routerLink="/" class="logo"><img src="assets/images/logo-sm.png" height="20" alt="logo"></a>
-              </div> -->
-
-                    <h2 class="header-sign">Sign Up</h2>
-                    <p class="text-muted">Provide your details using the form below.</p>
-
-                    <button class="btn btn-outline-border-color full-width" (click)="signinWithGoogle()">
-                        <img src="assets/images/svg/google.svg" alt="">
-                        <span class="mx-2">Sign in using Google</span>
-                    </button>
-                </div>
-
-                <div class="d-flex-between my-3">
-                    <span class="auth-seprator"></span>
-                    <span class="mx-3">OR</span>
-                    <span class="auth-seprator"></span>
-                </div>
-
-                <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm?.value)">
-                    <div class="row">
-                        <div class="col-sm-6 mb-3">
-                            <div class="form-group">
-                                <label for="fname" class="font-weight-600">First Name</label>
-                                <input type="text" class="form-control" id="fname" formControlName="first_name"
-                                    placeholder="First Name">
-                            </div>
-                            <div *ngIf="!first_name?.valid && first_name?.touched" class="error-message">
-                                First Name is required</div>
-                        </div>
-                        <div class="col-sm-6 mb-3">
-                            <div class="form-group">
-                                <label for="lname" class="font-weight-600">Last Name</label>
-                                <input type="text" class="form-control" id="lname" formControlName="last_name"
-                                    placeholder="Last Name">
-                            </div>
-                            <div *ngIf="!last_name?.valid && last_name?.touched" class="error-message">
-                                Last Name is required</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <div class="form-group">
-
-                                <label for="email" class="font-weight-600">Email Address</label>
-                                <input type="text" class="form-control" id="email" formControlName="email"
-                                    placeholder="jackchan@gmail.com">
-                            </div>
-                            <div *ngIf="!email?.valid && email?.touched" class="error-message">
-                                Email Address is required</div>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <div class="form-group">
-                                <label for="phone" class="font-weight-600">Phone</label>
-                                <input type="text" class="form-control" id="phone" formControlName="phone_number"
-                                    placeholder="Phone number">
-                            </div>
-                            <div *ngIf="!phone_number?.valid && phone_number?.touched" class="error-message">
-                                Phone Number is required</div>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <div class="form-group">
-                                <label class="font-weight-600" for="pass">Password </label>
+<div class="home-btn d-none d-sm-block">
+    <a routerLink="/"><i class="mdi mdi-home-variant h2 text-white"></i></a>
+</div>
+<div class="auth-bg">
+    <div class="auth-box">
+        <div class="d-flex-center mt-5">
+            <div class="card">
+                <div class="card-body py-5">
+                    <h2 class="mb-4 text-center">Sign Up</h2>
+                    <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm?.value)">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
                                 <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control remove-border-right" formControlName="password"
-                                            [type]="hidePassword? 'password' : 'text'"
-                                            placeholder="8+ characters required">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-border-color remove-border-left"
-                                                type="button" (click)="hidePassword = !hidePassword">
-                                                <i *ngIf="hidePassword" class="ri-eye-off-line"></i>
-                                                <i *ngIf="!hidePassword" class="ri-eye-line"></i>
-                                            </button>
+                                    <label for="fname" class="font-weight-600">First Name</label>
+                                    <input type="text" class="form-control" id="fname" formControlName="first_name"
+                                        placeholder="First Name">
+                                </div>
+                                <div *ngIf="!first_name?.valid && first_name?.touched" class="error-message">
+                                    First name is required</div>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <div class="form-group">
+                                    <label for="lname" class="font-weight-600">Last Name</label>
+                                    <input type="text" class="form-control" id="lname" formControlName="last_name"
+                                        placeholder="Last Name">
+                                </div>
+                                <div *ngIf="!last_name?.valid && last_name?.touched" class="error-message">
+                                    Last name is required</div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="phone" class="font-weight-600">Phone Number</label>
+                                    <input type="text" class="form-control" id="phone" formControlName="phone_number"
+                                        placeholder="Phone number">
+                                </div>
+                                <div *ngIf="!phone_number?.valid && phone_number?.touched" class="error-message">
+                                    Phone number is required</div>
+                            </div>
+                            <!-- <div class="row">
+                                <div class="col-auto mb-3"> 
+                                    <label class="form-check"> 
+                                        <input class="form-check-input" type="radio" name="choose_a" checked="" formControlName="gender"> 
+                                        <span class="form-check-label"> Female </span>
+                                    </label> 
+                                </div>
+                                <div class="col-auto mb-3"> 
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" name="choose_a" formControlName="gender"> 
+                                            <span class="form-check-label"> Male </span>
+                                    </label> 
+                                </div>
+                            </div> -->
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label class="font-weight-600" for="pass">Password </label>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control remove-border-right" formControlName="password"
+                                                [type]="hidePassword? 'password' : 'text'"
+                                                placeholder="6+ characters required">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-light remove-border-left" type="button"
+                                                    (click)="hidePassword = !hidePassword">
+                                                    <i *ngIf="hidePassword" class="fe fe-eye-off"></i>
+                                                    <i *ngIf="!hidePassword" class="fe fe-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="error-message"
+                                            *ngIf="submitted && signupForm.get('password').errors">
+                                            <div *ngIf="signupForm.get('password').errors['required']">Password is
+                                                required</div>
+                                            <div *ngIf="signupForm.get('password').errors['minLength']">Password must be
+                                                at least 6 characters</div>
                                         </div>
                                     </div>
-                                    <div class="error-message" *ngIf="submitted && signupForm.get('password').errors">
-                                        <div *ngIf="signupForm.get('password').errors['required']">Password is required</div>
-                                        <div *ngIf="signupForm.get('password').errors['minLength']">Password must be at least 8 characters</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label class="font-weight-600" for="pass">Confirm Password</label>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control remove-border-right"
+                                                formControlName="confirm_password" placeholder="Re-Type Password"
+                                                [type]="hidePassword? 'password' : 'text'">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-light remove-border-left" type="button"
+                                                    (click)="hidePassword = !hidePassword">
+                                                    <i *ngIf="hidePassword" class="fe fe-eye-off"></i>
+                                                    <i *ngIf="!hidePassword" class="fe fe-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="error-message"
+                                            *ngIf="submitted && signupForm.get('confirm_password').errors">
+                                            <div *ngIf="signupForm.get('confirm_password').errors['required']">
+                                                Confirm password is required</div>
+                                            <div *ngIf="signupForm.get('confirm_password').errors['mustMatch']">
+                                                Passwords must match</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <div class="form-group">
-                                <label class="font-weight-600" for="pass">Confirm Password</label>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control remove-border-right"
-                                            formControlName="confirm_password"
-                                            [type]="hidePassword? 'password' : 'text'" placeholder="Re-Type Password">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-border-color remove-border-left"
-                                                type="button" (click)="hidePassword = !hidePassword">
-                                                <i *ngIf="hidePassword" class="ri-eye-off-line"></i>
-                                                <i *ngIf="!hidePassword" class="ri-eye-line"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="error-message"
-                                        *ngIf="submitted && signupForm.get('confirm_password').errors">
-                                        <div *ngIf="signupForm.get('confirm_password').errors['required']">
-                                            Confirm
-                                            Password is required</div>
-                                        <div *ngIf="signupForm.get('confirm_password').errors['mustMatch']">
-                                            Passwords
-                                            must match</div>
-                                    </div>
+                        <!-- <div class="row mt-2">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <label for="countmein">I accept the <a class="text-primary"
+                                            (click)="openTermsCondition()">terms and conditions</a></label>
+                                    <input formControlName="accept_terms" class="form-check-input" type="checkbox"
+                                        id="countmein">
                                 </div>
+                                <div *ngIf="accept_terms?.value !== true" class="error-message"> Please accept terms and
+                                    conditions</div>
                             </div>
+                        </div> -->
+                        <div class="mt-4 text-center">
+                            <button class="btn btn-primary w-100" type="submit" [disabled]="isProcessing">
+                                <span *ngIf="isProcessing" class="spinner-border spinner-border-sm mr-1"></span>
+                                {{btnText}}
+                            </button>
                         </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <div class="form-check">
-                                <label for="countmein">I accept the <a class="text-secondary"
-                                        (click)="openTermsCondition()">terms and conditions</a></label>
-                                <input formControlName="accept_terms" class="form-check-input" type="checkbox" id="countmein">
-                            </div>
-                            <div *ngIf="accept_terms?.value !== true" class="error-message"> Please accept terms and conditions</div>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <button class="btn btn-secondary font-weight-600 font-size-18 full-width" type="submit"
-                            [disabled]="isProcessing">
-                            <span *ngIf="isProcessing" class="spinner-border spinner-border-sm mr-1"></span>
-                            Sign Up</button>
-                    </div>
+                        <hr>
+                        <p class="mb-0">Have an account with Chocolate mall? <a [routerLink]="['/auth/signin']">Sign In</a></p>
+                    </form>
 
-                </form>
-                <div class="mt-4 text-center">
-                    <p>Already have an accoun? <a routerLink="/auth/signin" class="font-weight-600 text-secondary">Sign
-                            In </a>
-                    </p>
                 </div>
             </div>
+
         </div>
 
     </div>
-
-</div>
-<!-- end page -->

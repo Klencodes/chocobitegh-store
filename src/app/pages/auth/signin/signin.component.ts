@@ -9,12 +9,12 @@ import { LocalAuthService } from 'src/app/core/services/helpers/local-auth.servi
   templateUrl: './signin.component.html',
 })
 export class SigninComponent implements OnInit {
-  loginForm: FormGroup;
+  signinForm: FormGroup;
   isProcessing = false;
   hidePassword = true;
-  btnText = 'login';
+  btnText = 'Sign In';
   submitted = false;
-  returnUrl: any;
+  returnUrl: string;
 
   constructor(
     private authService: AuthService,
@@ -24,8 +24,8 @@ export class SigninComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+    this.signinForm = new FormGroup({
+      phone_number: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       // news_letter: new FormControl(false, [Validators.required]),
     })
@@ -37,11 +37,11 @@ export class SigninComponent implements OnInit {
 
   /**
    *Login a user and redirect user to dashboard
-   * @param data login credential(email & password)
+   * @param data signin credential(email & password)
    */
   onSubmit(data) {
     this.submitted = true;
-    if (this.loginForm.invalid) {
+    if (this.signinForm.invalid) {
       return;
     }
     this.isProcessing = true;
@@ -59,14 +59,9 @@ export class SigninComponent implements OnInit {
 
     });
   }
-  /**
-   * Singin with google account
-   */
-  signinWithGoogle(){
 
-  }
-  get email() { return this.loginForm.get('email') }
-  get password() { return this.loginForm.get('password') }
-  // get news_letter() { return this.loginForm.get('news_letter') }
+  get phone_number() { return this.signinForm.get('phone_number') }
+  get password() { return this.signinForm.get('password') }
+  // get news_letter() { return this.signinForm.get('news_letter') }
 
 }

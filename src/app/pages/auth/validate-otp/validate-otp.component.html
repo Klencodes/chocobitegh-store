@@ -1,0 +1,21 @@
+<div class="py-4">
+    <div class="text-center">
+        <h2 class="mb-3">Phone Number Verification</h2>
+        <p class="text-muted">Enter the otp received on your phone.</p>
+    </div>
+
+    <div class="mt-5">
+        <div class="col-md-12">
+            <div class="form-group mb-3 text-center">
+                <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+            </div>
+        </div>
+
+    </div>
+    <div class="mt-4 text-center">
+        <button class="btn btn-primary w-100" (click)="onOtpChange($event)" [disabled]="isVerifying" type="submit">
+            <span *ngIf="isVerifying" class="spinner-border spinner-border-sm mr-1"></span>
+            {{btnText}}</button>
+    </div>
+
+</div>

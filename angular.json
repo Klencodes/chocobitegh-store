@@ -54,14 +54,13 @@
               "./node_modules/ngx-toastr/toastr.css",
               "node_modules/sweetalert2/src/sweetalert2.scss",
               "src/styles.scss",
-              "src/assets/css/bootstrap.css",
-              "src/assets/css/responsive.css",
-              "src/assets/css/style.css"
+              "src/assets/plugins/bootstrap.css",
+              "src/assets/scss/_ui.scss"
             ],
             "scripts": [
-              "src/assets/js/bootstrap.js",
-              "src/assets/js/fslightbox.js",
-              "src/assets/js/script.js"
+              "src/assets/plugins/bootstrap.js",
+              "src/assets/plugins/fslightbox.js",
+              "src/assets/plugins/script.js"
             ]
           },
           "configurations": {

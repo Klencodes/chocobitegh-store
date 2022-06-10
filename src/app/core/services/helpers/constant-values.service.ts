@@ -8,20 +8,21 @@ export class ConstantValueService {
   constructor() { }
   //Core
   get BASE_URL() { return environment.BASE_URL; }
-  get APP_NAME() { return 'Rose Garden' }
+  get APP_NAME() { return 'Chocolate Mall' }
   //Dates Formats
   get MM_DD_YYYY_DATE_FORMAT() { return 'MM-DD-YYYY'; }
   get HH_MM_SS_TIME_FORMAT() { return 'hh:mm:ss'; }
   get DD_MM_YYYY_DATE_FORMAT() { return 'DD-MM-YYYY'; }
   
-  get SIGNUP_ENDPOINT() { return 'user/signup/' }
-  get SIGNIN_ENDPOINT() { return 'user/signin/' }
-  get VERIFY_EMAIL_ENDPOINT() { return 'user/verify_email/' }
-  get FORGET_PASSWORD_ENDPOINT() { return 'user/forget_password/' }
-  get VERIFY_RESET_PASSWORD_ENDPOINT() { return 'user/verify_reset_password_link/' }
-  get RESET_PASSWORD_ENDPOINT() { return 'user/reset_password/' }
-  get CREATE_NEW_PASSWORD_ENDPOINT() { return 'user/create_password/' }
-  
+  get SEND_OTP_ENDPOINT() { return 'auth/send_opt/' }
+  get VALIDATE_OTP_ENDPOINT() { return 'auth/validate_otp/' }
+  get SIGNUP_ENDPOINT() { return 'auth/signup/' }
+  get SIGNIN_ENDPOINT() { return 'auth/signin/' }
+  get REQUEST_PASSWORD_RESET_OTP_ENDPOINT() { return 'auth/request_password_reset_otp/' }
+  get VALIDATE_PASSWORD_RESET_OTP_ENDPOINT() { return 'auth/validate_password_reset_otp/' }
+  get RESET_PASSWORD_ENDPOINT() { return 'auth/reset_password/' }
+  get CHANGE_PASSWORD_ENDPOINT() { return 'auth/change_password/' }  
+
   get FETCH_TOP_PRODUCTS_OVERVIEW() { return 'top_products/' }
 
   get PRODUCTS_ENDPOINT() { return 'product/' }
@@ -33,7 +34,6 @@ export class ConstantValueService {
   get REPLY_REVIEW_ENDPOINT() { return 'product/reply_review/' }
   get USER_DETAILS_ENDPOINT() { return 'user/me/' }
   get UPDATE_USER_DETAILS_ENDPOINT() { return 'user/update_profile/' }
-  
   
   get ORDERS_ENDPOINT() { return 'order/my_orders/' }
   get ORDER_DETAILS_ENDPOINT() { return 'order/my_order/' }
