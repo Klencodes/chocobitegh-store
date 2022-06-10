@@ -1,18 +1,22 @@
-<header class="main-header fixed-top auto-hide bg-white scrolled-down"> 
-    <nav class="navbar navbar-light navbar-expand justify-content-between flex-column flex-md-row"> 
-        <a href="index.html" class="navbar-brand"> 
-            <img src="assets/images/logo30f4.png?v=3" alt="Logo ecommerce uikit" class="logo" height="38"> 
-        </a> 
-        <div class="navbar-top-wrap"> 
-            <ul class="nav nav-header"> 
-                <li class="nav-item"> <a class="nav-link" href="index.html#intro">Overview</a> </li> <li class="nav-item active"> <a class="nav-link" href="components.html">Components</a> </li> 
-                <li class="nav-item"> <a class="nav-link" href="documentation.html">Documentation</a> </li> 
-                <li class="nav-item"> <a class="nav-link" href="templates.html">Templates</a> </li> 
-            </ul> 
-        </div> 
-        <div> 
-            <a class="btn btn-light d-none d-md-inline-block" target="_blank" href="#modal_hire" data-bs-toggle="modal">Hire me</a>
-            <a class="btn btn-primary d-none d-md-inline-block" target="_blank" href="https://templatemount.gumroad.com/l/bootstrap-ecommerce">Download</a> 
-        </div> 
+<header class="main-header fixed-top auto-hide bg-white scrolled-down">
+    <nav class="navbar navbar-expand-xl navbar-light">
+        <div class="container">
+            <a class="navbar-brand" [routerLink]="[ '/']">
+                <img src="assets/images/logo.svg" height="40" class="logo">
+            </a>
+
+            <div class="widgets-wrap d-xl-flex">
+                <div class="widget-header ms-2">
+                    <a class="icon icon-sm bg-gray-200">
+                        <i class="fe fe-user fe-lg"></i>
+                    </a>
+                </div>
+                <div class="widget-header ms-2">
+                    <a class="icon icon-sm bg-gray-200">
+                        <i class="fe fe-shopping-cart fe-lg"></i> <span class="notify">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </nav>
 </header>
