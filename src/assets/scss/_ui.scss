@@ -1919,7 +1919,7 @@ ul.row {
     display: block;
     text-align: center;
     width: 100%;
-    height: 560px;
+    max-height: 560px;
     margin-bottom: 1rem;
     overflow: hidden;
     background-color: $white
@@ -1935,7 +1935,7 @@ ul.row {
     max-width: 100%;
     max-height: 100%;
     height: auto;
-    cursor: zoom-in
+    // cursor: zoom-in
 }
 
 .gallery-wrap .thumbs-wrap {
@@ -2042,11 +2042,32 @@ ul.row {
     }
 }
 
+.fe-md {
+    font-size: 16px;
+    font-weight: 600;
+    vertical-align: text-top;
+}
 .fe-lg {
     font-size: 20px;
     font-weight: 600;
 }
 
+.bg-cover-centered {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 60vh;
+    width: 100%
+}
+.bg-cover-centered-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30rem;
+    box-sizing: border-box;
+    border-radius: 0.525rem;
+}
 .auth-bg {
     background: url('../../assets/images/banners/banner2.jpg');
     background-repeat: no-repeat;
@@ -2068,4 +2089,8 @@ ul.row {
 .error-message {
     color: $danger;
     font-size: 13px;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: $primary !important;
+    background-color: transparent !important;
 }

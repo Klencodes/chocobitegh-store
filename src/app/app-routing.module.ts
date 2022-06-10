@@ -4,6 +4,7 @@ import { LayoutsComponent } from './layouts/layouts.component';
 
 const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule) },
+  
   { path: '', component: LayoutsComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
 ];
 

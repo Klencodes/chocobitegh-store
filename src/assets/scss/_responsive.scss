@@ -64,6 +64,9 @@
 }
 
 @media all and (max-width: 468px) {
+    .bg-cover-centered-box {
+        width: 90vw !important;
+    }
     .auth-box {
         width: 90vw !important;
     }

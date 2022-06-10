@@ -14,6 +14,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { SharedPipesModule } from '../core/pipes/shared-pipes-module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomeComponent } from './home/home-component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { OrderCompleteComponent } from './order-complete/order-complete.component';
+import { CartComponent } from './cart/cart.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -22,8 +25,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 @NgModule({
   declarations: [
-  
-    HomeComponent
+
+    HomeComponent,
+    ProductDetailsComponent,
+    OrderCompleteComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +43,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatDatepickerModule,
     SharedPipesModule,
     NgxSpinnerModule,
+    
   ],
   providers: [
     {
