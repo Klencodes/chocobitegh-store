@@ -10,7 +10,7 @@ import { ValidateOtpComponent } from '../validate-otp/validate-otp.component';
   templateUrl: './forgot-pass.component.html',
 })
 export class ForgotPassComponent implements OnInit {
-  phoneCtrl: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  phoneCtrl: FormControl = new FormControl('', [Validators.required]);
   isProcessing = false;
   btnText = 'Submit';
 
@@ -23,15 +23,19 @@ export class ForgotPassComponent implements OnInit {
   }
 
   /**
-   *Request password reset via email
-   * @param email email to submit to server
+   *Request password reset via phone number
+   * @param phone_number to submit to server
    */
   onSubmit() {
+    if(this.phoneCtrl.invalid){
+      this.phoneCtrl.markAllAsTouched();
+      return;
+    }
     const data = { phone_number: this.phoneCtrl.value, }
     this.isProcessing = true;
-    this.authService.requestPasswordResetOtp({ phone_number: data.phone_number }, (error, result) => {
+    this.authService.requestPasswordResetOtp(data, (error, result) => {
+      this.isProcessing = false;
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        this.isProcessing = false;
         this.dialog.open(ValidateOtpComponent, { data: { formData: data, isNew: false }, disableClose: true })
       }
     });

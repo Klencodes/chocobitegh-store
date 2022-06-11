@@ -21,10 +21,11 @@
 
 </div>
 <div class="container">
+    <h4 class="card-title">Suggested Products</h4>
     <div class="row">
         <div class="col-6 col-md-4 col-lg-3">
             <div class="card card-product-grid">
-                <div class="img-wrap"> 
+                <div class="img-wrap" (click)="productDetails('name: New Prodcuct')"> 
                     <img src="assets/images/items/4.jpg"> 
                     <span class="topbar"> <span class="badge bg-danger"> No stock </span> </span>
                 </div>
@@ -33,11 +34,11 @@
                         <i class="fe fe-tag"></i>
                         <span class="tags">Sweet, Testy</span>
                     </span>
-                    <p class="title">RAM 6GB 512GB Unlocked</p>
+                    <p class="title" (click)="productDetails('name: New Prodcuct')"> RAM 6GB 512GB Unlocked</p>
                     <div class="rating-wrap">
                         <ul class="rating-stars">
-                            <li class="stars-active" style="width: 70%;"> <img src="assets/images/misc/stars-active.svg"
-                                    alt=""> </li>
+                            <li class="stars-active" style="width: 70%;"> 
+                                <img src="assets/images/misc/stars-active.svg" alt=""> </li>
                             <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
                         </ul> <span class="label-rating text-warning">3.2</span>
                     </div>

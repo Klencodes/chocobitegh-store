@@ -14,10 +14,12 @@ export class NetworkErrorHandlerService {
    * @returns JSON data of err with detail key
    */
   handleError(err: HttpErrorResponse) {
-    if (err.status === 415) {
-      return throwError(() => new Error('An err occurred processing request.'))
+   if (err.status === 500) {
+    return throwError(() => new Error('An error occurred connencting to server'))
+   } else if (err.status === 415) {
+      return throwError(() => new Error('An error occurred processing request'))
     } else if (err.status === 405) {
-      return throwError(() => new Error('An err occurred processing request.'))
+      return throwError(() => new Error('An error occurred processing request'))
     } else if (err.status === 403) {
       return throwError(() => new Error(err.error.message))
     } else if (err.status === 404) {
@@ -31,6 +33,6 @@ export class NetworkErrorHandlerService {
     } else if (err.status === 400) { 
       return throwError(() => new Error(err.error.message))
     }
-    return  throwError(() => new Error('You are offline, Please check your internet connection!!'));
+    return  throwError(() => new Error('You are offline, Check your internet connection!!'));
   }
 }

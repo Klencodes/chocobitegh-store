@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ResponseStatus, UserType } from 'src/app/core/enums/enums';
 import { AuthService } from 'src/app/core/services/api-calls/auth.service';
 import { MustMatch } from 'src/app/core/validators/must-match';

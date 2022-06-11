@@ -13,12 +13,10 @@ export class SigninComponent implements OnInit {
   isProcessing = false;
   hidePassword = true;
   btnText = 'Sign In';
-  submitted = false;
   returnUrl: string;
 
   constructor(
     private authService: AuthService,
-    private localAuth: LocalAuthService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -29,10 +27,6 @@ export class SigninComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
       // news_letter: new FormControl(false, [Validators.required]),
     })
-
-    if (this.localAuth.isLogedIn) {
-      // this.router.navigate(['/dashboard']);
-    }
   }
 
   /**
@@ -40,8 +34,8 @@ export class SigninComponent implements OnInit {
    * @param data signin credential(email & password)
    */
   onSubmit(data) {
-    this.submitted = true;
     if (this.signinForm.invalid) {
+      this.signinForm.markAllAsTouched()
       return;
     }
     this.isProcessing = true;
@@ -49,7 +43,6 @@ export class SigninComponent implements OnInit {
     this.authService.signIn(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        this.localAuth.increaseLoggedInCount();
         this.router.navigateByUrl(returnUrl);
       } else {
         // get return url from query parameters or default to home page

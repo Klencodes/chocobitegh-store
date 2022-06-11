@@ -14,10 +14,10 @@ export class ProductDetailsComponent implements OnInit {
 
   imgs = [
     'assets/images/items/detail1/big.jpg',
-    'assets/images/items/detail1/big.jpg',
-    'assets/images/items/detail1/big.jpg',
-    'assets/images/items/detail1/big.jpg',
-    'assets/images/items/detail1/big.jpg'
+    'assets/images/items/detail1/big1.jpg',
+    'assets/images/items/detail1/big2.jpg',
+    'assets/images/items/detail1/big3.jpg',
+    'assets/images/items/detail1/big4.jpg'
   ]
   constructor() { }
 

@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-body py-5">
           <h2 class="mb-4 text-center">Sign In</h2>
-          <form [formGroup]="signinForm">
+          <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm?.value)">
             <div class="mb-3">
               <div class="form-group">
                 <label for="phone" class="font-weight-600">Phone Number</label>
@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Password</label>
-              <a class="float-end text-primary" [routerLink]="['/auth/forgot-password']">Forgot?</a>
+              <a class="float-end text-primary" [routerLink]="['/auth/forgot-password']">Forgot Password?</a>
               <div class="input-group">
                 <input class="form-control remove-border-right" formControlName="password"
                   [type]="hidePassword? 'password' : 'text'" placeholder="******">
@@ -31,6 +31,8 @@
                   </button>
                 </div>
               </div>
+              <div *ngIf="!password?.valid && password?.touched" class="error-message">
+                Password is required</div>
             </div>
             <div class="mb-3">
               <label class="form-check">

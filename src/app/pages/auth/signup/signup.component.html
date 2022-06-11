@@ -29,7 +29,6 @@
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="phone" class="font-weight-600">Phone Number</label>
@@ -124,14 +123,15 @@
                                 <span *ngIf="isProcessing" class="spinner-border spinner-border-sm mr-1"></span>
                                 {{btnText}}
                             </button>
+                            <p class="text-divider my-4">Have an account with chocolate mall?</p>
+                            <a [routerLink]="['/auth/signin']" class="btn btn-light w-100">Sign In</a>
                         </div>
-                        <hr>
-                        <p class="mb-0">Have an account with Chocolate mall? <a [routerLink]="['/auth/signin']">Sign In</a></p>
                     </form>
-
                 </div>
-            </div>
 
+            </div>
         </div>
 
     </div>
+
+</div>

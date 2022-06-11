@@ -27,7 +27,6 @@ export class ValidateOtpComponent implements OnInit {
 
   ngOnInit(): void {
     this.configData = { suppressScrollX: true, wheelSpeed: 0.3 };
-    console.log(this.data)
   }
 
   onOtpChange(otpValue) {

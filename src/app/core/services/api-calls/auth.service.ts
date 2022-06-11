@@ -63,7 +63,7 @@ export class AuthService {
     this.dataProvider.postNoToken(this.constantValues.SIGNUP_ENDPOINT, data).subscribe(result => {
       callback(null, result)
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        this.toast.success('', result.message)
+        // this.toast.success('', result.message)
       }
     }, error => {
       callback(error, null)
@@ -109,7 +109,7 @@ export class AuthService {
   * @data data to submit to server
   * @callback ICallback back function that returns an error or result
   */
-   validatePasswordResetOtp(data, callback: ICallback) {
+  validatePasswordResetOtp(data, callback: ICallback) {
     this.dataProvider.postNoToken(this.constantValues.VALIDATE_PASSWORD_RESET_OTP_ENDPOINT, data).subscribe(result => {
       callback(null, result)
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {

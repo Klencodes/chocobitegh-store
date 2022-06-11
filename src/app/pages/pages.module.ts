@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home-component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { OrderCompleteComponent } from './order-complete/order-complete.component';
 import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -29,7 +30,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HomeComponent,
     ProductDetailsComponent,
     OrderCompleteComponent,
-    CartComponent
+    CartComponent,
+    CheckoutComponent
   ],
   imports: [
     CommonModule,
