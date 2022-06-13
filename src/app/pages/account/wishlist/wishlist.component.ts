@@ -10,4 +10,10 @@ export class WishlistComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addToCart(id) {
+
+  }
+  removeItem(id) {
+
+  }
 }

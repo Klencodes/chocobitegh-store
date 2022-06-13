@@ -55,7 +55,7 @@ var {
 a {
     text-decoration: none !important;
     cursor: pointer;
-    color: $side-menu-link !important;
+    color: $side-menu-link  !important;
 }
 
 .btn {
@@ -801,7 +801,8 @@ a:hover>.img-thumbnail {
     background-color: transparent !important;
     border-color: $warning  !important;
     color: $warning  !important;
-    &:hover{
+
+    &:hover {
         color: $warning  !important;
     }
 }
@@ -816,7 +817,8 @@ a:hover>.img-thumbnail {
     background-color: transparent !important;
     border-color: $secondary  !important;
     color: $secondary  !important;
-    &:hover{
+
+    &:hover {
         color: $secondary  !important;
     }
 }
@@ -831,7 +833,8 @@ a:hover>.img-thumbnail {
     background-color: transparent !important;
     border-color: $info  !important;
     color: $info  !important;
-    &:hover{
+
+    &:hover {
         color: $info  !important;
     }
 }
@@ -846,7 +849,8 @@ a:hover>.img-thumbnail {
     background-color: transparent !important;
     border-color: $light  !important;
     color: $dark;
-    &:hover{
+
+    &:hover {
         color: $light  !important;
     }
 }
@@ -860,8 +864,9 @@ a:hover>.img-thumbnail {
 .btn-outline-success {
     background-color: transparent !important;
     border-color: $success  !important;
-    color: $success !important;
-    &:hover{
+    color: $success  !important;
+
+    &:hover {
         color: $success  !important;
     }
 }
@@ -875,8 +880,9 @@ a:hover>.img-thumbnail {
 .btn-outline-danger {
     background-color: transparent !important;
     border-color: $danger  !important;
-    color: $danger !important;
-    &:hover{
+    color: $danger  !important;
+
+    &:hover {
         color: $danger  !important;
     }
 }
@@ -890,8 +896,9 @@ a:hover>.img-thumbnail {
 .btn-outline-dark {
     background-color: transparent !important;
     border-color: $dark  !important;
-    color: $dark !important;
-    &:hover{
+    color: $dark  !important;
+
+    &:hover {
         color: $secondary  !important;
     }
 }
@@ -905,8 +912,9 @@ a:hover>.img-thumbnail {
 .btn-outline-primary {
     background-color: transparent !important;
     border-color: $primary  !important;
-    color: $primary !important;
-    &:hover{
+    color: $primary  !important;
+
+    &:hover {
         color: $primary  !important;
     }
 }
@@ -1143,12 +1151,15 @@ a[class*=card]:hover .title {
     padding: 1rem 1.2rem;
     overflow: hidden;
 
-    .tags {
-        padding-left: 5px;
-        font-size: 13px;
-    }
-}
 
+}
+.tags-icon{
+    vertical-align: middle;
+    padding-right: 5px;
+}
+.tags {
+    font-size: 13px;
+}
 .card-product-grid .bottom-wrap {
     padding: 1rem 1.2rem;
     border-top: 1px solid $light-gray;
@@ -1392,7 +1403,8 @@ b.price,
 .box {
     padding: .8rem;
     border-radius: .35rem;
-    border: 1px solid $light-gray
+    border: 1px solid $light-gray;
+    min-height: 50px;
 }
 
 .box img {
@@ -2277,9 +2289,132 @@ ul.row {
     background-color: $secondary;
     opacity: 1;
 }
-.cart-item-btn{
+
+.cart-item-btn {
     align-self: center;
     padding: 7px;
     border: 1px solid $light;
     background: $light;
+}
+
+.place-order-show-sm {
+    display: none;
+}
+
+.place-order-show-md {
+    display: block;
+}
+
+.form-check-label,
+.form-label {
+    color: $dark  !important;
+}
+.order-label-bold{
+    color: $dark ;
+    font-weight: 600;
+    margin-bottom: .5rem !important;
+}
+.box-check:hover:not(.active) {
+    border-color: $light-gray;
+}
+.accordion-button:not(.collapsed) {
+    color: $primary !important;
+    background-color:rgba($primary, .03) !important;
+}
+.accordion-button:focus {
+    z-index: 3;
+    border-color: $light-gray;
+}
+.form-check-input:focus {
+    border-color: $light-gray;
+    box-shadow: none;
+}
+
+.address-padding-left {
+    padding-left: 10px;
+}
+.address-primary-icon {
+    img{
+        width: 25px;
+    }
+}
+
+.useful-info {
+    margin-right: 0.1rem;
+    margin-left: 0.1rem;
+
+    .title {
+        // font-size: 16px;
+        font-weight: 500;
+    }
+
+    .count {
+        color: $primary;
+        font-weight: 600;
+        font-size: 16px;
+    }
+}
+.page-description{
+    margin-bottom: 1rem;
+}
+.breadcrumb-place{
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+.cursor-pointer{
+    cursor: pointer !important;
+}
+.checkout-label {
+    font-size: 15px;
+    font-weight: 600;
+}
+table tr td {
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+}
+.orders-align{   
+    align-content: space-evenly !important;
+    width: 100px !important;
+    height: 84px !important;
+}
+.category-slider{
+    cursor: pointer;
+    display: table-row;
+    .img-wrap-squared{
+        border-radius: 5%;
+
+        .image{
+            width: 50px;
+            height: 50px;
+        }
+        .title{
+            font-weight: 600
+        }
+    }
+    .img-wrap-round{
+        border-radius: 50%;
+
+        .image{
+            width: 50px;
+            height: 50px;
+        }
+    }
+    .title{
+        font-weight: 600
+    }
+}
+.ml-3{
+margin-left: 1rem;
+}
+.mr-3{
+margin-right: 1rem;
+}
+.ml-2{
+margin-left: 0.5rem;
+}
+.mr-2{
+margin-right: 0.5rem;
+}
+.page-padding-top{
+    margin-top: 40px;
 }

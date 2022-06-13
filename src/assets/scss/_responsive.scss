@@ -17,6 +17,12 @@
 }
 
 @media all and (max-width: 768px) {
+    .place-order-show-sm {
+        display: block !important;
+    }
+    .place-order-show-md {
+        display: none !important;
+    }
 
     .section-header .logo {
         max-height: 36px;

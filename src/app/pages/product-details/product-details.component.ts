@@ -10,8 +10,10 @@ SwiperCore.use([FreeMode, Navigation, Thumbs]);
   encapsulation: ViewEncapsulation.None,
 })
 export class ProductDetailsComponent implements OnInit {
+  mainPageTitle = 'Products'
+  pageTitle = 'Product Details'
   thumbsSwiper: any;
-
+  tags = ['sweet', 'CHOCO', 'Tasty']
   imgs = [
     'assets/images/items/detail1/big.jpg',
     'assets/images/items/detail1/big1.jpg',

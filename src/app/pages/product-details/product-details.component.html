@@ -1,4 +1,11 @@
 <div class="container">
+    <div class="row">
+        <div class="col-12 breadcrumb-place">
+            <a class="page-description" routerLink="/">Home </a>
+            <span class="page-description" *ngIf="mainPageTitle !== ''">| {{mainPageTitle}} </span>
+            <span class="page-description" *ngIf="pageTitle !== ''">| {{pageTitle}}</span>
+        </div>
+      </div>
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -24,8 +31,15 @@
                     </article>
                 </aside>
                 <div class="col-lg-6">
-                    <article class="ps-lg-3 pt-4">
+                    <article class="ps-lg-3">
                         <h4 class="title text-dark">Sweater Men New Arrival Casual Pullover <br> Men Long Sleeve</h4>
+                        <small class="text-muted cursor-pointer"><b>White Chocolate</b></small>
+                        <div class="text-secondary mt-2">
+                            <i class="fe fe-tag tags-icon"></i>
+                            <span *ngFor="let tag of tags">
+                                <span class="tags">{{tag | titlecase}}, </span>
+                            </span>
+                        </div>
                         <div class="rating-wrap my-3">
                             <ul class="rating-stars">
                                 <li style="width:80%" class="stars-active"> <img

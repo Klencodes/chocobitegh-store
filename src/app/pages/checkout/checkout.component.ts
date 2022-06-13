@@ -1,15 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { UserModel } from 'src/app/core/models/user';
+import { LocalAuthService } from 'src/app/core/services/helpers/local-auth.service';
 
 @Component({
-  selector: 'app-checkout',
-  templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.scss']
+  templateUrl: './checkout.component.html'
 })
 export class CheckoutComponent implements OnInit {
-
-  constructor() { }
+  mainPageTitle = 'Checkout'
+  pageTitle = ''
+  user: UserModel;
+  isGuestCheckout = false;
+  
+  constructor(
+    private localAuth: LocalAuthService
+  ) { this.user = this.localAuth.userObj }
 
   ngOnInit(): void {
+    if (!this.user && !this.user.auth_token) {
+      this.isGuestCheckout = true;
+    }
   }
+
 
 }

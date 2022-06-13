@@ -1,38 +1,126 @@
 <article class="card">
     <div class="card-body">
         <div class="itemside align-items-center">
-            <div class="aside"> <img src="assets/images/avatars/avatar.jpg" class="icon-md img-avatar">
+            <div class="aside">
+                <img src="assets/images/avatars/avatar.jpg" class="icon-md img-avatar">
             </div>
             <div class="info">
                 <h6 class="title">Mr. Jackson Mike</h6>
-                <p>Email: myusername@gmail.com <i class="dot"></i>
-                     Phone: +1234567890988 <a href="#" class="px-2"><i
-                            class="fa fa-pen"></i></a> </p>
+                <p>Email: myusername@gmail.com <br>
+                    Phone: +1234567890988 </p>
             </div>
+            <a href="#" class="px-2"><i class="fe fe-edit"></i></a>
         </div>
         <hr>
-        <p class="text-muted">Delivery addresses</p>
+        <p class="form-label mb-2">Delivery addresses</p>
         <div class="row g-2 mb-3">
             <div class="col-md-6">
-                <article class="box"> <b class="mx-2 text-muted"><i class="fa fa-map-marker-alt"></i></b> Tashkent city,
-                    Street name, Building 123, House 321 </article>
-            </div> 
+                <article class="box">
+                    <div class="mx-2 d-flex justify-content-between">
+                        <span>
+                            <i class="fe fe-map-pin"></i>
+                            <span class="">
+                                Tashkent city, Street name, <br> Building 123, House 321
+                            </span>
+                        </span>
+                        <span class="address-primary-icon">
+                            <img src="assets/images/svg/mark-circle.svg" alt="">
+                        </span>
+                    </div>
+                </article>
+            </div>
             <div class="col-md-6">
-                <article class="box"> <b class="mx-2 text-muted"><i class="fa fa-map-marker-alt"></i></b> Moscow city,
-                    Street name, Building lenin, House 77 </article>
+                <article class="box">
+                    <div class="mx-2 d-flex justify-content-between">
+                        <span>
+                            <i class="fe fe-map-pin"></i>
+                            <span class="">
+                                Tashkent city, Street name, <br> Building 123, House 321
+                            </span>
+                        </span>
+                        <!-- <span class="address-primary-icon">
+                            <img src="assets/images/svg/mark-circle.svg" alt="">
+                        </span> -->
+                    </div>
+                </article>
+            </div>
+
+        </div>
+        <a href="#" class="btn btn-outline-primary">
+            <i class="me-2 fe fe-plus"></i> Add new address </a>
+        <hr>
+        <p class="form-label mb-2">Payment methods</p>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <article class="box d-flex justify-content-between">
+                    <span>
+                        <b class="mx-2">
+                            <i class="fe fe-credit-card"></i>
+                        </b> Visa •••• 9905, Exp: 12/21
+                    </span>
+                    <!-- <span class="address-primary-icon">
+                        <img src="assets/images/svg/mark-circle.svg" alt="">
+                    </span> -->
+                </article>
+            </div>
+
+            <div class="col-md-6">
+                <article class="box d-flex justify-content-between">
+                    <span>
+                        <b class="mx-2">
+                            <i class="fe fe-smartphone"></i>
+                        </b> MoMo •••• 9905
+                    </span>
+                    <span class="address-primary-icon">
+                        <img src="assets/images/svg/mark-circle.svg" alt="">
+                    </span>
+                </article>
             </div>
         </div>
-        <a href="#" class="btn btn-outline-primary"> <i class="me-2 fa fa-plus"></i> Add new
-            address </a>
+        <a href="#" class="btn btn-outline-primary">
+            <i class="me-2 fe fe-plus"></i>
+            Add payment method
+        </a>
+
         <hr>
-        <p class="text-muted">Payment methods</p>
-        <div class="row g-2 mb-3">
-            <div class="col-md-6">
-                <article class="box"> <b class="mx-2 text-muted"><i class="fa fa-credit-card"></i></b> Visa •••• 9905,
-                    Exp: 12/21 </article>
+        <p class="form-label mb-2 mt-3">Useful info</p>
+        <div class="row mb-3 box useful-info">
+            <div class="col-4 text-center align-self-center">
+                <a href="">
+                    <p class="title">Total Orders</p>
+                    <p class="count">4 </p>
+                </a>
             </div>
-        </div> 
-         <a href="#" class="btn btn-outline-primary"> <i class="me-2 fa fa-plus"></i> Add payment
-            method </a>
-    </div> 
+            <div class="col-4 border-start text-center align-self-center">
+                <a href="">
+                    <p class="title">Saved Items</p>
+                    <p class="count">56 </p>
+                </a>
+            </div>
+            <div class="col-4 border-start text-center align-self-center">
+                <a href="">
+                    <p class="title">Return Orders</p>
+                    <p class="count"> 4 </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <article class="box mb-3 bg-light"> 
+                    <a class="btn float-end btn-outline-warning btn-sm" href="#">Change</a>
+                    <p class="title mb-0">Password</p> 
+                    <small class="text-muted d-block" style="width:70%">You can change your password by clicking change button</small>
+                </article>
+            </div>
+            <div class="col-sm">
+                <article class="box mb-3 bg-light"> 
+                    <a class="btn float-end btn-outline-danger btn-sm" href="#">Deactivate</a>
+                    <p class="title mb-0">Remove account</p> 
+                    <small class="text-muted d-block" style="width:70%">Once
+                        you delete your account, there is no going back.</small>
+                </article>
+            </div>
+        </div>
+    </div>
 </article>

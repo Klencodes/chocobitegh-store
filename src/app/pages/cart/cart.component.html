@@ -1,5 +1,13 @@
 <div class="container">
     <div class="row">
+        <div class="col-12 breadcrumb-place">
+            <a class="page-description" routerLink="/">Home </a>
+            <span class="page-description" *ngIf="mainPageTitle !== ''">| {{mainPageTitle}} </span>
+            <span class="page-description" *ngIf="pageTitle !== ''">| {{pageTitle}}</span>
+        </div>
+      </div>
+
+    <div class="row">
         <div class="col-md-9">
             <article class="card card-body mb-3">
                 <div class="row gy-3 align-items-center">
@@ -112,7 +120,7 @@
                     <hr>
                     <p class="text-center mt-3"> <img src="assets/images/misc/payments.png" height="24">
                     </p> 
-                    <a [routerLink]="['/checkout']" class="btn btn-primary mb-2 w-100">Checkout</a>
+                    <a (click)="checkout()" class="btn btn-primary mb-2 w-100">Checkout</a>
                      <a [routerLink]="['/']" class="btn btn-outline-primary w-100">Continue Shopping</a>
                 </div>
             </div>

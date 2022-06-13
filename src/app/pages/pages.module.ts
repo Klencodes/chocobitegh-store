@@ -18,6 +18,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { OrderCompleteComponent } from './order-complete/order-complete.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { CategoryProductsComponent } from './category-products/category-products.component';
+import { GuestCustomerConfirmationComponent } from './guest-customer-confirmation/guest-customer-confirmation.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -31,7 +33,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ProductDetailsComponent,
     OrderCompleteComponent,
     CartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    CategoryProductsComponent,
+    GuestCustomerConfirmationComponent
   ],
   imports: [
     CommonModule,

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { CartComponent } from './cart/cart.component';
+import { CategoryProductsComponent } from './category-products/category-products.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { HomeComponent } from './home/home-component';
 import { OrderCompleteComponent } from './order-complete/order-complete.component';
@@ -11,6 +12,8 @@ const routes: Routes = [
     { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
 
     { path: '', component: HomeComponent, data: { title: 'Home' } },
+
+    { path: 'category-details/:catName', component: CategoryProductsComponent, data: { title: 'Category Details' } },
     
     { path: 'product-details/:name/:id', component: ProductDetailsComponent, data: { title: 'Product Details' } },
 

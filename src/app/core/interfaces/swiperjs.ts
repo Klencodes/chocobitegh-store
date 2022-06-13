@@ -26,21 +26,38 @@ SwiperCore.use([
   Controller
 ]);
 
-export const swiperOptions: SwiperOptions = {
-    spaceBetween: 15,
-    loop: true,
-    speed: 2000,
-    centeredSlides: true,
+export type SwiperConfig = {
+    slidesPerView: 2,
+    spaceBetween: 20,
+    Autoplay: true,
+    // loop: true,
+    autoHeight: true,
+    allowTouchMove: true,
     autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
+        delay: 6000,
+        disableOnInteraction: true
     },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
+    // pagination: { el: '.swiper-pagination', clickable: true },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
     },
-  };
+    breakpoints: {
+        1024: {
+            slidesPerView: 8,
+            spaceBetween: 30
+        },
+        768: {
+            slidesPerView: 6,
+            spaceBetween: 10
+        },
+        640: {
+            slidesPerView: 4,
+            spaceBetween: 10
+        },
+        320: {
+            slidesPerView: 3,
+            spaceBetween: 10
+        }
+    },
+}
