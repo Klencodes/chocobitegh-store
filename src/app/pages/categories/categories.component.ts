@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
   templateUrl: './categories.component.html'
 })
 export class CategoriesComponent implements OnInit {
-  mainPageTitle = 'Categories'
-  pageTitle = ''
+   breadCrumbItems: Array<{}>;
   constructor(
     private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Categories', active: true }];
 
   }
   /**

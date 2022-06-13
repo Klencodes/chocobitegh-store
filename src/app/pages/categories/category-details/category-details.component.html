@@ -1,11 +1,5 @@
 <div class="container">
-    <div class="row">
-        <div class="col-12 breadcrumb-place">
-            <a class="page-description" routerLink="/">Home </a>
-            <a class="page-description" [routerLink]="['/categories']" *ngIf="mainPageTitle !== ''">| {{mainPageTitle}} </a>
-            <span class="page-description" *ngIf="pageTitle !== ''">| {{pageTitle}}</span>
-        </div>
-    </div>
+    <app-pagetitle [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
     <div class="">
         <div class="row d-flex justify-content-between">

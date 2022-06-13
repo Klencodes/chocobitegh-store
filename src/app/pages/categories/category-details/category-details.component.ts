@@ -5,9 +5,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   templateUrl: './category-details.component.html',
 })
 export class CategoryDetailsComponent implements OnInit {
-  mainPageTitle = 'Categories';
-  pageTitle = 'Category Details';
+  breadCrumbItems: Array<{}>;
   catTitle;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -15,6 +15,7 @@ export class CategoryDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Categories', link: '/categories' }, { label: 'Categories Details', active: true }];
     this.route.params.subscribe((params: Params) => {
       this.catTitle = params['catName'];
       if (params['id']) {

@@ -8,9 +8,9 @@ import { GuestCustomerConfirmationComponent } from '../guest-customer-confirmati
   templateUrl: './cart.component.html'
 })
 export class CartComponent implements OnInit {
-  mainPageTitle = 'Cart';
-  pageTitle = '';
   user;
+  breadCrumbItems: Array<{}>;
+
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -18,6 +18,7 @@ export class CartComponent implements OnInit {
   ) { this.user = this.localAuth.userObj }
 
   ngOnInit(): void {
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Cart', active: true }];
   }
 
   checkout() {

@@ -12,9 +12,9 @@ const routes: Routes = [
     path: '', component: AccountComponent, children: [
       { path: '', component: ProfileComponent, data: { title: 'My Profile' } },
       { path: 'orders', component: OrdersComponent, data: { title: 'My Orders' } },
-      { path: 'orders/order-details/orders/order-details/:code', component: OrderDetailsComponent, data: { title: 'Order Details' } },
+      { path: 'orders/order-details/:code', component: OrderDetailsComponent, data: { title: 'Order Details' } },
       { path: 'transactions', component: TransactionsComponent, data: { title: 'My Transactions' } },
-      { path: 'wishlist', component: WishlistComponent, data: { title: 'My Wishlis' } },
+      { path: 'favorites', component: WishlistComponent, data: { title: 'My Wishlis' } },
     ]
   }
 ];

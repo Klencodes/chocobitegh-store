@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-12 breadcrumb-place">
+    <ol class="breadcrumb m-0">
+      <ng-container *ngFor="let item of breadcrumbItems">
+        <li *ngIf="!item.active">
+          <a [routerLink]="item?.link">{{ item?.label }}</a> 
+          <span class="breadcrumb-seperator">|</span>
+        </li>
+        <li class="breadcrumb-item active" *ngIf="item.active">{{ item?.label }} </li>
+      </ng-container>
+    </ol>
+  </div>
+</div>

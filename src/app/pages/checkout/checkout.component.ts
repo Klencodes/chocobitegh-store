@@ -6,16 +6,18 @@ import { LocalAuthService } from 'src/app/core/services/helpers/local-auth.servi
   templateUrl: './checkout.component.html'
 })
 export class CheckoutComponent implements OnInit {
-  mainPageTitle = 'Checkout'
-  pageTitle = ''
+  breadCrumbItems: Array<{}>;
+
   user: UserModel;
   isGuestCheckout = false;
-  
+
   constructor(
     private localAuth: LocalAuthService
   ) { this.user = this.localAuth.userObj }
 
   ngOnInit(): void {
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Checkout', active: true }];
+
     if (!this.user && !this.user.auth_token) {
       this.isGuestCheckout = true;
     }

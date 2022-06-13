@@ -5,29 +5,31 @@ import { Router } from '@angular/router';
   templateUrl: './account.component.html',
 })
 export class AccountComponent implements OnInit {
-  mainPageTitle = '';
-  pageTitle = 'Orders | Order Details';
+  breadCrumbItems: Array<{}>;
+
   constructor(
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Account Information', active: true }];
+
   }
 
   account() {
-    this.pageTitle = 'Account Information'
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Account Information', active: true }];
     this.router.navigate(['/account'])
   }
   order() {
-    this.pageTitle = 'My Orders'
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'My Orders', active: true }];
     this.router.navigate(['/account/orders'])
   }
   wishlist() {
-    this.pageTitle = 'My Favorites'
-    this.router.navigate(['/account/wishlist'])
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'My Favorites', active: true }];
+    this.router.navigate(['/account/favorites'])
   }
   transaction() {
-    this.pageTitle = 'Transactions'
+    this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'My Transactions', active: true }];
     this.router.navigate(['/account/transactions'])
   }
   logout() {
