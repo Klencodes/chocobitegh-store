@@ -21,117 +21,15 @@
 </div>
 
 <div class="container">
-    <div class="row d-flex justify-content-between page-padding-top">
-        <div class="col-7">
+    <div class=" d-flex justify-content-between page-padding-top">
+        <div >
             <h4>Chocolate Types</h4>
         </div>
-        <div class="col-5">
-            <button class="btn btn-sm btn-outline-primary float-end">View All</button>
+        <div>
+            <a [routerLink]="['/categories']" class="btn btn-outline-dark float-end">View All</a>
         </div>
     </div>
-    <div class="mt-4">
-        <swiper [config]="swiperConfig">
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/1.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/2.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/3.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/4.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/5.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/6.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/7.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/8.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/12.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/10.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-            <ng-template swiperSlide class="category-slider">
-                <div (click)="viewCatDetails('Category Name')">
-                    <div class="icon icon-lg mb-2 img-wrap-squared" style="background: #fff;">
-                        <img class="image" src="assets/images/items/9.jpg">
-                    </div>
-                    <small class="title">Category Name</small>
-                </div>
-            </ng-template>
-
-        </swiper>
-    </div>
+    <app-categories-slider></app-categories-slider>
     <div class="page-padding-top">
         <h4 class="card-title">Suggested Products</h4>
         <div class="row">

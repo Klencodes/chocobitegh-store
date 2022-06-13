@@ -6,6 +6,11 @@
             </a>
 
             <div class="widgets-wrap d-xl-flex">
+                <div class="widget-header ms-2">
+                    <a class="icon icon-sm bg-gray-200" [routerLink]="['/cart']">
+                        <i class="fe fe-shopping-bag fe-lg"></i> <span class="notify">0</span>
+                    </a>
+                </div>
                 <div class="widget-header dropdown mx-3">
                     <a class="dropdown-toggle ms-3 icontext" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="icon">
@@ -25,11 +30,6 @@
                         <li *ngIf="isLoggedIn"> <hr class="dropdown-divider"></li>
                         <li *ngIf="isLoggedIn"> <a class="dropdown-item text-danger" (click)="logout()">Log Out</a> </li>
                     </ul>
-                </div>
-                <div class="widget-header ms-2">
-                    <a class="icon icon-sm bg-gray-200" [routerLink]="['/cart']">
-                        <i class="fe fe-shopping-bag fe-lg"></i> <span class="notify">0</span>
-                    </a>
                 </div>
             </div>
         </div>

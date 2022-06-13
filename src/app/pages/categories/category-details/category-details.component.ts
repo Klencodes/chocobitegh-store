@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
-  templateUrl: './category-products.component.html',
+  templateUrl: './category-details.component.html',
 })
-export class CategoryProductsComponent implements OnInit {
-  mainPageTitle = 'Category Details'
-  pageTitle = ''
+export class CategoryDetailsComponent implements OnInit {
+  mainPageTitle = 'Categories';
+  pageTitle = 'Category Details';
+  catTitle;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -15,14 +16,14 @@ export class CategoryProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const cat = params['catName'];
-      if (cat) {
-        this.fetchCategoryProducts(cat)
+      this.catTitle = params['catName'];
+      if (params['id']) {
+        this.fetchCategoryProducts(params['id'])
       }
     })
   }
   fetchCategoryProducts(cat) {
-
+    console.log(cat, 'GOT ID')
   }
 
   /**

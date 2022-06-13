@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 breadcrumb-place">
             <a class="page-description" routerLink="/">Home </a>
-            <span class="page-description" *ngIf="mainPageTitle !== ''">| {{mainPageTitle}} </span>
+            <a class="page-description" [routerLink]="['/products']" *ngIf="mainPageTitle !== ''">| {{mainPageTitle}} </a>
             <span class="page-description" *ngIf="pageTitle !== ''">| {{pageTitle}}</span>
         </div>
       </div>

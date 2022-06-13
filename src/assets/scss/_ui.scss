@@ -746,54 +746,8 @@ a:hover>.img-thumbnail {
     width: 2.8rem
 }
 
-.btn-border-color:hover,
-.btn-border-color:focus,
-.btn-border-color:active,
-.btn-outline-secondary:hover,
-.btn-outline-secondary:focus,
-.btn-outline-secondary:active,
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-secondary:active,
-.btn-outline-info:hover,
-.btn-outline-info:focus,
-.btn-outline-info:active,
-.btn-info:hover,
-.btn-info:focus,
-.btn-info:active,
-.btn-outline-light:hover,
-.btn-outline-light:focus,
-.btn-outline-light:active,
-.btn-light:hover,
-.btn-light:focus,
-.btn-light:active,
-.btn-outline-success:hover,
-.btn-outline-success:focus,
-.btn-outline-success:active,
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active,
-.btn-outline-danger:hover,
-.btn-outline-danger:focus,
-.btn-outline-danger:active,
-.btn-warning:hover,
-.btn-warning:focus,
-.btn-warning:active,
-.btn-danger:hover,
-.btn-danger:focus,
-.btn-danger:active,
-.btn-outline-dark:hover,
-.btn-outline-dark:focus,
-.btn-outline-dark:active,
-.btn-dark:hover,
-.btn-dark:focus,
-.btn-dark:active,
-.btn-outline-primary:hover,
-.btn-outline-primary:focus,
-.btn-outline-primary:active,
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active {
+
+.btn:hover, .btn:active, .btn:focus{
     box-shadow: none !important;
 }
 
@@ -898,9 +852,9 @@ a:hover>.img-thumbnail {
     border-color: $dark  !important;
     color: $dark  !important;
 
-    &:hover {
-        color: $secondary  !important;
-    }
+    // &:hover {
+    //     color: $secondary  !important;
+    // }
 }
 
 .btn-dark {
@@ -1144,7 +1098,8 @@ a[class*=card]:hover .title {
 .card-product-grid .title {
     color: $side-menu-link;
     cursor: pointer;
-
+    font-weight: 600;
+    color: $dark;
 }
 
 .card-product-grid .info-wrap {
@@ -2380,27 +2335,33 @@ table tr td {
 .category-slider{
     cursor: pointer;
     display: table-row;
+    
     .img-wrap-squared{
+        background: $white;
         border-radius: 5%;
 
         .image{
-            width: 50px;
+            width: auto;
             height: 50px;
         }
         .title{
-            font-weight: 600
+            font-weight: 600;
+            display: block;
+            // min-height: 50px;
         }
     }
     .img-wrap-round{
         border-radius: 50%;
 
         .image{
-            width: 50px;
+            width: 70px;
             height: 50px;
         }
     }
     .title{
-        font-weight: 600
+        font-weight: 600;
+        display: block;
+        // min-height: 50px;
     }
 }
 .ml-3{
