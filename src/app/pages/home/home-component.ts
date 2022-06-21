@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
                 this.isProcessingMore = true;
                 this.productService.fetchProducts(this.page, async (error, result) => {
                     this.isProcessingMore = false;
-                    if (result !== null && result !== undefined) {
+                    if (result !== null && result.response == undefined) {
                         const products = result.results;
                         this.listArrayOfProducts = this.listArrayOfProducts.concat(products);
                         this.displayedList = [...this.listArrayOfProducts];
