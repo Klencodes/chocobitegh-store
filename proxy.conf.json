@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://chocolatemallgh.herokuapp.com",
+    "target": "https://chocolatemall.herokuapp.com",
     "secure": false,
     "pathRewrite": {
       "^/api": ""
