@@ -1,87 +1,61 @@
 <div class="container">
     <app-pagetitle [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
-    <div class="row">
+    <div class="bg-cover-centered" *ngIf="cartData?.data?.length <= 0">
+        <div class="bg-cover-centered-box">
+            <div class="d-flex-center">
+                <article class="card">
+                    <div class="card-body">
+                        <div class="mt-4 mx-auto text-center" style="max-width:600px">
+                            <img src="assets/images/svg/shopping-complete.svg" alt="">
+                            <div class="my-3">
+                                <h4>Your cart is empty</h4>
+                                <p>Before proceeding to checkout, you must add an item to your shopping.
+                                    We have a lot of interesting products on product page.</p>
+                            </div>
+                            <div>
+                                <a [routerLink]="['/']" class="btn btn-primary">Start Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="cartData?.data?.length > 0">
         <div class="col-md-9">
-            <article class="card card-body mb-3">
+            <div class="d-flex justify-content-between mb-3">
+                <div class="main-page-title">Item in cart ({{cartData?.data?.length}})</div>
+                <div class="main-page-title cursor-pointer" (click)="clearCart()">Clear cart</div>
+            </div>
+            <article class="card card-body mb-2" *ngFor="let item of cartData?.data">
                 <div class="row gy-3 align-items-center">
-                    <div class="col-md-6"> <a href="#" class="itemside align-items-center">
-                            <div class="aside"> <img src="assets/images/items/detail1/big.jpg" height="72" width="72"
-                                    class="img-thumbnail img-sm"> </div>
+                    <div class="col-md-6">
+                        <a href="#" class="itemside align-items-center">
+                            <div class="aside">
+                                <img [src]="item?.product?.image" height="72" width="72" class="img-thumbnail img-sm">
+                            </div>
                             <div class="info">
-                                <p>T-shirts with multiple colors, for men and lady </p> 
-                                <span class="text-muted">Clothes</span>
+                                <strong class="text-dark">{{item?.product?.name}}</strong>
+                                <p class="text-muted font-size-13 mb-0">{{item?.product?.category?.name}}</p>
                             </div>
                         </a>
                     </div>
                     <div class="col-auto">
                         <div class="input-group input-spinner">
-                            <a class="cart-item-btn" type="button">
+                            <a class="cart-item-btn" type="button" (click)="updateCart(item?.product, false)">
                                 <i class="fe fe-minus fe-md"></i>
                             </a>
-                            <input type="text" class="form-control" value="1" style="width: 40px;">
-                            <a class="cart-item-btn" type="button">
+                            <input readonly type="text" class="form-control" value="{{item?.numInCart}}"
+                                style="width: 40px;">
+                            <a class="cart-item-btn" type="button" (click)="updateCart(item?.product, true)">
                                 <i class="fe fe-plus fe-md"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="col"> <strong class="price"> GHS180.00 </strong> </div>
-                    <div class="col text-end"> <a href="#" class="btn btn-icon btn-light"> <i class="fa fa-trash"></i>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            <article class="card card-body mb-3">
-                <div class="row gy-3 align-items-center">
-                    <div class="col-md-6"> <a href="#" class="itemside align-items-center">
-                            <div class="aside"> <img src="assets/images/items/detail1/big2.jpg" height="72" width="72"
-                                    class="img-thumbnail img-sm"> </div>
-                            <div class="info">
-                                <p>T-shirts with multiple colors, for men and lady </p> 
-                                <span class="text-muted font-size-13">Clothes</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-auto">
-                        <div class="input-group input-spinner">
-                            <a class="cart-item-btn" type="button">
-                                <i class="fe fe-minus fe-md"></i>
-                            </a>
-                            <input type="text" class="form-control" value="1" style="width: 40px;">
-                            <a class="cart-item-btn" type="button">
-                                <i class="fe fe-plus fe-md"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col"> <strong class="price"> GHS180.00 </strong> </div>
-                    <div class="col text-end"> <a href="#" class="btn btn-icon btn-light"> <i class="fa fa-trash"></i>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            <article class="card card-body mb-3">
-                <div class="row gy-3 align-items-center">
-                    <div class="col-md-6"> <a href="#" class="itemside align-items-center">
-                            <div class="aside"> <img src="assets/images/items/detail1/big3.jpg" height="72" width="72"
-                                    class="img-thumbnail img-sm"> </div>
-                            <div class="info">
-                                <p>T-shirts with multiple colors, for men and lady </p> 
-                                <span class="text-muted">Clothes</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-auto">
-                        <div class="input-group input-spinner">
-                            <a class="cart-item-btn" type="button">
-                                <i class="fe fe-minus fe-md"></i>
-                            </a>
-                            <input type="text" class="form-control" value="1" style="width: 40px;">
-                            <a class="cart-item-btn" type="button">
-                                <i class="fe fe-plus fe-md"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col"> <strong class="price"> GHS180.00 </strong> </div>
+                    <div class="col"> <strong class="price text-dark">{{item?.product?.currency}} {{item?.numInCart *
+                            item?.product?.new_price | priceDecimal}} </strong> </div>
                     <div class="col text-end"> <a href="#" class="btn btn-icon btn-light"> <i class="fa fa-trash"></i>
                         </a>
                     </div>
@@ -113,33 +87,12 @@
                     </dl>
                     <hr>
                     <p class="text-center mt-3"> <img src="assets/images/misc/payments.png" height="24">
-                    </p> 
-                    <a (click)="checkout()" class="btn btn-primary mb-2 w-100">Checkout</a>
-                     <a [routerLink]="['/']" class="btn btn-outline-primary w-100">Continue Shopping</a>
+                    </p>
+                    <a (click)="checkout()" class="btn btn-primary mb-3 w-100">Checkout</a>
+                    <a [routerLink]="['/']" class="btn btn-outline-primary w-100">Continue Shopping</a>
                 </div>
             </div>
         </aside>
     </div>
 
-    <!-- <div class="bg-cover-centered">
-        <div class="bg-cover-centered-box">
-            <div class="d-flex-center">
-                <article class="card">
-                    <div class="card-body">
-                        <div class="mt-4 mx-auto text-center" style="max-width:600px">
-                            <img src="assets/images/svg/shopping-complete.svg" alt="">
-                            <div class="my-3">
-                                <h4>Your cart is empty</h4>
-                                <p>Before proceeding to checkout, you must add an item to your shopping.
-                                    We have a lot of interesting products on product page.</p>
-                            </div>
-                            <div>
-                                <a [routerLink]="['/']" class="btn btn-primary">Start Shopping</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </div> -->
 </div>

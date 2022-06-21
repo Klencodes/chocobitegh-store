@@ -5,48 +5,32 @@
                 <img src="assets/images/avatars/avatar.jpg" class="icon-md img-avatar">
             </div>
             <div class="info">
-                <h6 class="title">Mr. Jackson Mike</h6>
-                <p>Email: myusername@gmail.com <br>
-                    Phone: +1234567890988 </p>
+                <h6 class="title">{{userDetails?.full_name}}</h6>
+                <p>Email: {{userDetails?.email}} <br>
+                    Phone: {{userDetails?.phone_number}} </p>
             </div>
             <a href="#" class="px-2"><i class="fe fe-edit"></i></a>
         </div>
         <hr>
         <p class="form-label mb-2">Delivery addresses</p>
         <div class="row g-2 mb-3">
-            <div class="col-md-6">
+            <div class="col-md-6" *ngFor="let address of userDetails?.addresses">
                 <article class="box">
                     <div class="mx-2 d-flex justify-content-between">
                         <span>
                             <i class="fe fe-map-pin"></i>
                             <span class="">
-                                Tashkent city, Street name, <br> Building 123, House 321
+                                {{address?.state}}, {{address?.city}},<br> {{address?.address}}, {{address?.apartment_number}}
                             </span>
                         </span>
-                        <span class="address-primary-icon">
+                        <span class="address-primary-icon" *ngIf="address?.primary">
                             <img src="assets/images/svg/mark-circle.svg" alt="">
                         </span>
                     </div>
                 </article>
             </div>
-            <div class="col-md-6">
-                <article class="box">
-                    <div class="mx-2 d-flex justify-content-between">
-                        <span>
-                            <i class="fe fe-map-pin"></i>
-                            <span class="">
-                                Tashkent city, Street name, <br> Building 123, House 321
-                            </span>
-                        </span>
-                        <!-- <span class="address-primary-icon">
-                            <img src="assets/images/svg/mark-circle.svg" alt="">
-                        </span> -->
-                    </div>
-                </article>
-            </div>
-
         </div>
-        <a href="#" class="btn btn-outline-primary">
+        <a class="btn btn-outline-primary" (click)="addAddress()">
             <i class="me-2 fe fe-plus"></i> Add new address </a>
         <hr>
         <p class="form-label mb-2">Payment methods</p>
@@ -88,13 +72,13 @@
             <div class="col-4 text-center align-self-center">
                 <a [routerLink]="['/account/orders']">
                     <p class="title">Total Orders</p>
-                    <p class="count">4 </p>
+                    <p class="count">{{userDetails?.order_count}}</p>
                 </a>
             </div>
             <div class="col-4 border-start text-center align-self-center">
                 <a [routerLink]="['/account/favorites']">
                     <p class="title">Saved Items</p>
-                    <p class="count">56 </p>
+                    <p class="count">{{userDetails?.saved_items}}</p>
                 </a>
             </div>
             <div class="col-4 border-start text-center align-self-center">

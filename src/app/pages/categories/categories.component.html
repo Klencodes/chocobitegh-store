@@ -3,129 +3,17 @@
 
     <h4 class="card-title">All Categories</h4>
     <div class="row">
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-product-grid" (click)="viewCatDetails('Category Name')">
+        <div class="col-6 col-md-4 col-lg-3" *ngFor="let item of categories">
+            <div class="card card-product-grid" (click)="viewCatDetails(item)">
                 <div class="img-wrap">
-                    <img src="assets/images/items/8.jpg">
+                    <img [src]="item?.image" alt="assets/images/misc/category.png">
                     <span class="topbar"> <span class="badge bg-success"> New </span> </span>
                 </div>
                 <div class="info-wrap">
-                    <p class="title"> White Chocolate</p>
+                    <p class="title font-size-15">{{item?.name}}</p>
                     <div class="rating-wrap">
                         <p class="mb-0">
-                            Some description, this is our new category you got to try
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-product-grid" (click)="viewCatDetails('Category Name')">
-                <div class="img-wrap">
-                    <img src="assets/images/items/6.jpg">
-                    <span class="topbar"> <span class="badge bg-success"> New </span> </span>
-                </div>
-                <div class="info-wrap">
-                    <p class="title"> White Chocolate</p>
-                    <div class="rating-wrap">
-                        <p class="mb-0">
-                            Some description, this is our new category you got to try
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-product-grid" (click)="viewCatDetails('Category Name')">
-                <div class="img-wrap">
-                    <img src="assets/images/items/7.jpg">
-                    <span class="topbar"> <span class="badge bg-success"> New </span> </span>
-                </div>
-                <div class="info-wrap">
-                    <p class="title"> White Chocolate</p>
-                    <div class="rating-wrap">
-                        <p class="mb-0">
-                            Some description, this is our new category you got to try
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-product-grid" (click)="viewCatDetails('Category Name')">
-                <div class="img-wrap">
-                    <img src="assets/images/items/9.jpg">
-                    <span class="topbar"> <span class="badge bg-success"> New </span> </span>
-                </div>
-                <div class="info-wrap">
-                    <p class="title"> White Chocolate</p>
-                    <div class="rating-wrap">
-                        <p class="mb-0">
-                            Some description, this is our new category you got to try
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-product-grid" (click)="viewCatDetails('Category Name')">
-                <div class="img-wrap">
-                    <img src="assets/images/items/10.jpg">
-                    <span class="topbar"> <span class="badge bg-success"> New </span> </span>
-                </div>
-                <div class="info-wrap">
-                    <p class="title"> White Chocolate</p>
-                    <div class="rating-wrap">
-                        <p class="mb-0">
-                            Some description, this is our new category you got to try
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-product-grid" (click)="viewCatDetails('Category Name')">
-                <div class="img-wrap">
-                    <img src="assets/images/items/5.jpg">
-                    <span class="topbar"> <span class="badge bg-success"> New </span> </span>
-                </div>
-                <div class="info-wrap">
-                    <p class="title"> White Chocolate</p>
-                    <div class="rating-wrap">
-                        <p class="mb-0">
-                            Some description, this is our new category you got to try
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-product-grid" (click)="viewCatDetails('Category Name')">
-                <div class="img-wrap">
-                    <img src="assets/images/items/6.jpg">
-                    <span class="topbar"> <span class="badge bg-success"> New </span> </span>
-                </div>
-                <div class="info-wrap">
-                    <p class="title"> White Chocolate</p>
-                    <div class="rating-wrap">
-                        <p class="mb-0">
-                            Some description, this is our new category you got to try
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-product-grid" (click)="viewCatDetails('Category Name')">
-                <div class="img-wrap">
-                    <img src="assets/images/items/8.jpg">
-                    <span class="topbar"> <span class="badge bg-success"> New </span> </span>
-                </div>
-                <div class="info-wrap">
-                    <p class="title"> White Chocolate</p>
-                    <div class="rating-wrap">
-                        <p class="mb-0">
-                            Some description, this is our new category you got to try
+                            {{item?.description}}
                         </p>
                     </div>
                 </div>

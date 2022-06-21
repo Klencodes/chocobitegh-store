@@ -8,7 +8,7 @@
             <div class="widgets-wrap d-xl-flex">
                 <div class="widget-header ms-2">
                     <a class="icon icon-sm bg-gray-200" [routerLink]="['/cart']">
-                        <i class="fe fe-shopping-bag fe-lg"></i> <span class="notify">0</span>
+                        <i class="fe fe-shopping-bag fe-lg"></i> <span class="notify">{{cartData?.data?.length}}</span>
                     </a>
                 </div>
                 <div class="widget-header dropdown mx-3">
@@ -16,10 +16,15 @@
                         <div class="icon">
                             <img src="assets/images/svg/user-circle-outline.svg" alt="">
                         </div>
-                        <div class="text d-none d-lg-block">
+                        <div class="text d-none d-lg-block" *ngIf="!isLoggedIn">
                             <small class="text-muted">Sign In / Sign Up</small>
                             <br>
                             <span class="text-dark"> My account </span>
+                        </div>
+                        <div class="text d-none d-lg-block" *ngIf="isLoggedIn">
+                            <small class="text-muted">Hello</small>
+                            <br>
+                            <span class="text-dark"> {{userName}} </span>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" style="line-height: 28px; width: 200px;">

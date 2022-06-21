@@ -1,10 +1,65 @@
-<article class="card mb-4">
-    <div class="content-body">
-        <div class="float-end">
-            <a href="#" class="btn btn-outline-primary">Register</a>
-            <a href="#" class="btn btn-primary">Sign in</a>
-        </div>
+<article class="mb-4 text-center" *ngIf="!canLogin">
+    <div>
         <h5>Have an account?</h5>
-        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+        <p class="my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
     </div>
+    <div>
+        <a (click)="closeDialog()" [routerLink]="['/auth/signup']"  class="btn btn-outline-primary">Register</a>
+        <a (click)="onLoginClicked()" class="btn btn-primary ml-3">Sign in</a>
+    </div>
+    <p class="text-divider my-4">Or</p>
+    <div>
+        <h5>Don't have an account?</h5>
+        <p class="my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+    </div>
+    <div>
+        <a class="btn btn-outline-dark" (click)="closeDialog()">Continue as Guest</a>
+    </div>
+
+</article>
+
+<article *ngIf="canLogin">
+  <div class="d-flex justify-content-between">
+    <h5 class="mb-4">Sign In</h5>
+    <span class="cursor-pointer"><i class="fe fe-x"></i></span>
+  </div>
+
+    <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm?.value)">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="phone" class="font-weight-600">Phone Number</label>
+            <input type="text" class="form-control" id="phone" formControlName="phone_number"
+              placeholder="Phone number">
+          </div>
+          <div *ngIf="!phone_number?.valid && phone_number?.touched" class="error-message">
+            Phone number is required</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <a class="float-end text-primary" [routerLink]="['/auth/forgot-password']">Forgot Password?</a>
+          <div class="input-group">
+            <input class="form-control remove-border-right" formControlName="password"
+              [type]="hidePassword? 'password' : 'text'" placeholder="******">
+            <div class="input-group-append">
+              <button class="btn btn-outline-light remove-border-left" type="button"
+                (click)="hidePassword = !hidePassword">
+                <i *ngIf="hidePassword" class="fe fe-eye-off"></i>
+                <i *ngIf="!hidePassword" class="fe fe-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="!password?.valid && password?.touched" class="error-message">
+            Password is required</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-check">
+            <input class="form-check-input" type="checkbox" value="" checked=""> <span class="form-check-label">
+              Remember </span>
+          </label>
+        </div>
+        <div class="float-end">
+          <button class="btn btn-dark mr-3" type="button" (click)="closeDialog()"> Cancel </button>
+          <button class="btn btn-primary" type="submit"> {{btnText}} </button>  
+        </div>
+      </form>
 </article>

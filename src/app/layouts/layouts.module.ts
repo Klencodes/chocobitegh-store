@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 
 import { LayoutsComponent } from './layouts.component';
+import { MaterialModule } from '../core/modules/material.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { LayoutsComponent } from './layouts.component';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    MaterialModule
   ],
 
 })

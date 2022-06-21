@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-between page-padding-top mb-3">
+        <div>
+            <h4>Flash Sales</h4>
+        </div>
+    <div>
+        <a class="text-dark float-end font-size-15">Time Left: 2Days 14h 42m 11s</a>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-sm-12">
+        <!-- <swiper [spaceBetween]="30" [centeredSlides]="true" [pagination]="{clickable: true }"
+                    [autoplay]="{  delay: 2500, disableOnInteraction: false }" [navigation]="false" class="mySwiper"> -->
+        <swiper [config]="swiperConfig" class="mySwiper">
+            <ng-template swiperSlide *ngFor="let item of displayedList">
+                <div class="card card-product-grid" (click)="productDetails(item)">
+                    <div class="img-wrap">
+                        <img [src]="item?.image" class="img-lg">
+                    </div>
+                    <div class="info-wrap" (click)="productDetails(item)">
+                        <div class="name">{{item?.name}}</div>
+                        <div class="price">{{item?.currency}} {{item?.new_price}}</div>
+                    </div>
+                </div>
+            </ng-template>
+        </swiper>
+
+    </div>
+</div>

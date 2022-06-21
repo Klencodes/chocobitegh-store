@@ -16,18 +16,72 @@ export class ProductService {
     private dataProvider: DataProviderService,
   ) { }
   /**
-  * Get All products from server with page number
+  * Get All Categories from server
   * @param page Page number
   * @callback ICallback function that returns an error or result
   */
-  fetchProducts(page: number, callback: ICallback) {
-    this.dataProvider.getDataNoToken(this.constantValues.PRODUCTS_ENDPOINT + '?page=' + page).subscribe(result => {
+  fetchCategories(callback: ICallback) {
+    this.dataProvider.getDataNoToken(this.constantValues.FETCH_CATEGORIES_ENDPOINT).subscribe(result => {
       callback(null, result);
     }, error => {
       callback(error, null);
       //   this.notificationService.snackBarErrorMessage(error.message);
     });
   }
+    /**
+    * Get a single product from server
+    * @param id ID of product to fetch
+    * @callback ICallback function that returns an error or result
+    */
+    fetchCategoryDetails(id, callback: ICallback) {
+      this.dataProvider.getDataNoToken(this.constantValues.CATEGORY_DETAILS_ENDPOINT + id + '/').subscribe(result => {
+        callback(null, result);
+      }, error => {
+        callback(error, null);
+        //   this.notificationService.snackBarErrorMessage(error.message);
+      });
+    }
+  
+  /**
+  * Get All products from server with page number
+  * @param page Page number
+  * @callback ICallback function that returns an error or result
+  */
+  fetchProducts(page: number, callback: ICallback) {
+    this.dataProvider.getDataNoToken(this.constantValues.FETCH_PRODUCTS_ENDPOINT + '?page=' + page).subscribe(result => {
+      callback(null, result);
+    }, error => {
+      callback(error, null);
+      //   this.notificationService.snackBarErrorMessage(error.message);
+    });
+  }
+    /**
+  * Search products from server
+  * @param search_phrase Search Text
+  * @callback ICallback function that returns an error or result
+  */
+     searchProducts(search_phrase, callback: ICallback) {
+      this.dataProvider.postNoToken(this.constantValues.SEARCH_PRODUCTS_ENDPOINT, search_phrase).subscribe(result => {
+        callback(null, result);
+      }, error => {
+        callback(error, null);
+        //   this.notificationService.snackBarErrorMessage(error.message);
+      });
+    }
+    /**
+    * Get a single product from server
+    * @param id ID of product to fetch
+    * @callback ICallback function that returns an error or result
+    */
+    fetchProductDetails(id, callback: ICallback) {
+      this.dataProvider.getDataNoToken(this.constantValues.PRODUCT_DETAILS_ENDPOINT + id + '/').subscribe(result => {
+        callback(null, result);
+      }, error => {
+        callback(error, null);
+        //   this.notificationService.snackBarErrorMessage(error.message);
+      });
+    }
+  
   /**
   * Get All products from server with category name, sorting 
   * @param payload payload to submit to server
@@ -48,32 +102,6 @@ export class ProductService {
   */
   fetchRelatedProducts(id, callback: ICallback) {
     this.dataProvider.getDataNoToken(this.constantValues.RELATED_PRODUCT_ENDPOINT + id + '/').subscribe(result => {
-      callback(null, result);
-    }, error => {
-      callback(error, null);
-      //   this.notificationService.snackBarErrorMessage(error.message);
-    });
-  }
-  /**
-  * Search products from server
-  * @param search_phrase Search Text
-  * @callback ICallback function that returns an error or result
-  */
-  searchProducts(search_phrase, callback: ICallback) {
-    this.dataProvider.postNoToken(this.constantValues.SEARCH_PRODUCTS_ENDPOINT, search_phrase).subscribe(result => {
-      callback(null, result);
-    }, error => {
-      callback(error, null);
-      //   this.notificationService.snackBarErrorMessage(error.message);
-    });
-  }
-  /**
-  * Get a single product from server
-  * @param id ID of product to fetch
-  * @callback ICallback function that returns an error or result
-  */
-  fetchProductDetails(id, callback: ICallback) {
-    this.dataProvider.getDataNoToken(this.constantValues.PRODUCTS_ENDPOINT + id + '/').subscribe(result => {
       callback(null, result);
     }, error => {
       callback(error, null);

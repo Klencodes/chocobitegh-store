@@ -21,6 +21,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { GuestCustomerConfirmationComponent } from './guest-customer-confirmation/guest-customer-confirmation.component';
 import { CategoriesSliderComponent } from './categories/categories-slider/categories-slider.component';
 import { SharedModule } from './shared/shared.module';
+import { PromoProductsComponent } from './home/promo-products/promo-products.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ChangeAddressComponent } from './checkout/change-address/change-address.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -37,6 +40,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CheckoutComponent,
     GuestCustomerConfirmationComponent,
     CategoriesSliderComponent,
+    PromoProductsComponent,
+    ChangeAddressComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +55,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatDatepickerModule,
     SharedPipesModule,
     NgxSpinnerModule,
-    SharedModule
+    InfiniteScrollModule,
+    SharedModule,
   ],
   providers: [
     {

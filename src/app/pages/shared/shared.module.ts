@@ -2,17 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageTitleComponent } from './pagetitle/pagetitle.component';
 import { RouterModule } from '@angular/router';
+import { ProductsLoadingComponent } from './products-loading/products-loading.component';
 
 @NgModule({
   declarations: [
     PageTitleComponent,
+    ProductsLoadingComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
   ],
   exports: [
-    PageTitleComponent
+    PageTitleComponent,
+    ProductsLoadingComponent,
   ],
 
 })

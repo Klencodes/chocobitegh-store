@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CategoryModel } from 'src/app/core/models/product';
+import { ProductService } from 'src/app/core/services/api-calls/product.service';
 
 @Component({
   selector: 'app-categories-slider',
@@ -23,10 +25,7 @@ export class CategoriesSliderComponent implements OnInit {
     //     prevEl: '.swiper-button-prev'
     // },
     breakpoints: {
-      1240: {
-        slidesPerView: 10,
-        spaceBetween: 20
-      },
+ 
       1024: {
         slidesPerView: 8,
         spaceBetween: 20
@@ -45,11 +44,21 @@ export class CategoriesSliderComponent implements OnInit {
       }
     },
   }
+  categories: CategoryModel[];
+
   constructor(
     private router: Router,
+    private productService: ProductService,
+
   ) { }
 
   ngOnInit(): void {
+    this.productService.fetchCategories((error, result) => {
+      if (result !== null) {
+        this.categories = result.results;
+      }
+    })
+
   }
 
   /**
@@ -57,7 +66,6 @@ export class CategoriesSliderComponent implements OnInit {
  * @param category 
  */
   viewCatDetails(category) {
-    this.router.navigate(['/categories/category-details', 'category name extra', 5520])
-    // this.router.navigate(['/categories/category-details', category.name, category.id])
+    this.router.navigate(['/categories/category-details', category.name, category.id])
   }
 }

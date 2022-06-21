@@ -2,28 +2,31 @@
     <app-pagetitle [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
     <div class="">
-        <div class="row d-flex justify-content-between">
-            <div class="col-7">
+        <div class="d-flex justify-content-between">
+            <div>
                 <h4 class="card-title">{{catTitle | titlecase}} Products</h4>
             </div>
-            <div class="col-5">
+            <div>
                 <button class="btn btn-sm btn-outline-primary float-end">Sort: Newest</button>
             </div>
         </div>
         <div class="row">
-            <div class="col-6 col-md-4 col-lg-3">
+            <div class="col-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let item of products">
                 <div class="card card-product-grid">
-                    <div class="img-wrap" (click)="productDetails('name: New Prodcuct')">
-                        <img src="assets/images/items/4.jpg">
-                        <span class="topbar"> <span class="badge bg-danger"> No stock </span> </span>
+                    <div class="img-wrap" (click)="productDetails(item)">
+                        <img [src]="item?.image">
+                        <span class="topbar"> 
+                            <span class="badge bg-danger" *ngIf="!item?.stock_availability"> No stock </span> 
+                            <!-- <span class="badge bg-success"> No stock </span>  -->
+                        </span>
                     </div>
                     <div class="info-wrap">
-                        <span class="text-warning">
+                        <!-- <span class="text-warning show-xs-tag">
                             <i class="fe fe-tag"></i>
-                            <span class="tags"> Testy</span>
-                            <span class="tags"> Sweet</span>
-                        </span>
-                        <p class="title" (click)="productDetails('name: New Prodcuct')"> RAM 6GB 512GB Unlocked</p>
+                            <span class="tags" *ngIf="item?.tags?.length <= 24"> {{item?.tags.substr(0, 24)}}</span>
+                            <span class="tags" *ngIf="item?.tags?.length >= 25"> {{item?.tags.substr(0, 21)}}..</span>
+                        </span> -->
+                        <p class="title" (click)="productDetails(item)"> {{item?.name}}</p>
                         <div class="rating-wrap">
                             <ul class="rating-stars">
                                 <li class="stars-active" style="width: 70%;">
@@ -34,17 +37,19 @@
                         </div>
                     </div>
                     <div class="bottom-wrap">
-                        <a href="#" class="btn btn-primary float-end">
+                        <!-- <a href="#" class="btn btn-primary float-end">
                             <span class="d-block d-sm-none">
                                 <i class="fe fe-shopping-cart"></i></span>
                             <span class="d-none d-sm-inline-block">Add to cart</span>
-                        </a>
-                        <div class="price-wrap lh-sm"> <strong class="price"> GHS 295.50 </strong> <br><del
-                                class="price-old"> GHS 190.30</del> </div>
+                        </a> -->
+                        <div class="price-wrap lh-sm"> 
+                            <strong class="price">{{item?.currency}} {{item?.new_price}} </strong> <br>
+                            <del class="price-old"> {{item?.currency}} {{item?.old_price}}</del> 
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-4 col-lg-3">
+            <!-- <div class="col-6 col-md-4 col-lg-3">
                 <div class="card card-product-grid">
                     <div class="img-wrap">
                         <img src="assets/images/items/4.jpg">
@@ -73,175 +78,10 @@
                                 class="price-old"> GHS 190.30</del> </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-product-grid">
-                    <div class="img-wrap"> <img src="assets/images/items/4.jpg"> </div>
-                    <div class="info-wrap">
-                        <span class="text-warning">
-                            <i class="fe fe-tag"></i>
-                            <span class="tags">Sweet, Testy</span>
-                        </span>
-                        <p class="title">RAM 6GB 512GB Unlocked</p>
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li class="stars-active" style="width: 70%;"> <img src="assets/images/misc/stars-active.svg"
-                                        alt=""> </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <span class="label-rating text-warning">3.2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-wrap">
-                        <a href="#" class="btn btn-primary float-end">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">Add to cart</span>
-                        </a>
-                        <div class="price-wrap lh-sm"> <strong class="price"> GHS 295.50 </strong> <br><del
-                                class="price-old"> GHS 190.30</del> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-product-grid">
-                    <div class="img-wrap"> <img src="assets/images/items/4.jpg"> </div>
-                    <div class="info-wrap">
-                        <span class="text-warning">
-                            <i class="fe fe-tag"></i>
-                            <span class="tags">Sweet, Testy</span>
-                        </span>
-                        <p class="title">RAM 6GB 512GB Unlocked</p>
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li class="stars-active" style="width: 70%;"> <img src="assets/images/misc/stars-active.svg"
-                                        alt=""> </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <span class="label-rating text-warning">3.2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-wrap">
-                        <a href="#" class="btn btn-primary float-end">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">Add to cart</span>
-                        </a>
-                        <div class="price-wrap lh-sm"> <strong class="price"> GHS 295.50 </strong> <br><del
-                                class="price-old"> GHS 190.30</del> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-product-grid">
-                    <div class="img-wrap"> <img src="assets/images/items/4.jpg"> </div>
-                    <div class="info-wrap">
-                        <span class="text-warning">
-                            <i class="fe fe-tag"></i>
-                            <span class="tags">Sweet, Testy</span>
-                        </span>
-                        <p class="title">RAM 6GB 512GB Unlocked</p>
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li class="stars-active" style="width: 70%;"> <img src="assets/images/misc/stars-active.svg"
-                                        alt=""> </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <span class="label-rating text-warning">3.2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-wrap">
-                        <a href="#" class="btn btn-primary float-end">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">Add to cart</span>
-                        </a>
-                        <div class="price-wrap lh-sm"> <strong class="price"> GHS 295.50 </strong> <br><del
-                                class="price-old"> GHS 190.30</del> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-product-grid">
-                    <div class="img-wrap"> <img src="assets/images/items/4.jpg"> </div>
-                    <div class="info-wrap">
-                        <span class="text-warning">
-                            <i class="fe fe-tag"></i>
-                            <span class="tags">Sweet, Testy</span>
-                        </span>
-                        <p class="title">RAM 6GB 512GB Unlocked</p>
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li class="stars-active" style="width: 70%;"> <img src="assets/images/misc/stars-active.svg"
-                                        alt=""> </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <span class="label-rating text-warning">3.2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-wrap">
-                        <a href="#" class="btn btn-primary float-end">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">Add to cart</span>
-                        </a>
-                        <div class="price-wrap lh-sm"> <strong class="price"> GHS 295.50 </strong> <br><del
-                                class="price-old"> GHS 190.30</del> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-product-grid">
-                    <div class="img-wrap"> <img src="assets/images/items/4.jpg"> </div>
-                    <div class="info-wrap">
-                        <span class="text-warning">
-                            <i class="fe fe-tag"></i>
-                            <span class="tags">Sweet, Testy</span>
-                        </span>
-                        <p class="title">RAM 6GB 512GB Unlocked</p>
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li class="stars-active" style="width: 70%;"> <img src="assets/images/misc/stars-active.svg"
-                                        alt=""> </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <span class="label-rating text-warning">3.2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-wrap">
-                        <a href="#" class="btn btn-primary float-end">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">Add to cart</span>
-                        </a>
-                        <div class="price-wrap lh-sm"> <strong class="price"> GHS 295.50 </strong> <br><del
-                                class="price-old"> GHS 190.30</del> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-product-grid">
-                    <div class="img-wrap"> <img src="assets/images/items/4.jpg"> </div>
-                    <div class="info-wrap">
-                        <span class="text-warning">
-                            <i class="fe fe-tag"></i>
-                            <span class="tags">Sweet, Testy</span>
-                        </span>
-                        <p class="title">RAM 6GB 512GB Unlocked</p>
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li class="stars-active" style="width: 70%;"> <img src="assets/images/misc/stars-active.svg"
-                                        alt=""> </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <span class="label-rating text-warning">3.2</span>
-                        </div>
-                    </div>
-                    <div class="bottom-wrap">
-                        <a href="#" class="btn btn-primary float-end">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">Add to cart</span>
-                        </a>
-                        <div class="price-wrap lh-sm"> <strong class="price"> GHS 295.50 </strong> <br><del
-                                class="price-old"> GHS 190.30</del> </div>
-                    </div>
-                </div>
-            </div>
+            </div> -->
+
         </div>
+        <app-products-loading *ngIf="isProcessing"></app-products-loading>
+
     </div>
 </div>

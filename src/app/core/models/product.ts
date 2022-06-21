@@ -1,8 +1,6 @@
-// Table data
 export class ProductModel {
   id: number;
-  category: string;
-  collections: Collections[];
+  category: CategoryModel[];
   currency: string;
   description: string;
   extra_images: ExtraImages[];
@@ -11,24 +9,28 @@ export class ProductModel {
   is_published: boolean;
   stock_availability: boolean;
   name: string;
-  quantity: number;
-  price: number;
-  new_price: number;
-  old_price: number;
+  new_price: string;
+  price: string;
+  old_price: string;
   product_state: string;
   sku: string;
-  slug: string;
-  star_rating: number;
-  tags: string;
+  quantity: number;
   weight: string;
+  unit: string;
+  slug: string;
+  tags: string;
   isSelected: boolean;
   sales: string;
-  sold: string;
+  sales_count: string;
 }
 
-export class Collections {
-  id: string;
+export class CategoryModel {
+  id: number;
+  name: string;
   image: string;
+  slug: string;
+  description: string;
+  view_count: number;
   is_active: boolean;
 }
 

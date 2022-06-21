@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ResponseStatus } from 'src/app/core/enums/enums';
+import { ProductModel } from 'src/app/core/models/product';
+import { ProductService } from 'src/app/core/services/api-calls/product.service';
 
 @Component({
   templateUrl: './category-details.component.html',
@@ -7,11 +10,13 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class CategoryDetailsComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   catTitle;
+  products: ProductModel [];
+  isProcessing: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-
+    private productService: ProductService
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +29,13 @@ export class CategoryDetailsComponent implements OnInit {
     })
   }
   fetchCategoryProducts(cat) {
-    console.log(cat, 'GOT ID')
+    this.isProcessing = true;
+    this.productService.fetchCategoryDetails(cat, (error, result) =>{console.log(result)
+      this.isProcessing = false;
+      if(result !== null && result.response === ResponseStatus.SUCCESSFUL){
+        this.products = result.results.products;
+      }
+    })
   }
 
   /**
@@ -32,7 +43,6 @@ export class CategoryDetailsComponent implements OnInit {
  * @param product 
  */
   productDetails(product) {
-    this.router.navigate(['/product-details', 'New Orange Flavor', 555454])
-    // this.router.navigate(['/product-details', product.name, product.id])
+    this.router.navigate(['/product-details', product.name, product.id])
   }
 }

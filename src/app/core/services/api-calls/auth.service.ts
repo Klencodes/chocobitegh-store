@@ -154,39 +154,4 @@ export class AuthService {
   }
 
 
-  /* Get a customer from server
-  * @param id ID of Order to fetch
-  * @callback ICallback function that returns an error or result
-  */
-  fetchUserDetails(callback: ICallback) {
-    this.dataProvider.getData(this.constantValues.USER_DETAILS_ENDPOINT).subscribe(result => {
-      callback(null, result)
-      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        // this.toast.success('', result.message)
-      } else {
-        this.toast.error(result.message, '')
-      }
-    }, error => {
-      callback(error, null)
-      // this.toast.error(error.message);
-
-    })
-  }
-
-  /** Update customer information
-  * @data update data to submit
-  * @callback ICallback function that returns an error or result
-  */
-  updateUserDetails(data, callback: ICallback) {
-    this.dataProvider.updateData(this.constantValues.UPDATE_USER_DETAILS_ENDPOINT, data).subscribe(result => {
-      callback(null, result)
-      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        this.toast.success('', result.message)
-      }
-    }, error => {
-      callback(error, null)
-      this.toast.error(error.message, '')
-    })
-  }
-
 }
