@@ -162,7 +162,7 @@ export class CartService {
       localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
     } else {
       this.cartDataServer.data[index].numInCart--;
-      
+
       if (this.cartDataServer.data[index].numInCart < 1) {
         this.removeCartProduct(index);
         this.cartDataObs$.next({ ...this.cartDataServer });
@@ -223,26 +223,19 @@ export class CartService {
    * Here Customer payment info is sent together with order
    */
   checkoutCart(data) {
-    const orderData = { 'total': this.cartDataClient.total, 'order_items': this.cartDataClient.prodData, customer: data };
-    console.log(orderData, 'orderData')
+    const orderData = { 'order_items': this.cartDataClient.prodData, customer: data };
+    this.spinner.hide().then();
     this.orderService.createOrder(orderData, (error, result) => {
-      console.log(result, 'result')
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
         this.emptyCartServer();
-        this.orderId = result.results.id
-        this.orderService.fetchOrderDetails(this.orderId, (error, result) => {
-          console.log(result, 'getOrderDetail')
-          if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-            const navigationExtras: NavigationExtras = {
-              state: {
-                order: result.results
-              }
-            };
-            this.spinner.hide().then();
-            this.emptyCartClient();
-            this.router.navigate(['/order-confirmation'], navigationExtras).then();
+        const navigationExtras: NavigationExtras = {
+          state: {
+            order_code: result.results.order_code
           }
-        });
+        };
+        this.spinner.hide().then();
+        this.emptyCartClient();
+        this.router.navigate(['/order-complete'], navigationExtras).then();
       } else {
         this.spinner.hide().then();
         this.router.navigateByUrl('/checkout').then();
@@ -285,7 +278,7 @@ export class CartService {
     let Total = 0;
     this.cartDataServer.data.forEach((p) => {
       const { numInCart } = p;
-      const { sell_price }:any = p.product;
+      const { sell_price }: any = p.product;
       Total += numInCart * sell_price;
     });
     this.cartDataServer.total = Total;

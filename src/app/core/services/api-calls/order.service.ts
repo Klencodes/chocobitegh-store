@@ -20,7 +20,7 @@ export class OrderService {
   * @callback ICallback function that returns an error or result
   */
   fetchOrders(page: number, callback: ICallback) {
-    this.dataProvider.getData(this.constantValues.ORDERS_ENDPOINT + '?page=' + page).subscribe(result => {
+    this.dataProvider.getData(this.constantValues.FETCH_ORDERS_ENDPOINT + '?page=' + page).subscribe(result => {
       callback(null, result);
     }, error => {
       callback(error, null);

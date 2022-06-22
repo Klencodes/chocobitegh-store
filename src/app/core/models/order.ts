@@ -15,9 +15,6 @@ export class OrderModel {
   isSelected: boolean;
   note: string;
   customer: UserModel;
-  pickup_date_time: string;
-  pickup_date: string;
-  pickup_time: string;
   order_code: string;
   order_items: Item[]
   sub_total: string;

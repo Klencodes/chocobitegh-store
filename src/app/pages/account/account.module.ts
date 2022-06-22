@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AddAddressOrPaymentComponent } from './add-address-or-payment/add-address-or-payment.component';
 import { AddOrEditAddressComponent } from './add-or-edit-address/add-or-edit-address.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedPipesModule } from 'src/app/core/pipes/shared-pipes-module';
 
 
 @NgModule({
@@ -29,8 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AccountRoutingModule,
     SharedModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    SharedPipesModule,
   ]
 })
 export class AccountModule { }

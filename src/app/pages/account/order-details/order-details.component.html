@@ -2,120 +2,46 @@
     <div class="card-body">
         <header class="d-md-flex">
             <div class="flex-grow-1">
-                <h6 class="mb-0"> Order ID: 1032 <i class="dot"></i><span class="text-danger"> Pending </span> </h6>
-                <span>Date: 16 December 2020</span>
+                <h6 class="mb-0"> Order ID: {{orderDetails?.order_code}} <i class="dot"></i><span class="text-danger"> {{orderDetails?.order_status}} </span> </h6>
+                <span>Date: {{orderDetails?.date_created | date: 'medium'}}</span>
             </div>
             <div> 
-                <a href="#" class="btn btn-outline-danger mx-3">Cancel order</a> 
-                <a href="#" class="btn btn-primary">Track order</a> 
-                <a href="#" class="btn btn-primary">Repeat order</a> 
+                <a *ngIf="orderDetails?.order_status == orderStatus?.PLACED" class="btn btn-outline-danger ">Cancel order</a> 
+                <a *ngIf="orderDetails?.order_status == orderStatus?.PLACED"  class="btn btn-primary ml-3">Track order</a> 
+                <a *ngIf="orderDetails?.order_status  == orderStatus?.ACCEPTED"  class="btn btn-primary">Repeat order</a> 
             </div>
         </header>
         <hr>
         <div class="row">
             <div class="col-md-4">
                 <p class="order-label-bold">Contact</p>
-                <p class="m-0"> Alex Donald <br> Phone: 109-295-9131 <br> Email: info@mywebsite.com </p>
+                <p class="m-0"> {{orderDetails?.customer?.full_name}} <br> Phone: {{orderDetails?.customer?.phone_number}} <br> Email: {{orderDetails?.customer?.email}} </p>
             </div> 
             <hr class="place-order-show-sm mt-3">
             <div class="col-md-4 border-start">
                 <p class="order-label-bold">Shipping address</p>
-                <p class="m-0"> United States <br> 600 Markley Street, Suite 170777 Port Reading, NJ 07064 </p>
+                <p class="m-0"> {{orderDetails?.shipping_address?.country}} <br>  {{orderDetails?.shipping_address?.address}}, 
+                     <span *ngIf="orderDetails?.shipping_address?.apartnemt_number">{{orderDetails?.shipping_address?.apartnemt_number}},</span> {{orderDetails?.shipping_address?.city}}, {{orderDetails?.shipping_address?.state}}, {{orderDetails?.shipping_address?.postal_code}}  </p>
             </div> 
             <hr class="place-order-show-sm mt-3">
             <div class="col-md-4 border-start">
                 <p class="order-label-bold">Payment</p>
-                <p class="m-0"> <span class="text-success"> Visa **** 0932 </span> <br> Shipping fee: $12 <br> Total
-                    paid: $150.90 </p>
+                <p class="m-0"> <span class="text-success"> Visa **** {{orderDetails?.payment?.card_number.slice(10,14)}} </span> 
+                    <br> Shipping fee: {{orderDetails?.currency}} {{orderDetails?.payment?.shipping_fee || 0.00}} 
+                    <br> Total paid: {{orderDetails?.currency}} {{orderDetails?.payment?.amount_paid}} </p>
             </div> 
         </div> 
         <hr>
         <ul class="row">
-            <li class="col-lg-4 col-md-6">
+            <li class="col-lg-4 col-md-6" *ngFor="let item of orderDetails?.order_items">
                 <div class="itemside mb-3">
-                    <div class="aside"> <img width="72" height="72" src="assets/images/items/8.jpg"
-                            class="img-sm rounded border"> </div>
+                    <div class="aside"> 
+                        <img width="72" height="72" [src]="item?.product?.image" class="img-sm rounded border"> 
+                        </div>
                     <div class="info">
-                        <p class="title">Backpack for hiking</p> 
-                        <div><strong> 6 x $40.90 </strong></div>
-                        <strong class="text-dark"> $339.90 </strong>
-                    </div>
-                </div>
-            </li>
-            <li class="col-lg-4 col-md-6">
-                <div class="itemside mb-3">
-                    <div class="aside"> <img width="72" height="72" src="assets/images/items/8.jpg"
-                            class="img-sm rounded border"> </div>
-                    <div class="info">
-                        <p class="title">Backpack for hiking</p> 
-                        <div><strong> 6 x $40.90 </strong></div>
-                        <strong class="text-dark"> $339.90 </strong>
-                    </div>
-                </div>
-            </li>
-            <li class="col-lg-4 col-md-6">
-                <div class="itemside mb-3">
-                    <div class="aside"> <img width="72" height="72" src="assets/images/items/8.jpg"
-                            class="img-sm rounded border"> </div>
-                    <div class="info">
-                        <p class="title">Backpack for hiking</p> 
-                        <div><strong> 6 x $40.90 </strong></div>
-                        <strong class="text-dark"> $339.90 </strong>
-                    </div>
-                </div>
-            </li>
-            <li class="col-lg-4 col-md-6">
-                <div class="itemside mb-3">
-                    <div class="aside"> <img width="72" height="72" src="assets/images/items/8.jpg"
-                            class="img-sm rounded border"> </div>
-                    <div class="info">
-                        <p class="title">Backpack for hiking</p> 
-                        <div><strong> 6 x $40.90 </strong></div>
-                        <strong class="text-dark"> $339.90 </strong>
-                    </div>
-                </div>
-            </li>
-            <li class="col-lg-4 col-md-6">
-                <div class="itemside mb-3">
-                    <div class="aside"> <img width="72" height="72" src="assets/images/items/8.jpg"
-                            class="img-sm rounded border"> </div>
-                    <div class="info">
-                        <p class="title">Backpack for hiking</p> 
-                        <div><strong> 6 x $40.90 </strong></div>
-                        <strong class="text-dark"> $339.90 </strong>
-                    </div>
-                </div>
-            </li>
-            <li class="col-lg-4 col-md-6">
-                <div class="itemside mb-3">
-                    <div class="aside"> <img width="72" height="72" src="assets/images/items/8.jpg"
-                            class="img-sm rounded border"> </div>
-                    <div class="info">
-                        <p class="title">Backpack for hiking</p> 
-                        <div><strong> 6 x $40.90 </strong></div>
-                        <strong class="text-dark"> $339.90 </strong>
-                    </div>
-                </div>
-            </li>
-            <li class="col-lg-4 col-md-6">
-                <div class="itemside mb-3">
-                    <div class="aside"> <img width="72" height="72" src="assets/images/items/8.jpg"
-                            class="img-sm rounded border"> </div>
-                    <div class="info">
-                        <p class="title">Backpack for hiking</p> 
-                        <div><strong> 6 x $40.90 </strong></div>
-                        <strong class="text-dark"> $339.90 </strong>
-                    </div>
-                </div>
-            </li>
-            <li class="col-lg-4 col-md-6">
-                <div class="itemside mb-3">
-                    <div class="aside"> <img width="72" height="72" src="assets/images/items/8.jpg"
-                            class="img-sm rounded border"> </div>
-                    <div class="info">
-                        <p class="title">Backpack for hiking</p> 
-                        <div><strong> 6 x $40.90 </strong></div>
-                        <strong class="text-dark"> $339.90 </strong>
+                        <p class="title">{{item?.product?.name}}</p> 
+                        <div><strong> {{item?.quantity}} x {{item?.product?.currency}} {{item?.product?.new_price}} </strong></div>
+                        <strong class="text-dark">{{item?.product?.currency}} {{item?.quantity * item?.product?.new_price | priceDecimal}} </strong>
                     </div>
                 </div>
             </li>

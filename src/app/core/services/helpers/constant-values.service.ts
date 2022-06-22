@@ -46,9 +46,10 @@ export class ConstantValueService {
   get REPLY_REVIEW_ENDPOINT() { return 'product/reply_review/' }
   get UPDATE_USER_DETAILS_ENDPOINT() { return 'user/update_profile/' }
   
-  get ORDERS_ENDPOINT() { return 'order/my_orders/' }
-  get ORDER_DETAILS_ENDPOINT() { return 'order/my_order/' }
-  get CREATE_ORDER_ENDPOINT() { return 'order/place_order/' }
+  get FETCH_ORDERS_ENDPOINT() { return 'fetch_orders/' }
+  get ORDER_DETAILS_ENDPOINT() { return 'order_details/' }
+  get CREATE_ORDER_ENDPOINT() { return 'place_order/' }
+  
   get CART_ENDPOINT() { return 'order/cart/' }
   get REDEEM_PROMO_CODE() { return 'order/redeem_promocode/' }
    
