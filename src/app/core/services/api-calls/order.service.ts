@@ -48,14 +48,47 @@ export class OrderService {
   createOrder(data, callback: ICallback) {
     this.dataProvider.postData(this.constantValues.CREATE_ORDER_ENDPOINT, data).subscribe(result => {
       callback(null, result);
-      if (result !== null && result.response === ResponseStatus.FAILED) {
-        this.toast.error('', result.message)
-      } else {
-        this.toast.success('', result.message)
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        this.toast.success(result.message, '')
+      }else{
+        this.toast.error(result.message, '')
       }
     }, error => {
       callback(error, null);
-      //   this.notificationService.snackBarErrorMessage(error.message);
+      this.toast.error(error.message, '')
     });
   }
+
+/**
+ * Submit coupon to server
+ * @data param data to submit to server
+ * @callback ICallback function that returns an error or result
+  */
+     claimCoupon(data, callback: ICallback) {
+      this.dataProvider.postData(this.constantValues.REDEEM_COUPON, data).subscribe(result => {
+        callback(null, result);
+        if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+          this.toast.success(result.message, '')
+        }
+      }, error => {
+        callback(error, null);
+        this.toast.error(error.message, '')
+      });
+    }
+/**
+ * Submit calcel order from server
+ * @data param data to submit to server
+ * @callback ICallback function that returns an error or result
+  */
+ updateOrderStatus(data, callback: ICallback) {
+      this.dataProvider.postData(this.constantValues.UPDATE_ORDER_STATUS_ENDPOINT, data).subscribe(result => {
+        callback(null, result);
+        if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+          this.toast.success(result.message, '')
+        }
+      }, error => {
+        callback(error, null);
+        this.toast.error(error.message, '')
+      });
+    }
 }

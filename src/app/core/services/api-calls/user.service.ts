@@ -123,5 +123,51 @@ export class UserService {
       this.toast.error(error.message, '')
     })
   }
+  /**
+  * Get orders with page number
+  * @callback ICallback function that returns an error or result
+  */
+   fetchsavedItems(page: number, callback: ICallback) {
+    this.dataProvider.getData(this.constantValues.FETCH_SAVED_ITEMS_ENDPOINT + '?page=' + page).subscribe(result => {
+      callback(null, result);
+    }, error => {
+      callback(error, null);
+      // this.toast.error(error.message, '')
+    });
+  }
+
+  /* Get a single Order from server
+  * @param id ID of Order to fetch
+  * @callback ICallback function that returns an error or result
+  */
+  removeSavedItem(id, callback: ICallback) {
+    this.dataProvider.deleteData(this.constantValues.REMOVE_SAVED_ITEM_ENDPOINT + id + '/').subscribe(result => {
+      callback(null, result);
+      this.toast.success(result.message, '')
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+      }
+    }, error => {
+      callback(error, null);
+      this.toast.error(error.message, '')
+    });
+  }
+  /**
+ * Submit product to server
+ * @data param data to submit to server
+ * @callback ICallback function that returns an error or result
+  */
+  saveItem(data, callback: ICallback) {
+    this.dataProvider.postData(this.constantValues.SAVE_ITEM_ENDPOINT, data).subscribe(result => {
+      callback(null, result);
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        this.toast.success(result.message, '')
+      }else{
+        this.toast.error(result.message, '')
+      }
+    }, error => {
+      callback(error, null);
+      this.toast.error(error.message, '')
+    });
+  }
 
 }

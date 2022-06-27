@@ -1,4 +1,5 @@
-<div class="d-flex justify-content-between page-padding-top">
+<div class="cat-slider-bg page-padding-top">
+<div class="d-flex justify-content-between">
     <div ><h4>Chocolate Types</h4> </div>
     <div>
         <a [routerLink]="['/categories']" class="text-dark float-end">View All</a>
@@ -11,10 +12,11 @@
                 <div class="img-wrap-bg">
                     <img *ngIf="item?.image" class="img-md img-wrap-round mb-2" [src]="item?.image">
                     <img *ngIf="!item?.image" class="img-md img-wrap-round mb-2" src="assets/images/misc/product-placeholder.png">
-                    <p class="mb-0 title">{{item?.name}}</p>
+                    <p class="mb-0 p-1 title">{{item?.name}}</p>
                 </div>
             </div>
         </ng-template>
 
     </swiper>
+</div>
 </div>

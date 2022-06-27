@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderStatus } from 'src/app/core/enums/enums';
 import { OrderModel } from 'src/app/core/models/order';
 import { OrderService } from 'src/app/core/services/api-calls/order.service';
 
@@ -15,11 +16,12 @@ export class OrdersComponent implements OnInit {
   displayedList;
   canLoadMore = true;
   isProcessingMore = false;
+  orderStatus = OrderStatus;
 
   constructor(
     private router: Router,
     private orderService: OrderService,
-  ) { }
+  ) { this.loadMoreData(null) }
 
   ngOnInit(): void {
     this.fetchOrders();
@@ -29,7 +31,6 @@ export class OrdersComponent implements OnInit {
 
   }
   viewOrderDetails(order) {
-    console.log(order)
     this.router.navigate(['/account/orders/order-details', order.order_code, order.id])
   }
 
@@ -40,13 +41,11 @@ export class OrdersComponent implements OnInit {
       if (result !== null) {
         this.listArrayOfProducts = result.results;
         this.displayedList = [...this.listArrayOfProducts];
-        console.log(this.displayedList, 'ARRAY')
-
       }
     })
   }
   /**
-   * Load more product 
+   * Load more orders 
    * @param ev 
    * @returns 
    */
@@ -59,7 +58,7 @@ export class OrdersComponent implements OnInit {
       this.page++;
       if (this.canLoadMore) {
         this.isProcessingMore = true;
-        this.orderService.fetchOrders(this.page, async (error, result) => {
+        this.orderService.fetchOrders(this.page, (error, result) => {
           this.isProcessingMore = false;
           if (result !== null && result !== undefined) {
             const order = result.results;

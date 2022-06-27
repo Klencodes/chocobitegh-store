@@ -37,7 +37,7 @@ export class AddOrEditAddressComponent implements OnInit {
       primary: new FormControl(false, [Validators.required]),
       apartment_number: new FormControl(''),
       address: new FormControl('', [Validators.required]),
-      city: new FormControl('Accra', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
       state: new FormControl('', [Validators.required]),
       postal_code: new FormControl('', [Validators.required]),
       country: new FormControl('Ghana', [Validators.required]),

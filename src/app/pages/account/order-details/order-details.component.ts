@@ -20,19 +20,44 @@ export class OrderDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) =>{
       const orderId = params['id']
-      console.log(orderId)
       if(orderId){
-        this.isProcessing = true;
-        this.orderService.fetchOrderDetails(orderId, (error, result)=>{
-          if(result !== null && result.response === ResponseStatus.SUCCESSFUL){
-            this.orderDetails = result.results;
-            console.log(this.orderDetails, 'this.orderDetails')
-          }
-        })
+        this.fetchOrderDetails(orderId);
       }
     })
     this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Orders', link: '/account/orders' }, { label: 'Account Information', active: true }];
-
   }
 
+  /**
+   * Cancel order 
+   * @param orderId 
+   */
+  cancelOrReOrder(orderId, orderStatus){
+    this.isProcessing = true;
+    this.orderService.updateOrderStatus({order_id: orderId, order_status: orderStatus}, (error, result) =>{
+      this.isProcessing = false;
+      if(result !== null && result.response === ResponseStatus.SUCCESSFUL){
+        this.fetchOrderDetails(orderId)
+      }
+    })
+  }
+  /**
+   * Repeat order or place order
+   * @param order 
+   */
+  repeatOrder(order){
+    console.log(order, 'ORDER')
+  }
+
+  /**
+   * Fetch order details
+   * @param orderId 
+   */
+  fetchOrderDetails(orderId) {
+    this.isProcessing = true;
+    this.orderService.fetchOrderDetails(orderId, (error, result)=>{
+      this.isProcessing = false;
+      if(result !== null && result.response === ResponseStatus.SUCCESSFUL){
+        this.orderDetails = result.results;
+      }
+    })  }
 }

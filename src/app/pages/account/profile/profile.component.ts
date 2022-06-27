@@ -23,7 +23,6 @@ export class ProfileComponent implements OnInit {
   fetchUserDetails() {
     this.isProcessing = true;
     this.userService.fetchUserDetails((error, result) => {
-      console.log(result)
       this.isProcessing = false;
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
         this.userDetails = result.results;
@@ -38,5 +37,16 @@ export class ProfileComponent implements OnInit {
           this.fetchUserDetails();
         }
       });
+  }
+  /**
+   * 
+   * @param address 
+   */
+  selectDeliveryAddress(address) {
+    this.userService.updateUserPrimaryAddress({ address_id: address.id, address_state: true }, (error, result) => {
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        this.fetchUserDetails();
+      }
+    })
   }
 }

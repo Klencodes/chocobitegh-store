@@ -20,7 +20,8 @@ export class CartService {
       { quantity: 0, product_id: 0 }
     ],
     total: 0,
-    // couponData: { total_price: 0, amount_saved: 0, coupon_value: 0, coupon_type: ''}
+    delivery_fee: 20,
+    discount: 0
   }; // This will be sent to the backend Server as post data
 
   // Cart Data variable to store the cart information on the server (Angular not Backend)
@@ -32,7 +33,8 @@ export class CartService {
       },
     ],
     total: 0,
-    // couponData: undefined
+    delivery_fee: 20,
+    discount: 0
   };
 
   cartTotal$ = new BehaviorSubject<Number>(0);
@@ -42,6 +44,7 @@ export class CartService {
   cartDataObs$ = new BehaviorSubject<CartModelServer>(this.cartDataServer);
   cartTotal: number;
   orderId;
+  couponVal: any;
   // couponDataSaved: CouponModelServer;
   // amountPaid = 0
   // amountSaved = 0
@@ -73,6 +76,7 @@ export class CartService {
               this.calculateTotal();
               this.cartDataClient.total = this.cartDataServer.total;
               localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
+              this.cartDataObs$.next({ ...this.cartDataServer });
             } else {
               this.cartDataServer.data.push({
                 numInCart: dataCart.quantity,
@@ -81,8 +85,8 @@ export class CartService {
               this.calculateTotal();
               this.cartDataClient.total = this.cartDataServer.total;
               localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
+              this.cartDataObs$.next({ ...this.cartDataServer });
             }
-            this.cartDataObs$.next({ ...this.cartDataServer });
           }
         });
       });
@@ -141,7 +145,7 @@ export class CartService {
               product_id: product.id
             });
             //Toast notification
-            this.toast.success('added to the cart.', `${product.name}`);
+            this.toast.success('added to your cart.', `${product.name}`);
           }
           this.calculateTotal();
           this.cartDataClient.total = this.cartDataServer.total;
@@ -155,68 +159,86 @@ export class CartService {
   UpdateCartData(product: ProductModel, increase: Boolean) {
     let index = this.cartDataServer.data.findIndex((p) => p.product.id === product.id);
     if (increase) {
-      this.cartDataServer.data[index].numInCart < this.cartDataServer.data[index].product.quantity ? this.cartDataServer.data[index].numInCart++ : this.cartDataServer.data[index].product.quantity;
+      this.cartDataServer.data[index].numInCart++
+      // this.cartDataServer.data[index].numInCart < this.cartDataServer.data[index].product.quantity ? this.cartDataServer.data[index].numInCart++ : this.cartDataServer.data[index].product.quantity;
       this.cartDataClient.prodData[index].quantity = this.cartDataServer.data[index].numInCart;
       this.calculateTotal();
-      this.cartDataObs$.next({ ...this.cartDataServer });
+      this.cartDataClient.total = this.cartDataServer.total;
       localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
+      this.cartDataObs$.next({ ...this.cartDataServer });
+      if (this.couponVal !== null && this.couponVal !== '' && this.couponVal !== undefined) {
+        this.claimCoupon(this.couponVal)
+      }
     } else {
-      this.cartDataServer.data[index].numInCart--;
 
-      if (this.cartDataServer.data[index].numInCart < 1) {
-        this.removeCartProduct(index);
+      if (this.cartDataServer.data[index].numInCart <= 1) {
+        this.cartDataClient.prodData[index].quantity = 1;
         this.cartDataObs$.next({ ...this.cartDataServer });
+        if (this.couponVal !== null && this.couponVal !== '' && this.couponVal !== undefined) {
+          this.claimCoupon(this.couponVal)
+        }
+        return;
       } else {
-        this.cartDataObs$.next({ ...this.cartDataServer });
+        this.cartDataServer.data[index].numInCart--;
         this.cartDataClient.prodData[index].quantity = this.cartDataServer.data[index].numInCart;
         this.calculateTotal();
         this.cartDataClient.total = this.cartDataServer.total;
         localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
+        this.cartDataObs$.next({ ...this.cartDataServer });
+        if (this.couponVal !== null && this.couponVal !== '' && this.couponVal !== undefined) {
+          this.claimCoupon(this.couponVal)
+        }
       }
     }
   }
 
   removeCartProduct(index) {
-    if (window.confirm('Are you sure you want to delete the item?')) {
-      /**Recalculate total amount if an item is added or removed */
-      this.cartDataServer.data.splice(index, 1);
-      this.cartDataClient.prodData.splice(index, 1);
-      this.calculateTotal();
-      this.cartDataClient.total = this.cartDataServer.total;
-      /**Clear cart if total amount in cart client data is 0 */
-      if (this.cartDataClient.total === 0) {
-        this.emptyCartClient()
-      } else {
-        localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
-      }
-      /**Clear cart if total amount in cart server data is 0 */
-      if (this.cartDataServer.total === 0) {
-        this.emptyCartServer()
-      } else {
-        this.cartDataObs$.next({ ...this.cartDataServer });
-      }
+    /**Recalculate total amount if an item is added or removed */
+    this.cartDataServer.data.splice(index, 1);
+    this.cartDataClient.prodData.splice(index, 1);
 
+    this.calculateTotal();
+    this.cartDataClient.total = this.cartDataServer.total;
+    /**Clear cart if total amount in cart client data is 0 */
+    if (this.cartDataClient.total === 0) {
+      this.emptyCartClient()
+    } else {
+      localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
     }
-    // If the user doesn't want to delete the product, hits the CANCEL button
-    else {
-      return;
+    /**Clear cart if total amount in cart server data is 0 */
+    if (this.cartDataServer.total === 0) {
+      this.emptyCartServer()
+    } else {
+      this.cartDataObs$.next({ ...this.cartDataServer });
     }
+    if (this.couponVal !== null && this.couponVal !== '' && this.couponVal !== undefined) {
+      this.claimCoupon(this.couponVal)
+    }
+
   }
   /**
    * 
    * @param data Claim available customer coupon 
    */
-  // claimCoupon(data) {
-  //   const cData = { initial_amount: this.cartDataClient.total, code: data.code, is_code: data.is_code, coupon_id: data.coupon_id }
-  //   this.orderService.claimCoupon(cData, (error, result) => {
-  //     if (result !== null && result.status_code === '100') {
-  //       const coupon = result.data
-  //       this.couponData$.next(coupon);
-  //       this.amountPaid = this.couponData$.value.amount_paid;
-  //       this.amountSaved = this.couponData$.value.amount_saved
-  //     }
-  //   })
-  // }
+  claimCoupon(data) {
+    this.couponVal = data;
+    const cData = { total_amount: this.cartDataClient.total, coupon_code: data }
+    this.orderService.claimCoupon(cData, (error, result) => {
+      localStorage.setItem('code', data)
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        const coupon = result.results;
+        if (coupon) {
+          this.cartDataClient.discount = coupon.discount_amount;
+          this.cartDataServer.discount = this.cartDataClient.discount;
+          localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
+          this.cartDataObs$.next({ ...this.cartDataServer });
+        }
+        // this.couponData$.next(coupon);
+        // this.amountPaid = this.couponData$.value.amount_paid;
+        // this.amountSaved = this.couponData$.value.amount_saved
+      }
+    })
+  }
   /**
    * 
    * @param data Checkout customer orders
@@ -227,14 +249,15 @@ export class CartService {
     this.spinner.hide().then();
     this.orderService.createOrder(orderData, (error, result) => {
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        localStorage.removeItem('code')
         this.emptyCartServer();
+        this.emptyCartClient();
         const navigationExtras: NavigationExtras = {
           state: {
             order_code: result.results.order_code
           }
         };
         this.spinner.hide().then();
-        this.emptyCartClient();
         this.router.navigate(['/order-complete'], navigationExtras).then();
       } else {
         this.spinner.hide().then();
@@ -278,8 +301,8 @@ export class CartService {
     let Total = 0;
     this.cartDataServer.data.forEach((p) => {
       const { numInCart } = p;
-      const { sell_price }: any = p.product;
-      Total += numInCart * sell_price;
+      const { new_price }: any = p.product;
+      Total += numInCart * new_price;
     });
     this.cartDataServer.total = Total;
     this.cartTotal$.next(this.cartDataServer.total);
@@ -291,6 +314,7 @@ export class CartService {
    * @returns 
    */
   calculateSubTotal(index: any): Number {
+
     let subTotal = 0;
     let data = this.cartDataServer.data[index];
     // @ts-ignore
@@ -302,7 +326,8 @@ export class CartService {
     this.cartDataClient = {
       prodData: [{ quantity: 0, product_id: 0 }],
       total: 0,
-      // couponData: { total_price: 0, amount_saved: 0, coupon_value: 0, coupon_type: ''}
+      delivery_fee: 0,
+      discount: 0
     };
     localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
   }
@@ -312,7 +337,8 @@ export class CartService {
       data: [
         { product: undefined, numInCart: 0 }],
       total: 0,
-      // couponData: undefined
+      delivery_fee: 0,
+      discount: 0
     };
     this.cartDataObs$.next({ ...this.cartDataServer });
   }

@@ -1,25 +1,27 @@
-<article class="card mb-3">
+<article class="card mb-2" *ngFor="let item of displayedList">
     <div class="table-responsive">
         <table class="table" style="margin-bottom: 0px">
             <tbody style="white-space: no-wrap;">
                 <tr>
                     <td>
-                        <img style="width: 60px; height: 62px" src="assets/images/items/5.jpg">
+                        <img style="width: 60px; height: 62px" [src]="item?.product?.image">
                     </td>
                     <td>
-                        <dt class="text-dark">Product name here</dt>
-                        <dd>GHS 52.50</dd>
+                        <dt class="text-dark">{{item?.product?.name}}</dt>
+                        <dd>{{item?.product?.currency}} {{item?.product?.new_price}}</dd>
                     </td>
                     <td class="text-center">
-                        <button class="btn btn-primary mx-2" (click)="addToCart(111)">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">
-                                <i class="fe fe-shopping-cart mr-2"></i>Add to cart</span>
+                        <button class="btn btn-primary mx-2" (click)="addToCart(item?.product?.id)" [class.disabled]="!item?.product?.stock_availability">
+                            <span>
+                                <i class="fe fe-shopping-cart"></i>
+                                <span class="d-none d-sm-inline-block ml-2">{{ !item?.product?.stock_availability ? "Out of stock": "Add to cart" }}</span>
+                            </span>
                         </button>
-                        <button class="btn btn-outline-danger" (click)="removeItem(111)">
-                            <span class="d-block d-sm-none"><i class="fe fe-trash"></i></span>
-                            <span class="d-none d-sm-inline-block"><i class="fe fe-trash mr-2"></i>Remove</span>
+                        <button class="btn btn-outline-danger" (click)="removeItem(item?.id)">
+                            <span>
+                                <i class="fe fe-trash"></i>
+                                <span class="d-none d-sm-inline-block ml-2">Remove</span>
+                            </span>
                         </button>
                     </td>
                 </tr>
@@ -27,148 +29,12 @@
         </table>
     </div>
 </article>
-<article class="card mb-3">
-    <div class="table-responsive">
-        <table class="table" style="margin-bottom: 0px">
-            <tbody style="white-space: no-wrap;">
-                <tr>
-                    <td>
-                        <img style="width: 60px; height: 62px" src="assets/images/items/5.jpg">
-                    </td>
-                    <td>
-                        <dt class="text-dark">Product name here</dt>
-                        <dd>GHS 52.50</dd>
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary mx-2" (click)="addToCart(111)">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">
-                                <i class="fe fe-shopping-cart mr-2"></i>Add to cart</span>
-                        </button>
-                        <button class="btn btn-outline-danger" (click)="removeItem(111)">
-                            <span class="d-block d-sm-none"><i class="fe fe-trash"></i></span>
-                            <span class="d-none d-sm-inline-block"><i class="fe fe-trash mr-2"></i>Remove</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div class="text-center" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300"
+    (scrolled)="loadMoreData($event)">
+    <div *ngIf="isProcessingMore">
+        Loading saved items...
     </div>
-</article>
-<article class="card mb-3">
-    <div class="table-responsive">
-        <table class="table" style="margin-bottom: 0px">
-            <tbody style="white-space: no-wrap;">
-                <tr>
-                    <td>
-                        <img style="width: 60px; height: 62px" src="assets/images/items/5.jpg">
-                    </td>
-                    <td>
-                        <dt class="text-dark">Product name here</dt>
-                        <dd>GHS 52.50</dd>
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary mx-2" (click)="addToCart(111)">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">
-                                <i class="fe fe-shopping-cart mr-2"></i>Add to cart</span>
-                        </button>
-                        <button class="btn btn-outline-danger" (click)="removeItem(111)">
-                            <span class="d-block d-sm-none"><i class="fe fe-trash"></i></span>
-                            <span class="d-none d-sm-inline-block"><i class="fe fe-trash mr-2"></i>Remove</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div *ngIf="!isProcessingMore && !canLoadMore">
+        <strong> No more Items</strong>
     </div>
-</article>
-<article class="card mb-3">
-    <div class="table-responsive">
-        <table class="table" style="margin-bottom: 0px">
-            <tbody style="white-space: no-wrap;">
-                <tr>
-                    <td>
-                        <img style="width: 60px; height: 62px" src="assets/images/items/5.jpg">
-                    </td>
-                    <td>
-                        <dt class="text-dark">Product name here</dt>
-                        <dd>GHS 52.50</dd>
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary mx-2" (click)="addToCart(111)">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">
-                                <i class="fe fe-shopping-cart mr-2"></i>Add to cart</span>
-                        </button>
-                        <button class="btn btn-outline-danger" (click)="removeItem(111)">
-                            <span class="d-block d-sm-none"><i class="fe fe-trash"></i></span>
-                            <span class="d-none d-sm-inline-block"><i class="fe fe-trash mr-2"></i>Remove</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</article>
-<article class="card mb-3">
-    <div class="table-responsive">
-        <table class="table" style="margin-bottom: 0px">
-            <tbody style="white-space: no-wrap;">
-                <tr>
-                    <td>
-                        <img style="width: 60px; height: 62px" src="assets/images/items/5.jpg">
-                    </td>
-                    <td>
-                        <dt class="text-dark">Product name here</dt>
-                        <dd>GHS 52.50</dd>
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary mx-2" (click)="addToCart(111)">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">
-                                <i class="fe fe-shopping-cart mr-2"></i>Add to cart</span>
-                        </button>
-                        <button class="btn btn-outline-danger" (click)="removeItem(111)">
-                            <span class="d-block d-sm-none"><i class="fe fe-trash"></i></span>
-                            <span class="d-none d-sm-inline-block"><i class="fe fe-trash mr-2"></i>Remove</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</article>
-<article class="card mb-3">
-    <div class="table-responsive">
-        <table class="table" style="margin-bottom: 0px">
-            <tbody style="white-space: no-wrap;">
-                <tr>
-                    <td>
-                        <img style="width: 60px; height: 62px" src="assets/images/items/5.jpg">
-                    </td>
-                    <td>
-                        <dt class="text-dark">Product name here</dt>
-                        <dd>GHS 52.50</dd>
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary mx-2" (click)="addToCart(111)">
-                            <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">
-                                <i class="fe fe-shopping-cart mr-2"></i>Add to cart</span>
-                        </button>
-                        <button class="btn btn-outline-danger" (click)="removeItem(111)">
-                            <span class="d-block d-sm-none"><i class="fe fe-trash"></i></span>
-                            <span class="d-none d-sm-inline-block"><i class="fe fe-trash mr-2"></i>Remove</span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</article>
+</div>

@@ -30,27 +30,36 @@ export class ConstantValueService {
   get DELETE_ADDRESS() { return 'user/delete_address/' }
   get FETCH_ADDRESSES() { return 'user/fetch_addresses/' }
 
-  
-  get FETCH_TOP_PRODUCTS_OVERVIEW() { return 'top_products/' }
-
   get FETCH_CATEGORIES_ENDPOINT() { return 'fetch_categories/' }
   get CATEGORY_DETAILS_ENDPOINT() { return 'category_details/' }
+  
+  get REDEEM_COUPON() { return 'user/claim_coupon/' }
+
+
+
+
 
   get FETCH_PRODUCTS_ENDPOINT() { return 'fetch_products/' }
   get PRODUCT_DETAILS_ENDPOINT() { return 'product_details/' }
   get SEARCH_PRODUCTS_ENDPOINT() { return 'product/search/' }
+  
+  get FETCH_ORDERS_ENDPOINT() { return 'user/fetch_orders/' }
+  get ORDER_DETAILS_ENDPOINT() { return 'user/order_details/' }
+  get UPDATE_ORDER_STATUS_ENDPOINT() { return 'user/update_order_status/' }
+  get CREATE_ORDER_ENDPOINT() { return 'user/place_order/' }
 
+  get FETCH_SAVED_ITEMS_ENDPOINT() { return 'fetch_saved_items/' }
+  get SAVE_ITEM_ENDPOINT() { return 'save_item/' }
+  get REMOVE_SAVED_ITEM_ENDPOINT() { return 'remove_saved_item/' }
+  
+
+  get FETCH_TOP_PRODUCTS_OVERVIEW() { return 'top_products/' }
   get RELATED_PRODUCT_ENDPOINT() { return 'product/related_products/' }
   get FILTER_PRODUCT_ENDPOINT() { return 'product/filter/' }
   get PRODUCT_REVIEWS_ENDPOINT() { return 'product/review/' }
   get REPLY_REVIEW_ENDPOINT() { return 'product/reply_review/' }
   get UPDATE_USER_DETAILS_ENDPOINT() { return 'user/update_profile/' }
   
-  get FETCH_ORDERS_ENDPOINT() { return 'fetch_orders/' }
-  get ORDER_DETAILS_ENDPOINT() { return 'order_details/' }
-  get CREATE_ORDER_ENDPOINT() { return 'place_order/' }
-  
   get CART_ENDPOINT() { return 'order/cart/' }
-  get REDEEM_PROMO_CODE() { return 'order/redeem_promocode/' }
    
 }

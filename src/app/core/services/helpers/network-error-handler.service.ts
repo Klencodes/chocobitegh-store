@@ -21,18 +21,18 @@ export class NetworkErrorHandlerService {
     } else if (err.status === 405) {
       return throwError(() => new Error('An error occurred processing request'))
     } else if (err.status === 403) {
-      return throwError(() => new Error(err.error.message))
+      return throwError(() => new Error(err.error.message || err.error.detail ))
     } else if (err.status === 404) {
-      return throwError(() => new Error(err.error.message))
+      return throwError(() => new Error(err.error.message || err.error.detail ))
     } else if (err.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      return throwError(() => new Error(err.error.message))
+      return throwError(() => new Error(err.error.message || 'Invalid token, Please sign in' ))
     } else if (err.status > 415) {
-      return throwError(() => new Error(err.error.message))
+      return throwError(() => new Error(err.error.message || err.error.detail ))
     } else if (err.status === 400) {
-      return throwError(() => new Error(err.error.message))
+      return throwError(() => new Error(err.error.message || err.error.detail ))
     }
-    return throwError(() => new Error('You are offline, Check your internet connection!!'));
+    return throwError(() => new Error('You are offline, Check your internet connection!!' || err.error.detail ));
   }
 }

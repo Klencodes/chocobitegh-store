@@ -2,13 +2,18 @@
     <div class="card-body">
         <header class="d-md-flex">
             <div class="flex-grow-1">
-                <h6 class="mb-0"> Order ID: {{orderDetails?.order_code}} <i class="dot"></i><span class="text-danger"> {{orderDetails?.order_status}} </span> </h6>
+                <h6 class="mb-0"> Order ID: {{orderDetails?.order_code}} <i class="dot"></i>
+                    <span class="text-danger" *ngIf="orderDetails?.order_status == orderStatus?.CANCELLED"> {{orderDetails?.order_status}} </span>
+                    <span class="text-success" *ngIf="orderDetails?.order_status !== orderStatus?.CANCELLED"> {{orderDetails?.order_status | removeUnderScore}} </span>
+                 </h6>
                 <span>Date: {{orderDetails?.date_created | date: 'medium'}}</span>
             </div>
             <div> 
-                <a *ngIf="orderDetails?.order_status == orderStatus?.PLACED" class="btn btn-outline-danger ">Cancel order</a> 
-                <a *ngIf="orderDetails?.order_status == orderStatus?.PLACED"  class="btn btn-primary ml-3">Track order</a> 
-                <a *ngIf="orderDetails?.order_status  == orderStatus?.ACCEPTED"  class="btn btn-primary">Repeat order</a> 
+                <span *ngIf="orderDetails?.order_status  === orderStatus?.PLACED || orderDetails?.order_status  === orderStatus?.CANCELLED">
+                    <a *ngIf="orderDetails?.order_status === orderStatus?.PLACED" class="btn btn-outline-danger" (click)="cancelOrReOrder(orderDetails?.id, orderStatus?.CANCELLED)">Cancel order</a> 
+                    <a *ngIf="orderDetails?.order_status === orderStatus?.CANCELLED"  class="btn btn-primary ml-3" (click)="cancelOrReOrder(orderDetails?.id, orderStatus?.PLACED)">Re-order</a> 
+                </span>
+                <a *ngIf="orderDetails?.order_status  !== orderStatus?.PLACED && orderDetails?.order_status  !== orderStatus?.CANCELLED" class="btn btn-primary" (click)="repeatOrder(orderDetails)">Repeat order</a> 
             </div>
         </header>
         <hr>
@@ -21,14 +26,16 @@
             <div class="col-md-4 border-start">
                 <p class="order-label-bold">Shipping address</p>
                 <p class="m-0"> {{orderDetails?.shipping_address?.country}} <br>  {{orderDetails?.shipping_address?.address}}, 
-                     <span *ngIf="orderDetails?.shipping_address?.apartnemt_number">{{orderDetails?.shipping_address?.apartnemt_number}},</span> {{orderDetails?.shipping_address?.city}}, {{orderDetails?.shipping_address?.state}}, {{orderDetails?.shipping_address?.postal_code}}  </p>
+                     <span *ngIf="orderDetails?.shipping_address?.apartnemt_number">{{orderDetails?.shipping_address?.apartnemt_number}},</span>
+                      {{orderDetails?.shipping_address?.city}}, {{orderDetails?.shipping_address?.state}} </p>
             </div> 
             <hr class="place-order-show-sm mt-3">
             <div class="col-md-4 border-start">
                 <p class="order-label-bold">Payment</p>
-                <p class="m-0"> <span class="text-success"> Visa **** {{orderDetails?.payment?.card_number.slice(10,14)}} </span> 
-                    <br> Shipping fee: {{orderDetails?.currency}} {{orderDetails?.payment?.shipping_fee || 0.00}} 
-                    <br> Total paid: {{orderDetails?.currency}} {{orderDetails?.payment?.amount_paid}} </p>
+                <p class="m-0"> <span class="text-success"> MoMo **** {{orderDetails?.payment?.phone_number.slice(6,10)}} </span> </p>
+                <p class="mb-0"> <span *ngIf="orderDetails?.delivery_fee > 0">Delivery fee: {{orderDetails?.currency}} {{orderDetails?.delivery_fee}} </span> </p>
+                <p class="mb-0"><span *ngIf="orderDetails?.discount > 0">Discount: {{orderDetails?.currency}} {{orderDetails?.discount}}</span> </p>
+                <p class="mb-0"> Total paid: {{orderDetails?.currency}} {{orderDetails?.payment?.amount_paid}} </p>
             </div> 
         </div> 
         <hr>

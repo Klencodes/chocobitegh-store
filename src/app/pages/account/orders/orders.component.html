@@ -1,4 +1,4 @@
-<article class="card mb-3" *ngFor="let order of displayedList">
+<article class="card mb-2" *ngFor="let order of displayedList">
     <div class="table-responsive">
         <table class="table" style="margin-bottom: 0px">
             <tbody style="white-space: no-wrap;">
@@ -30,7 +30,14 @@
                     </td>
                     <td>
                         <dt class="text-dark">Status</dt>
-                        <dd>{{order?.order_status}}</dd>
+                        <dd>
+                            <span *ngIf="order?.order_status === orderStatus?.CANCELLED" class="text-danger">
+                                <strong>{{order?.order_status | titlecase | removeUnderScore}}</strong>
+                            </span>
+                            <span *ngIf="order?.order_status !== orderStatus?.CANCELLED" class="text-success">
+                                <strong>{{order?.order_status | titlecase | removeUnderScore}}</strong>
+                            </span>
+                        </dd>
                     </td>
                     <td>
                         <dt class="text-dark">Order Amount</dt>
@@ -47,3 +54,13 @@
         </table>
     </div>
 </article>
+<div class="text-center" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300"
+    (scrolled)="loadMoreData($event)">
+    <div *ngIf="isProcessingMore">
+        Loading order...
+    </div>
+    <div *ngIf="!isProcessingMore && !canLoadMore">
+        <strong> No more orders</strong>
+    </div>
+</div>
+<app-page-loading></app-page-loading>

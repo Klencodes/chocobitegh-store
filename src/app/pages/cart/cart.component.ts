@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CartModelServer } from 'src/app/core/models/cart';
@@ -14,7 +15,7 @@ export class CartComponent implements OnInit {
   user: UserModel;
   breadCrumbItems: Array<{}>;
   cartData;
-
+  couponCodeCtrl: FormControl = new FormControl('')
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -24,6 +25,7 @@ export class CartComponent implements OnInit {
     this.user = this.localAuth.userObj,
     this.cartService.cartDataObs$.subscribe(data =>{
       this.cartData = data;
+      // console.log(data)
     })
    }
 
@@ -54,7 +56,11 @@ export class CartComponent implements OnInit {
   }
 
   //Remove an item from cart
-  removeProduct(){
-    // this.cartService.removeCartProduct()
+  removeCartItem(product){
+    this.cartService.removeCartProduct(product)
+  }
+
+  applyCoupon(){
+    this.cartService.claimCoupon(this.couponCodeCtrl.value.toUpperCase())
   }
 }

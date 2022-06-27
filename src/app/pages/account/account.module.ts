@@ -13,7 +13,7 @@ import { AddAddressOrPaymentComponent } from './add-address-or-payment/add-addre
 import { AddOrEditAddressComponent } from './add-or-edit-address/add-or-edit-address.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedPipesModule } from 'src/app/core/pipes/shared-pipes-module';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,7 @@ import { SharedPipesModule } from 'src/app/core/pipes/shared-pipes-module';
     SharedModule,
     ReactiveFormsModule,
     SharedPipesModule,
+    InfiniteScrollModule,
   ]
 })
 export class AccountModule { }

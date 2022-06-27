@@ -8,7 +8,7 @@ import { OrderCompleteComponent } from './order-complete/order-complete.componen
 import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const routes: Routes = [
-    { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+    { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule), canActivate: [AuthGuard] },
     
     { path: '', component: HomeComponent, data: { title: 'Home' } },
     
@@ -18,9 +18,9 @@ const routes: Routes = [
 
     { path: 'cart', component: CartComponent, data: { title: 'Cart' } },
 
-    { path: 'checkout', component: CheckoutComponent, data: { title: 'Checkout' } },
+    { path: 'checkout', component: CheckoutComponent, data: { title: 'Checkout' }, canActivate: [AuthGuard]  },
     
-    { path: 'order-complete', component: OrderCompleteComponent, data: { title: 'Order Complete' } },
+    { path: 'order-complete', component: OrderCompleteComponent, data: { title: 'Order Complete' }, canActivate: [AuthGuard] },
 
     { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

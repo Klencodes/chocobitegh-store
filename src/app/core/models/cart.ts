@@ -14,7 +14,8 @@ export interface Items {
       numInCart: number,
     }],
     total: number,
-    // couponData: CouponModelServer
+    delivery_fee: number
+    discount: number
   }
   
   export interface CartModelClient {
@@ -23,7 +24,8 @@ export interface Items {
       quantity: number
     }],
     total: number
-  
+    delivery_fee: number
+    discount: number
   }
   
   export interface CouponModelServer{

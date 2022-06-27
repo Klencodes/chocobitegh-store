@@ -31,6 +31,9 @@ export class ChangeAddressComponent implements OnInit {
 
     this.fetchUserAddresses();
   }
+  /**
+   * Fetch user addresses
+   */
   fetchUserAddresses() {
     this.isProcessing = true;
     this.userService.fetchUserAddresses((error, result) => {
@@ -39,7 +42,10 @@ export class ChangeAddressComponent implements OnInit {
         this.addresses = result.results;
       }
     })  }
-
+    /**
+     * Set delivery address
+     * @address params
+     */
   selectDeliveryAddress(address) {
     this.userService.updateUserPrimaryAddress({ address_id: address.id, address_state: true }, (error, result) => {
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {

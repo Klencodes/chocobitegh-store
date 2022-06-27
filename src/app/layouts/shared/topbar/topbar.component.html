@@ -8,7 +8,8 @@
             <div class="widgets-wrap d-xl-flex">
                 <div class="widget-header ms-2">
                     <a class="icon icon-sm bg-gray-200" [routerLink]="['/cart']">
-                        <i class="fe fe-shopping-bag fe-lg"></i> <span class="notify">{{cartData?.data?.length}}</span>
+                        <i class="fe fe-shopping-bag fe-lg pb-1"></i>
+                         <span class="notify" *ngIf="cartData?.data[0].product">{{cartData?.data?.length}}</span>
                     </a>
                 </div>
                 <div class="widget-header dropdown mx-3">

@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="itemside align-items-center">
             <div class="aside">
-                <img src="assets/images/avatars/avatar.jpg" class="icon-md img-avatar">
+                <img src="assets/images/avatar1.jpg" class="icon-md img-avatar">
             </div>
             <div class="info">
                 <h6 class="title">{{userDetails?.full_name}}</h6>
@@ -15,7 +15,7 @@
         <p class="form-label mb-2">Delivery addresses</p>
         <div class="row g-2 mb-3">
             <div class="col-md-6" *ngFor="let address of userDetails?.addresses">
-                <article class="box">
+                <article class="box cursor-pointer" (click)="selectDeliveryAddress(address)" tooltop="Click to set active">
                     <div class="mx-2 d-flex justify-content-between">
                         <span>
                             <i class="fe fe-map-pin"></i>
@@ -32,7 +32,7 @@
         </div>
         <a class="btn btn-outline-primary" (click)="addAddress()">
             <i class="me-2 fe fe-plus"></i> Add new address </a>
-        <hr>
+        <!-- <hr>
         <p class="form-label mb-2">Payment methods</p>
         <div class="row g-2 mb-3">
             <div class="col-md-6">
@@ -42,9 +42,9 @@
                             <i class="fe fe-credit-card"></i>
                         </b> Visa •••• 9905, Exp: 12/21
                     </span>
-                    <!-- <span class="address-primary-icon">
+                    <span class="address-primary-icon">
                         <img src="assets/images/svg/mark-circle.svg" alt="">
-                    </span> -->
+                    </span>
                 </article>
             </div>
 
@@ -64,7 +64,7 @@
         <a href="#" class="btn btn-outline-primary">
             <i class="me-2 fe fe-plus"></i>
             Add payment method
-        </a>
+        </a> -->
 
         <hr>
         <p class="form-label mb-2 mt-3">Useful info</p>

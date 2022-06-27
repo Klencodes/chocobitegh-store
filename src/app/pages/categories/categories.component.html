@@ -6,7 +6,7 @@
         <div class="col-6 col-md-4 col-lg-3" *ngFor="let item of categories">
             <div class="card card-product-grid" (click)="viewCatDetails(item)">
                 <div class="img-wrap">
-                    <img [src]="item?.image" alt="assets/images/misc/category.png">
+                    <img [src]="item?.image">
                     <span class="topbar"> <span class="badge bg-success"> New </span> </span>
                 </div>
                 <div class="info-wrap">

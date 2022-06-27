@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ResponseStatus } from 'src/app/core/enums/enums';
 import { ProductModel } from 'src/app/core/models/product';
 import { CartService } from 'src/app/core/services/api-calls/cart.service';
 import { ProductService } from 'src/app/core/services/api-calls/product.service';
+import { UserService } from 'src/app/core/services/api-calls/user.service';
 
 import SwiperCore, { FreeMode, Navigation, Thumbs } from "swiper";
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
@@ -19,11 +20,17 @@ export class ProductDetailsComponent implements OnInit {
   productDetails: ProductModel;
   thumbsSwiper: any;
   isProcessing: boolean;
+  isSavingItem: boolean;
+  page = 1;
+  listArrayOfProducts: ProductModel[] = [];
+  displayedList: ProductModel[] = [];
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
     private cartService: CartService,
+    private userService: UserService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,8 +40,28 @@ export class ProductDetailsComponent implements OnInit {
       }
     })
     this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Products', link: '/products' }, { label: 'Product Details', active: true }];
+    this.fetchRelatedProducts()
   }
-
+  /**
+     * View product details
+     * @param product 
+     */
+   viewProductDetails(product) {
+    this.router.navigate(['/product-details', product.name, product.id])
+}
+  /**
+   * Fetch related products
+   */
+  fetchRelatedProducts() {
+    this.isProcessing = true;
+    this.productService.fetchProducts(this.page, (error, result) => {
+      this.isProcessing = false;
+      if (result !== null) {
+        this.listArrayOfProducts = result.results;
+        this.displayedList = [...this.listArrayOfProducts];
+      }
+    })
+  }
   /**
    * Fetch product details
    * @param productId 
@@ -48,7 +75,14 @@ export class ProductDetailsComponent implements OnInit {
       }
     })
   }
+  saveNewItem() {
+    this.isSavingItem = true;
+    this.userService.saveItem({ product_id: this.productDetails.id }, (error, result) => {
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
 
+      }
+    })
+  }
   /**
    * Add to cart
    */

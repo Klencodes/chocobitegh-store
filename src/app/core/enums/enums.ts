@@ -15,17 +15,23 @@ export enum DelievryOptionEnums {
   PICK_UP = 'PICK_UP',
 
 }
+export enum NetworkProviders {
+  MTN = 'MTN',
+  AIR = 'AIR',
+  VODA = 'VODA',
+  TIGO = 'TIGO',
+}
 export enum ResponseStatus {
   SUCCESSFUL = 'SUCCESSFUL',
   FAILED = 'FAILED',
-
 }
 export enum OrderStatus {
   PLACED = 'PLACED',
   ACCEPTED = 'ACCEPTED',
   IN_TRANSIT = 'IN_TRANSIT',
   DELIVERED = 'DELIVERED',
-
+  CANCELLED = 'CANCELLED',
+  RETURNED = 'RETURNED',
 }
 
 export enum UserType {

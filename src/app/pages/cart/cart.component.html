@@ -1,13 +1,13 @@
 <div class="container">
     <app-pagetitle [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
-    <div class="bg-cover-centered" *ngIf="cartData?.data?.length <= 0">
+    <div class="bg-cover-centered" *ngIf="cartData?.data?.length <= 0 || cartData?.data[0].product == undefined">
         <div class="bg-cover-centered-box">
             <div class="d-flex-center">
                 <article class="card">
                     <div class="card-body">
-                        <div class="mt-4 mx-auto text-center" style="max-width:600px">
-                            <img src="assets/images/svg/shopping-complete.svg" alt="">
+                        <div class="my-4 mx-auto text-center" style="max-width:600px">
+                            <img src="assets/images/svg/shopping-bag.svg" alt="">
                             <div class="my-3">
                                 <h4>Your cart is empty</h4>
                                 <p>Before proceeding to checkout, you must add an item to your shopping.
@@ -23,16 +23,16 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="cartData?.data?.length > 0">
+    <div class="row" *ngIf="cartData?.data[0].product">
         <div class="col-md-9">
             <div class="d-flex justify-content-between mb-3">
-                <div class="main-page-title">Item in cart ({{cartData?.data?.length}})</div>
+                <div class="main-page-title h5">Item in cart ({{cartData?.data?.length}})</div>
                 <div class="main-page-title cursor-pointer" (click)="clearCart()">Clear cart</div>
             </div>
             <article class="card card-body mb-2" *ngFor="let item of cartData?.data">
                 <div class="row gy-3 align-items-center">
                     <div class="col-md-6">
-                        <a href="#" class="itemside align-items-center">
+                        <a class="itemside align-items-center">
                             <div class="aside">
                                 <img [src]="item?.product?.image" height="72" width="72" class="img-thumbnail img-sm">
                             </div>
@@ -44,19 +44,20 @@
                     </div>
                     <div class="col-auto">
                         <div class="input-group input-spinner">
-                            <a class="cart-item-btn" type="button" (click)="updateCart(item?.product, false)">
+                            <a class="btn btn-primary" [class.disabled]="item?.numInCart <=1" type="button" (click)="updateCart(item?.product, false)" style="width: 32px;">
                                 <i class="fe fe-minus fe-md"></i>
                             </a>
                             <input readonly type="text" class="form-control" value="{{item?.numInCart}}"
                                 style="width: 40px;">
-                            <a class="cart-item-btn" type="button" (click)="updateCart(item?.product, true)">
+                            <a class="btn btn-primary" type="button" (click)="updateCart(item?.product, true)" style="width: 32px;">
                                 <i class="fe fe-plus fe-md"></i>
                             </a>
                         </div>
                     </div>
                     <div class="col"> <strong class="price text-dark">{{item?.product?.currency}} {{item?.numInCart *
                             item?.product?.new_price | priceDecimal}} </strong> </div>
-                    <div class="col text-end"> <a href="#">
+                    <div class="col text-end"> 
+                        <a (click)="removeCartItem(item?.product)">
                          <i class="fa fa-trash"></i>
                         </a>
                     </div>
@@ -67,27 +68,29 @@
         <aside class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <div class="input-group mb-3"> <input type="text" class="form-control" placeholder="Promo code">
-                        <button class="btn btn-light text-primary">Apply</button>
+                    <div class="input-group mb-3">
+                         <input type="text" class="form-control" placeholder="Promo code" [formControl]="couponCodeCtrl">
+                        <button class="btn btn-primary" type="button" (click)="applyCoupon()">Apply</button>
                     </div>
                     <dl class="dlist-align">
                         <dt>Total price:</dt>
-                        <dd class="text-end"> GHS1403.97</dd>
+                        <dd class="text-end"> GHS {{cartData?.total | priceDecimal}}</dd>
                     </dl>
                     <dl class="dlist-align">
                         <dt>Discount:</dt>
-                        <dd class="text-end text-success"> - GHS60.00 </dd>
+                        <dd class="text-end text-danger"> - GHS {{cartData?.discount | priceDecimal}} </dd>
                     </dl>
-                    <dl class="dlist-align">
+                    <!-- <dl class="dlist-align">
                         <dt>TAX:</dt>
                         <dd class="text-end text-danger"> + GHS14.00 </dd>
-                    </dl>
+                    </dl> -->
                     <dl class="dlist-align">
                         <dt>Total:</dt>
-                        <dd class="text-end text-dark h5"> GHS1357.97 </dd>
+                        <dd class="text-end text-dark"> <strong>GHS {{cartData?.total - cartData?.discount | priceDecimal}}</strong> </dd>
                     </dl>
                     <hr>
-                    <p class="text-center mt-3"> <img src="assets/images/misc/payments.png" height="24">
+                    <p class="text-center mt-3"> 
+                        <!-- <img src="assets/images/misc/payments.png" height="24"> -->
                     </p>
                     <a (click)="checkout()" class="btn btn-primary mb-3 w-100">Checkout</a>
                     <a [routerLink]="['/']" class="btn btn-outline-primary w-100">Continue Shopping</a>

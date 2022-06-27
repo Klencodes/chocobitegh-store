@@ -59,7 +59,7 @@ a {
 }
 
 .btn {
-    border-radius: 0.25rem !important;
+    border-radius: 0.25rem;
 }
 .vw-100 {
     width: 100vw !important;
@@ -264,11 +264,16 @@ a:hover>.img-thumbnail {
     height: 72px;
     font-size: 32px
 }
+.cat-slider-bg {
+    background-color: white; 
+    padding: 10px 10px 15px;
+ }
 .img-wrap-bg{
-    background-color: orange;
+    background-color: #c77806;
     padding: 6px 0px;
     color: $white;
     font-size: 15px;
+    min-height: 160px;
 }
 .img-xs,
 .img-sm,
@@ -1003,7 +1008,7 @@ a[class*=card]:hover .title {
 
 .form-control {
     background-color: transparent !important;
-    border-radius: 0.25rem !important;
+    border-radius: 0.25rem;
 }
 
 .form-control:focus,
@@ -2443,4 +2448,19 @@ table tr td {
     min-width: 30vw !important;
     max-width: 45rem !important;
     box-shadow: 0px 0px 24px rgba(92, 90, 90, 0.18) !important;
+}
+.page-loading{
+    z-index: 1000;
+}
+.swal2-styled:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+.swal2-styled.swal2-confirm {
+    background-color: $primary !important;
+    font-size: 14px !important;
+}
+.swal2-styled.swal2-cancel {
+    background-color: $danger !important;
+    font-size: 14px !important;
 }
