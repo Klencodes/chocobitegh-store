@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  BASE_URL: 'http://127.0.0.1:8000/api/v1/'
-  // BASE_URL: 'https://cocobytes-test-api.herokuapp.com/api/v1/'
+  // BASE_URL: 'http://127.0.0.1:8000/api/v1/'
+  BASE_URL: 'https://cocobytes-test-api.herokuapp.com/api/v1/'
 };
 
 /*
