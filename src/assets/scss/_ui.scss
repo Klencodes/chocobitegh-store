@@ -2233,7 +2233,10 @@ ul.row {
     }
 
 }
-
+.toast-container .ngx-toastr{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
 .toast-info {
     background-color: rgba($info, 1) !important;
     border: 2px solid $info  !important;

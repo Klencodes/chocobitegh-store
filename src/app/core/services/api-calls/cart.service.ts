@@ -20,8 +20,9 @@ export class CartService {
       { quantity: 0, product_id: 0 }
     ],
     total: 0,
-    delivery_fee: 20,
-    discount: 0
+    // coupon_code: '',
+    // delivery_fee: 20,
+    // discount: 0
   }; // This will be sent to the backend Server as post data
 
   // Cart Data variable to store the cart information on the server (Angular not Backend)
@@ -33,6 +34,7 @@ export class CartService {
       },
     ],
     total: 0,
+    coupon_code: '',
     delivery_fee: 20,
     discount: 0
   };
@@ -73,6 +75,12 @@ export class CartService {
             if (this.cartDataServer.data[0].numInCart === 0) {
               this.cartDataServer.data[0].numInCart = dataCart.quantity;
               this.cartDataServer.data[0].product = actualProdInfo;
+              // if(info.discount !== null && info.discount !== undefined){
+              //   this.cartDataServer.discount = info.discount;
+              // }
+              // if(info.delivery_fee !== null && info.delivery_fee !== undefined){
+              //   this.cartDataServer.delivery_fee = info.delivery_fee;
+              // }
               this.calculateTotal();
               this.cartDataClient.total = this.cartDataServer.total;
               localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
@@ -225,12 +233,11 @@ export class CartService {
     this.couponVal = data;
     const cData = { total_amount: this.cartDataClient.total, coupon_code: data }
     this.orderService.claimCoupon(cData, (error, result) => {
-      localStorage.setItem('code', data)
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
         const coupon = result.results;
         if (coupon) {
-          this.cartDataClient.discount = coupon.discount_amount;
-          this.cartDataServer.discount = this.cartDataClient.discount;
+          this.cartDataServer.discount = coupon.discount_amount;
+          this.cartDataServer.coupon_code =  coupon.code;
           localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
           this.cartDataObs$.next({ ...this.cartDataServer });
         }
@@ -250,7 +257,6 @@ export class CartService {
     this.spinner.hide().then();
     this.orderService.createOrder(orderData, (error, result) => {
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        localStorage.removeItem('code')
         this.emptyCartServer();
         this.emptyCartClient();
         const navigationExtras: NavigationExtras = {
@@ -263,7 +269,7 @@ export class CartService {
       } else {
         this.spinner.hide().then();
         this.router.navigateByUrl('/checkout').then();
-        this.toast.error(`Sorry, failed to place your order`, "Order Status")
+        this.toast.error(result.message, '')
       }
     })
 
@@ -327,8 +333,6 @@ export class CartService {
     this.cartDataClient = {
       prodData: [{ quantity: 0, product_id: 0 }],
       total: 0,
-      delivery_fee: 0,
-      discount: 0
     };
     localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
   }
@@ -338,6 +342,7 @@ export class CartService {
       data: [
         { product: undefined, numInCart: 0 }],
       total: 0,
+      coupon_code: '',
       delivery_fee: 0,
       discount: 0
     };

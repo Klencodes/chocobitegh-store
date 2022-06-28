@@ -30,6 +30,7 @@ export class CheckoutComponent implements OnInit {
   networkProviders = NetworkProviders
   stateCities;
   deliveryFee;
+  couponCode;
   constructor(
     private localAuth: LocalAuthService,
     private userService: UserService,
@@ -47,7 +48,6 @@ export class CheckoutComponent implements OnInit {
     this.user = this.localAuth.userObj,
       this.cartService.cartDataObs$.subscribe(data => {
         this.cartData = data;
-        this.deliveryFee = this.cartData.delivery_fee
       })
   }
 
@@ -80,9 +80,9 @@ export class CheckoutComponent implements OnInit {
     this.userCheckoutData = new FormGroup({
       is_guest_checkout: new FormControl(false, [Validators.required]),
       address_id: new FormControl('', [Validators.required]),
-      coupon_code: new FormControl(''),
+      coupon_code: new FormControl(this.cartData.coupon_code),
       order_note: new FormControl(''),
-      delivery_fee: new FormControl(this.deliveryFee),
+      delivery_fee: new FormControl(this.cartData.delivery_fee),
       delivery_method: new FormControl(this.deliveryOptions.NORMAL, [Validators.required]),
       payment_method: new FormControl(this.paymentOptions.MOMO, [Validators.required]),
       network_provider: new FormControl(this.networkProviders.MTN, [Validators.required]),
@@ -92,10 +92,6 @@ export class CheckoutComponent implements OnInit {
       // card_expiry_date: new FormControl('', [Validators.required]),
       // card_cvv: new FormControl('', [Validators.required]),
     })
-    const couponCode = localStorage.getItem('code')
-    if(couponCode){
-      this.coupon_code.setValue(localStorage.getItem('code'))
-    }
     // this.formValidators();
     //Breadcrumb items
     this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Checkout', active: true }];

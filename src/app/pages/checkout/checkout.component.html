@@ -374,12 +374,12 @@
                     </dl> -->
                     <dl class="dlist-align">
                         <dt class="form-label">Delivery fee:</dt>
-                        <dd class="text-end text-success"> + GHS {{deliveryFee | priceDecimal}} </dd>
+                        <dd class="text-end text-success"> + GHS {{cartData.delivery_fee | priceDecimal}} </dd>
                     </dl>
                     <hr>
                     <dl class="dlist-align">
                         <dt class="form-label"> Total: </dt>
-                        <dd class="text-end"> <strong class="text-dark">GHS {{cartData?.total - cartData?.discount + deliveryFee | priceDecimal}}</strong> </dd>
+                        <dd class="text-end"> <strong class="text-dark">GHS {{cartData?.total - cartData?.discount + cartData.delivery_fee | priceDecimal}}</strong> </dd>
                     </dl>
 
                 </article>
