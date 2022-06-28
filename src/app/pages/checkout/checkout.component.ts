@@ -48,7 +48,6 @@ export class CheckoutComponent implements OnInit {
       this.cartService.cartDataObs$.subscribe(data => {
         this.cartData = data;
         this.deliveryFee = this.cartData.delivery_fee
-        console.log(this.cartData, 'this.cartData')
       })
   }
 
@@ -81,7 +80,7 @@ export class CheckoutComponent implements OnInit {
     this.userCheckoutData = new FormGroup({
       is_guest_checkout: new FormControl(false, [Validators.required]),
       address_id: new FormControl('', [Validators.required]),
-      coupon_code: new FormControl(localStorage.getItem('code')),
+      coupon_code: new FormControl(''),
       order_note: new FormControl(''),
       delivery_fee: new FormControl(this.deliveryFee),
       delivery_method: new FormControl(this.deliveryOptions.NORMAL, [Validators.required]),
@@ -93,6 +92,10 @@ export class CheckoutComponent implements OnInit {
       // card_expiry_date: new FormControl('', [Validators.required]),
       // card_cvv: new FormControl('', [Validators.required]),
     })
+    const couponCode = localStorage.getItem('code')
+    if(couponCode){
+      this.coupon_code.setValue(localStorage.getItem('code'))
+    }
     // this.formValidators();
     //Breadcrumb items
     this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Checkout', active: true }];
@@ -202,6 +205,7 @@ export class CheckoutComponent implements OnInit {
   get address_id() { return this.userCheckoutData.get('addres_id') }
   get delivery_method() { return this.userCheckoutData.get('delivery_method') }
   get payment_method() { return this.userCheckoutData.get('payment_method') }
+  get coupon_code() { return this.userCheckoutData.get('coupon_code') }
   get card_holder() { return this.userCheckoutData.get('card_holder') }
   get card_number() { return this.userCheckoutData.get('card_number') }
   get card_expiry_date() { return this.userCheckoutData.get('card_expiry_date') }

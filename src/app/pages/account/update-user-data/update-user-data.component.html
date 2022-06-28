@@ -1,0 +1,145 @@
+<p>update-user-data works!</p>
+<perfect-scrollbar style="height: 80vh;" [config]="configData">
+    <div class="dialog-wrapper" style="max-width: 500px;">
+        <div class="dialog-head">
+            <span class="dialog-head-title"> {{dialogTitle}}</span>
+            <span (click)="closeDialog()"> <i class="ri-close-line"></i> </span>
+        </div>
+
+        <mat-divider class="no-spacing"></mat-divider>
+        <div class="dialog-body">
+            <div *ngIf="data.isPassChange">
+                <form [formGroup]="userDataForm" (ngSubmit)="onSubmit(userDataForm?.value)">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="fname">First Name</label>
+                                <input decimalOnly type="text" class="form-control" id="fname" formControlName="first_name" placeholder="First Name">
+                                <div *ngIf="!first_name?.valid && first_name?.touched" class="error-message">First name
+                                    is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="lname">Last Name</label>
+                                <input decimalOnly type="text" class="form-control" id="lname" formControlName="last_name" placeholder="Last Name">
+                                <div *ngIf="!last_name?.valid && last_name?.touched" class="error-message">Last name
+                                    is required</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <mat-divider class="no-spacing"></mat-divider>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <span class="pull-right">
+                                <button type="button" class="btn btn-outline-secondary mx-3" (click)="closeDialog()">
+                                    Cancel</button>
+                                <button class="btn btn-primary" type="submit" [disabled]="isProcessing">
+                                    <span *ngIf="isProcessing" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Update Profile</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="!data.isPassChange">
+
+                <form [formGroup]="userPasswordForm" (ngSubmit)="onSubmit(userPasswordForm?.value)">
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="pass">Current Password </label>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control remove-border-right" formControlName="current_password"
+                                            [type]="hideCurrentPassword? 'password' : 'text'" placeholder="Provide your current password">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-light remove-border-left" type="button"
+                                                (click)="hideCurrentPassword = !hideCurrentPassword">
+                                                <i *ngIf="hideCurrentPassword" class="fe fe-eye-off"></i>
+                                                <i *ngIf="!hideCurrentPassword" class="fe fe-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="error-message" *ngIf="userPasswordForm.get('current_password').errors">
+                                        <div *ngIf="userPasswordForm.get('current_password').errors['required']">Current password is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="pass">Password </label>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control remove-border-right" formControlName="password"
+                                            [type]="hidePassword? 'password' : 'text'" placeholder="6+ characters required">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-light remove-border-left" type="button"
+                                                (click)="hidePassword = !hidePassword">
+                                                <i *ngIf="hidePassword" class="fe fe-eye-off"></i>
+                                                <i *ngIf="!hidePassword" class="fe fe-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="error-message" *ngIf="userPasswordForm.get('password').errors">
+                                        <div *ngIf="userPasswordForm.get('password').errors['required']">Password is
+                                            required</div>
+                                        <div *ngIf="userPasswordForm.get('password').hasError['minLength']">Password
+                                            must be
+                                            at least 6 characters</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="pass">Confirm Password</label>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control remove-border-right"
+                                            formControlName="confirm_password"
+                                            [type]="hidePassword? 'password' : 'text'"
+                                            placeholder="Re-Type Password">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-light remove-border-left" type="button"
+                                                (click)="hidePassword = !hidePassword">
+                                                <i *ngIf="hidePassword" class="fe fe-eye-off"></i>
+                                                <i *ngIf="!hidePassword" class="fe fe-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="error-message"
+                                        *ngIf="userPasswordForm.get('confirm_password').errors">
+                                        <div *ngIf="userPasswordForm.get('confirm_password').errors['required']">
+                                            Confirm
+                                            Password is required</div>
+                                        <div *ngIf="userPasswordForm.get('confirm_password').errors['mustMatch']">
+                                            Passwords
+                                            must match</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <mat-divider class="no-spacing"></mat-divider>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <span class="pull-right">
+                                <button type="button" class="btn btn-outline-secondary mx-3" (click)="closeDialog()">
+                                    Cancel</button>
+                                <button class="btn btn-primary" type="submit" [disabled]="isProcessing">
+                                    <span *ngIf="isProcessing" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Change Password</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</perfect-scrollbar>

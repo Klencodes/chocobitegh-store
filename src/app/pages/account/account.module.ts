@@ -9,11 +9,13 @@ import { AccountComponent } from './account.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { SharedModule } from '../shared/shared.module';
-import { AddAddressOrPaymentComponent } from './add-address-or-payment/add-address-or-payment.component';
 import { AddOrEditAddressComponent } from './add-or-edit-address/add-or-edit-address.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedPipesModule } from 'src/app/core/pipes/shared-pipes-module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { UpdateUserDataComponent } from './update-user-data/update-user-data.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { MaterialModule } from 'src/app/core/modules/material.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     AccountComponent,
     TransactionsComponent,
     WishlistComponent,
-    AddAddressOrPaymentComponent,
     AddOrEditAddressComponent,
+    UpdateUserDataComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ReactiveFormsModule,
     SharedPipesModule,
     InfiniteScrollModule,
+    PerfectScrollbarModule,
+    MaterialModule
   ]
 })
 export class AccountModule { }

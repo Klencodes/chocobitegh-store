@@ -3,7 +3,7 @@
         <table class="table" style="margin-bottom: 0px">
             <tbody style="white-space: no-wrap;">
                 <tr>
-                    <td>
+                    <td (click)="viewOrderDetails(order)" class="cursor-pointer">
                         <div class="row orders-align" *ngIf="order?.order_items?.length > 2">
                             <div class="col-6" *ngFor="let item of order?.order_items.slice(0,4)">
                                 <img style="width: 40px; height: 42px" [src]="item?.product?.image">
@@ -44,7 +44,7 @@
                         <dd>{{order?.currency}} {{order?.total}}</dd>
                     </td>
                     <td class="text-center">
-                        <button class="btn btn-outline-secondary mx-2" (click)="viewOrderDetails(order)"><i
+                        <button class="btn btn-outline-secondary mx-2" (click)="repeatOrder(order)"><i
                                 class="fe fe-repeat"></i></button>
                         <button class="btn btn-outline-primary" (click)="viewOrderDetails(order)"><i
                                 class="fe fe-eye"></i></button>

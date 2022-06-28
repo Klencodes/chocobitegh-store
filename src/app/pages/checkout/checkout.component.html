@@ -366,7 +366,7 @@
                     </dl>
                     <dl class="dlist-align">
                         <dt>Discount:</dt>
-                        <dd class="text-end text-danger"> - GHS {{cartData?.discount || 0}} </dd>
+                        <dd class="text-end text-danger"> - GHS {{cartData?.discount | priceDecimal}} </dd>
                     </dl>
                     <!-- <dl class="dlist-align">
                         <dt>TAX:</dt>
@@ -374,12 +374,12 @@
                     </dl> -->
                     <dl class="dlist-align">
                         <dt class="form-label">Delivery fee:</dt>
-                        <dd class="text-end text-success"> + GHS {{deliveryFee}} </dd>
+                        <dd class="text-end text-success"> + GHS {{deliveryFee | priceDecimal}} </dd>
                     </dl>
                     <hr>
                     <dl class="dlist-align">
                         <dt class="form-label"> Total: </dt>
-                        <dd class="text-end"> <strong class="text-dark">GHS {{cartData?.total - cartData?.discount | priceDecimal}}</strong> </dd>
+                        <dd class="text-end"> <strong class="text-dark">GHS {{cartData?.total - cartData?.discount + deliveryFee | priceDecimal}}</strong> </dd>
                     </dl>
 
                 </article>

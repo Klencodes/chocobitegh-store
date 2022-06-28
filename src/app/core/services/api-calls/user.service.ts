@@ -108,6 +108,21 @@ export class UserService {
       this.toast.error(error.message, '')
     })
   }
+  /** Change customer password
+  * @data data to submit
+  * @callback ICallback function that returns an error or result
+  */
+  changePassword(data, callback: ICallback) {
+    this.dataProvider.updateData(this.constantValues.CHANGE_PASSWORD_ENDPOINT, data).subscribe(result => {
+      callback(null, result)
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+        this.toast.success('', result.message)
+      }
+    }, error => {
+      callback(error, null)
+      this.toast.error(error.message, '')
+    })
+  }
   /** Update customer information
   * @data update data to submit
   * @callback ICallback function that returns an error or result

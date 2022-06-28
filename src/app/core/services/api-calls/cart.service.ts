@@ -127,6 +127,7 @@ export class CartService {
           if (index !== -1) {
             if (quantity !== undefined && quantity <= product.quantity) {
               this.cartDataServer.data[index].numInCart = this.cartDataServer.data[index].numInCart < product.quantity ? quantity : product.quantity;
+              this.cartDataServer.data[index].numInCart = this.cartDataServer.data[index].numInCart < product.quantity ? quantity : product.quantity;
             } else {
               this.cartDataServer.data[index].numInCart < product.quantity ? this.cartDataServer.data[index].numInCart++ : product.quantity;
             }
@@ -245,7 +246,7 @@ export class CartService {
    * Here Customer payment info is sent together with order
    */
   checkoutCart(data) {
-    const orderData = { 'order_items': this.cartDataClient.prodData, customer: data };
+    const orderData = { order_items: this.cartDataClient.prodData, customer: data };
     this.spinner.hide().then();
     this.orderService.createOrder(orderData, (error, result) => {
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
