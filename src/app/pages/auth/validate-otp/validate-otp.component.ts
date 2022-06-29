@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/core/services/api-calls/auth.service';
 export class ValidateOtpComponent implements OnInit {
   otpCtrl: FormControl = new FormControl('', [Validators.required])
   isVerifying: boolean;
+  isProcessing: boolean;
   btnText = 'Verify';
   configData: { suppressScrollX: boolean; wheelSpeed: number; };
   otp: number;
@@ -18,6 +19,7 @@ export class ValidateOtpComponent implements OnInit {
     allowNumbersOnly: true, length: 6, disableAutoFocus: false, placeholder: '_',
     inputStyles: { 'width': '40px', 'height': '50px' }
   };
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -28,7 +30,10 @@ export class ValidateOtpComponent implements OnInit {
   ngOnInit(): void {
     this.configData = { suppressScrollX: true, wheelSpeed: 0.3 };
   }
-
+  /**
+   * Submit verify Otp data to server
+   * @param otpValue event
+   */
   onOtpChange(otpValue) {
     if (otpValue?.length === 6) {
       if (this.data.isNew) {
@@ -56,7 +61,20 @@ export class ValidateOtpComponent implements OnInit {
       }
     }
   }
-
+  /**
+   * Resend Otp if user does not receive Otp
+   */
+  resendOTP() {
+    this.isProcessing = true;
+    this.authService.sendOtp({ phone_number: this.data.formData.phone_number }, (error, result) => {
+      console.log(result, 'RESUKT')
+      this.isProcessing = false;
+      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) { }
+    })
+  }
+  /**
+   * Close dialog
+   */
   closeDialog() {
     this.dialogRef.close(true)
   }

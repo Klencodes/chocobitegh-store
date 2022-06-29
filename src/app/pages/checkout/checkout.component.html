@@ -209,6 +209,7 @@
                                                    <button class="btn btn-primary" type="button" (click)="addUserAddress()">Add address</button>
                                                 </div>
                                             </article>
+                                            <div *ngIf="!deliveryAddress && submitted" class="error-message"> Address is required</div>
                                         </div>
                                     </div>
 

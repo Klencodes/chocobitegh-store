@@ -18,6 +18,7 @@ import { ChangeAddressComponent } from './change-address/change-address.componen
 export class CheckoutComponent implements OnInit {
   breadCrumbItems: Array<{}>;
   user: UserModel;
+  submitted = false;
   isGuestCheckout = true;
   deliveryAddress;
   isProcessing: boolean;
@@ -162,7 +163,8 @@ export class CheckoutComponent implements OnInit {
    */
   onCheckout(data) {
     if(this.userCheckoutData.invalid){
-      console.log('LOGGING DATA')
+      this.submitted = true;
+      this.userCheckoutData.markAllAsTouched();
       this.toast.error('Please enter all the required fields')
       return;
     }
@@ -170,8 +172,6 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  submitDta() {
-  }
 
   formValidators() {
     this.payment_method.valueChanges.subscribe(value => {

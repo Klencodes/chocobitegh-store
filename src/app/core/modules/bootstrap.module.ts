@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbPaginationModule, NgbTypeaheadModule, 
           NgbDropdownModule, NgbNavModule, NgbModalModule, 
-          NgbProgressbarModule, NgbAccordionModule, NgbButtonsModule, 
+          NgbProgressbarModule, NgbAccordionModule, 
           NgbCarouselModule, NgbCollapseModule, NgbPopoverModule,
           NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 

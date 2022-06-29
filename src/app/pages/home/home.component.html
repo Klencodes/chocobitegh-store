@@ -1,21 +1,14 @@
 <div class="banner-section">
-    <swiper class="banner-size" [loop]="true" [autoHeight]="true" [allowTouchMove]="true" [slidesPerView]="1"
+    <swiper class="banner-size" [loop]="false" [autoHeight]="true" [allowTouchMove]="true" [slidesPerView]="1"
         [spaceBetween]="0" [autoplay]="{ delay: 10000, disableOnInteraction: true }" [pagination]="{ clickable: true }"
         [navigation]="true">
         <!-- Banner Image s -->
-        <ng-template swiperSlide>
+        <ng-template swiperSlide *ngFor="let item of displayBanners">
             <div class="text-center banner-text">
-                <h1 class="text-white">Chocolate at a click</h1>
-                <p class="text-white">Discover the best chocolate and drinks in your area</p>
+                <h1 class="text-white">{{item?.name}}</h1>
+                <p class="text-white">{{item?.description}}</p>
             </div>
-            <img class="banner-image" src="assets/images/bg-cafe.jpg" alt="">
-        </ng-template>
-        <ng-template swiperSlide>
-            <div class="text-center banner-text">
-                <h1 class="text-white">Order your chocolates online now</h1>
-                <p class="text-white">Discover the best chocolate and drinks in your area</p>
-            </div>
-            <img class="banner-image" src="assets/images/bg-cafe.jpg" alt="">
+            <img class="banner-image" [src]="item?.image">
         </ng-template>
     </swiper>
 </div>

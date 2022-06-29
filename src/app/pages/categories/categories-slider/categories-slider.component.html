@@ -10,8 +10,8 @@
         <ng-template swiperSlide class="category-slider" *ngFor="let item of categories">
             <div (click)="viewCatDetails(item)">
                 <div class="img-wrap-bg">
-                    <img *ngIf="item?.image" class="img-md img-wrap-round mb-2" [src]="item?.image">
-                    <img *ngIf="!item?.image" class="img-md img-wrap-round mb-2" src="assets/images/misc/product-placeholder.png">
+                    <img *ngIf="item?.image" class="img-md img-wrap-squared mb-2" [src]="item?.image">
+                    <img *ngIf="!item?.image" class="img-md img-wrap-squared mb-2" src="assets/images/misc/product-placeholder.png">
                     <p class="mb-0 p-1 title">{{item?.name}}</p>
                 </div>
             </div>

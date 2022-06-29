@@ -1,3 +1,5 @@
+import { UserModel } from "./user";
+
 export class ProductModel {
   id: number;
   category: CategoryModel[];
@@ -15,10 +17,12 @@ export class ProductModel {
   product_state: string;
   sku: string;
   quantity: number;
-  weight: string;
   unit: string;
   slug: string;
+  weight: string;
   tags: string;
+  rating: number;
+  reviews: ReviewModel[];
   isSelected: boolean;
   sales: string;
   sales_count: string;
@@ -38,4 +42,36 @@ export class ExtraImages {
   id: string;
   image: string;
   is_active: boolean;
+}
+
+export class BannerModel {
+  id: number;
+  image: string;
+  name: string;
+  description: string;
+}
+
+export class ReviewModel {
+  id: number;
+  title: string;
+  summary: string;
+  likes: number;
+  dislikes: number;
+  rating: number;
+  date_created: string;
+  date_updated: string;
+  reviewer_ip: string;
+  reviewer: UserModel;
+  replies: ReplyModel[]
+
+}
+
+export class ReplyModel {
+  id: number;
+  title: string;
+  summary: string;
+  reviewer_ip: string;
+  date_created: string;
+  date_updated: string;
+  reviewer: string;
 }

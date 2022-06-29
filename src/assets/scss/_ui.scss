@@ -58,15 +58,22 @@ a {
     color: $side-menu-link  !important;
 }
 
+.fs-13 {
+    font-size: 13px !important;
+}
+
 .btn {
     border-radius: 0.25rem;
 }
+
 .vw-100 {
     width: 100vw !important;
 }
+
 .vh-100 {
     height: 100vh !important;
 }
+
 .accordion-button:not(.collapsed)::after {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
     transform: rotate(-180deg);
@@ -264,17 +271,20 @@ a:hover>.img-thumbnail {
     height: 72px;
     font-size: 32px
 }
+
 .cat-slider-bg {
-    background-color: white; 
+    background-color: white;
     padding: 10px 10px 15px;
- }
-.img-wrap-bg{
-    background-color: #c77806;
+}
+
+.img-wrap-bg {
+    // background-color: #c77806;
     padding: 6px 0px;
-    color: $white;
+    color: $dark;
     font-size: 15px;
     min-height: 160px;
 }
+
 .img-xs,
 .img-sm,
 .img-md,
@@ -1396,6 +1406,7 @@ b.price,
     display: inline-block;
     list-style: none;
     margin: 0;
+    // vertical-align: sub;
     padding: 0;
     position: relative;
     white-space: nowrap;
@@ -1404,8 +1415,10 @@ b.price,
 
 .rating-stars i {
     font-size: 14px;
-    color: #ccc;
-    display: inline
+    // color: #ccc;
+    display: inline;
+    padding-right: 3px;
+    font-size: 15px;
 }
 
 .rating-stars img {
@@ -2120,18 +2133,20 @@ ul.row {
     margin-bottom: 30px;
 
     .banner-bg-size {
-        height: 280px !important;
+        height: 340px;
         width: 100% !important;
 
     }
 
     .banner-text {
         position: absolute !important;
+        // background-color: rgba($dark, .05);
+        // padding: 0px 10px;
     }
 
     .banner-image {
         width: 100% !important;
-        height: 280px !important;
+        height: 340px;
     }
 
     .swiper-button-next:after {
@@ -2171,28 +2186,14 @@ ul.row {
     width: 100%
 }
 
+
+.auth-box {
+    width: 30rem;
+}
+
 .bg-cover-centered-box {
     position: absolute;
     top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 30rem;
-    box-sizing: border-box;
-    border-radius: 0.525rem;
-}
-
-.auth-bg {
-    background: url('/assets/images/bg-cafe.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 100vh;
-    width: 100%
-}
-
-.auth-box {
-    position: absolute;
-    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 30rem;
@@ -2233,10 +2234,12 @@ ul.row {
     }
 
 }
-.toast-container .ngx-toastr{
+
+.toast-container .ngx-toastr {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
 }
+
 .toast-info {
     background-color: rgba($info, 1) !important;
     border: 2px solid $info  !important;
@@ -2452,18 +2455,80 @@ table tr td {
     max-width: 45rem !important;
     box-shadow: 0px 0px 24px rgba(92, 90, 90, 0.18) !important;
 }
-.page-loading{
+
+.page-loading {
     z-index: 1000;
 }
+
 .swal2-styled:focus {
     outline: 0;
     box-shadow: none !important;
 }
+
 .swal2-styled.swal2-confirm {
-    background-color: $primary !important;
+    background-color: $primary  !important;
     font-size: 14px !important;
 }
+
 .swal2-styled.swal2-cancel {
-    background-color: $danger !important;
+    background-color: $danger  !important;
     font-size: 14px !important;
 }
+
+.validate-close-icon {
+    position: relative;
+    right: -12px;
+    top: -32px;
+}
+
+.p-rating-star {
+    position: relative;
+    display: inline-block;
+    font-size: 2rem;
+    color: $gray;
+}
+
+.p-rating-full {
+    color: $primary;
+}
+
+.p-rating-half {
+    font-size: 2rem;
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: $primary;
+}
+.dialog-wrapper {
+    min-width: 45vw !important;
+  
+    .dialog-head {
+  
+      display: flex;
+      justify-content: space-between;
+  
+      .dialog-head-title {
+        line-height: 8px;
+        font-size: 17px;
+        font-weight: 600;
+      }
+  
+      span>i {
+        font-size: 20px;
+        position: relative;
+        cursor: pointer;
+        line-height: 8px;
+      }
+    }
+  
+    // .dialog-body{
+  
+    // }
+    .dialog-footer {
+      margin-top: 2rem;
+    }
+  
+  }
+  
+  
+  

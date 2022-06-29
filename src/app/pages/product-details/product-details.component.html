@@ -8,8 +8,10 @@
                     <article class="gallery-wrap">
                         <div class="img-big-wrap img-thumbnail">
                             <!-- Swiper Main Image -->
-                            <swiper style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff; margin-bottom: 1rem;"
-                                [loop]="true" [spaceBetween]="10" [navigation]="true" [thumbs]="{ swiper: thumbsSwiper }" class="mySwiper2">
+                            <swiper
+                                style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff; margin-bottom: 1rem;"
+                                [loop]="true" [spaceBetween]="10" [navigation]="true"
+                                [thumbs]="{ swiper: thumbsSwiper }" class="mySwiper2">
                                 <ng-template swiperSlide *ngFor="let item of productDetails?.extra_images">
                                     <img [src]="item?.image">
                                 </ng-template>
@@ -37,15 +39,26 @@
                         </div>
                         <div class="rating-wrap my-3">
                             <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active"> <img
-                                        src="assets/images/misc/stars-active.svg" alt=""> </li>
-                                <li> <img height="520" src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <b class="label-rating text-warning"> 4.5</b> <i class="dot"></i> <span
-                                class="label-rating text-muted"> <i class="fe fe-shopping-bag"></i> {{productDetails?.sales_count}} orders </span>
+                                <ng-template #t let-fill="fill">
+                                    <span class="p-rating-star" [class.full]="fill === 100">
+                                        <span class="p-rating-half" [style.width.%]="fill"><i
+                                                class="fa fa-star"></i></span><i class="fa fa-star"></i>
+                                    </span>
+                                </ng-template>
+                                <ngb-rating [rate]="productDetails?.rating" [starTemplate]="t" [readonly]="true"
+                                    [max]="5"></ngb-rating>
+
+                            </ul>
+                            <b class="label-rating text-primary">{{productDetails?.rating}}</b> <i class="dot"></i>
+                            <span class="label-rating text-muted">
+                                <i class="fe fe-shopping-bag"></i> {{productDetails?.sales_count}} orders </span>
                             <i class="dot"></i> <span class="label-rating text-success">Verified</span>
                         </div>
-                        <div class="mb-3"> <var class="price h5">{{productDetails?.new_price}}</var> <span class="text-muted">/per {{productDetails?.unit | lowercase}}</span>
-                           <del><span class="text-muted ml-3">{{productDetails?.currency}} {{productDetails?.old_price}}</span></del> 
+                        <div class="mb-3"> <var class="price h5"> {{productDetails?.currency}}
+                                {{productDetails?.new_price}}</var> <span class="text-muted">/per {{productDetails?.unit
+                                | lowercase}}</span>
+                            <del><span class="text-muted ml-3">{{productDetails?.currency}}
+                                    {{productDetails?.old_price}}</span></del>
                         </div>
                         <p [innerHTML]="productDetails?.description"></p>
                         <dl class="row">
@@ -59,12 +72,13 @@
                             <dd class="col-9">Russia, USA, and Europe </dd>
                         </dl>
                         <hr>
-                        
-                        <a class="btn btn-primary" [class.disabled]="!productDetails?.stock_availability" (click)="addToCart(productDetails?.id)">
-                            <i class="me-2 fe fe-shopping-cart"></i> 
+
+                        <a class="btn btn-primary" [class.disabled]="!productDetails?.stock_availability"
+                            (click)="addToCart(productDetails?.id)">
+                            <i class="me-2 fe fe-shopping-cart"></i>
                             <span>{{ !productDetails?.stock_availability ? "Out of stock": "Add to cart" }}</span>
-                         </a>
-                            <a class="btn btn-secondary mx-3" [routerLink]="['/checkout']"> Checkout </a>
+                        </a>
+                        <a class="btn btn-secondary mx-3" [routerLink]="['/checkout']"> Checkout </a>
                         <a class="btn btn-light" (click)="saveNewItem()"> <i class="me-2 fe fe-heart"></i> Save </a>
                     </article>
                 </div>
@@ -115,75 +129,96 @@
         </div>
     </div>
     <!-- Product Reviews Section -->
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-6">
-                    <h5 class="card-title">Reviews </h5>
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <h5 class="card-title">Reviews </h5>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-outline-primary float-end"
+                    (click)="writeOrReplyReview(productDetails?.id, false)">Write Review </button>
+            </div>
+        </div>
+        <hr>
+        <blockquote class="card" *ngFor="let review of productDetails?.reviews">
+            <div class="card-body">
+                <div class="border-bottom">
+                    <div class="float-lg-end d-flex mb-3">
+                        <div class="btn-group d-inline-flex me-2">
+                            <span class="mr-2">{{review?.likes}}</span>
+                            <a class="float-end mr-3" data-bs-toggle="tooltip"
+                                data-bs-title="Like">
+                                <i class="fe fe-thumbs-up align-middle"></i>
+                            </a>
+                            <span class="mr-2">{{review?.dislikes}}</span>
+                            <a class="mr-3 float-end" data-bs-toggle="tooltip"
+                                data-bs-title="Dislike">
+                                <i class="fe fe-thumbs-down align-middle"></i>
+                            </a>
+                        </div>
+                        <button class="float-end btn-sm btn btn-outline-primary" (click)="writeOrReplyReview(review?.id, true)"> 
+                            Reply
+                        </button>
+                    </div>
+                    <div class="icontext">
+                        <img src="assets/images/avatar1.jpg" class="img-xs icon rounded-circle">
+                        <div class="text">
+                            <h6 class="mb-0">{{review?.reviewer}} </h6>
+                            <div class="rating-wrap">
+                                <ul class="rating-stars">
+                                    <ng-template #t let-fill="fill">
+                                        <span class="p-rating-star" [class.full]="fill === 100">
+                                            <span class="p-rating-half" [style.width.%]="fill"><i
+                                                    class="fa fa-star"></i></span><i class="fa fa-star"></i>
+                                        </span>
+                                    </ng-template>
+                                    <ngb-rating [rate]="review?.rating" [starTemplate]="t" [readonly]="true" [max]="5">
+                                    </ngb-rating>
+                                </ul>
+                                <b class="dot"></b>
+                                <small class="label-rating text-muted"> Posted on {{review?.date_created | date:
+                                    'medium'}}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <p> {{review?.summary}}</p>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <button class="btn btn-outline-primary float-end">Write Review </button>
+
+                <div class="row mt-3">
+                    <div class="col-1"></div>
+                    <div class="col-11">
+                        <blockquote *ngFor="let reply of review?.replies" class="border-bottom my-2">
+                            <div class="float-lg-end d-flex mb-3">
+                                <!-- <div class="btn-group d-inline-flex me-2">
+                                    <button class="btn btn-light btn-sm float-end" data-bs-toggle="tooltip"
+                                        data-bs-title="Like">
+                                        <i class="fe fe-thumbs-up"></i>
+                                    </button>
+                                    <button class="btn btn-light btn-sm float-end" data-bs-toggle="tooltip"
+                                        data-bs-title="Dislike">
+                                        <i class="fe fe-thumbs-down"></i>
+                                    </button>
+                                </div>
+                                <button class="btn btn-light btn-sm float-end "> <i class="fa fa-ellipsis-v"></i>
+                                </button> -->
+                            </div>
+                            <div class="icontext">
+                                <img src="assets/images/avatar1.jpg" class="img-xs icon rounded-circle">
+                                <div class="text">
+                                    <h6 class="mb-0">{{reply?.reviewer}} </h6>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <p> {{reply?.summary}}</p>
+                            </div>
+                        </blockquote>
+                    </div>
                 </div>
             </div>
-            <hr>
-            <blockquote class="border-bottom">
-                <div class="float-lg-end d-flex mb-3">
-                    <div class="btn-group d-inline-flex me-2"> <button class="btn btn-light btn-sm float-end"
-                            data-bs-toggle="tooltip" data-bs-title="Like"> <i class="fe fe-thumbs-up"></i> </button>
-                        <button class="btn btn-light btn-sm float-end" data-bs-toggle="tooltip" data-bs-title="Dislike">
-                            <i class="fe fe-thumbs-down"></i> </button> </div> <button
-                        class="btn btn-light btn-sm float-end "> <i class="fa fa-ellipsis-v"></i> </button>
-                </div>
-                <div class="icontext"> 
-                    <img src="assets/images/avatar1.jpg" class="img-xs icon rounded-circle">
-                    <div class="text">
-                        <h6 class="mb-0"> Michael Jonathan </h6>
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active"> <img
-                                        src="assets/images/misc/stars-active.svg" alt=""> </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <b class="dot"></b> <small class="label-rating text-muted"> Purchased on Wed, May 12
-                            </small>
-                        </div>
-                    </div>
-                </div> 
-                <div class="mt-3">
-                    <p> It used to be great, finding almost every song, but now i dont know what happened (they might be
-                        hacked even) that it can not find any song and it just makes up a different song to thats all
-                        and all the best Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi </p>
-                </div>
-            </blockquote>
-            <blockquote class="border-bottom">
-                <div class="float-lg-end d-flex mb-3">
-                    <div class="btn-group d-inline-flex me-2"> <button class="btn btn-light btn-sm float-end"
-                            data-bs-toggle="tooltip" data-bs-title="Like"> <i class="fe fe-thumbs-up"></i> </button>
-                        <button class="btn btn-light btn-sm float-end" data-bs-toggle="tooltip" data-bs-title="Dislike">
-                            <i class="fe fe-thumbs-down"></i> </button> </div> <button
-                        class="btn btn-light btn-sm float-end "> <i class="fa fa-ellipsis-v"></i> </button>
-                </div>
-                <div class="icontext"> 
-                    <img src="assets/images/avatar1.jpg" class="img-xs icon rounded-circle">
-                    <div class="text">
-                        <h6 class="mb-0"> Michael Jonathan </h6>
-                        <div class="rating-wrap">
-                            <ul class="rating-stars">
-                                <li style="width:80%" class="stars-active"> <img
-                                        src="assets/images/misc/stars-active.svg" alt=""> </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <b class="dot"></b> <small class="label-rating text-muted"> Purchased on Wed, May 12
-                            </small>
-                        </div>
-                    </div>
-                </div> 
-                <div class="mt-3">
-                    <p> It used to be great, finding almost every song, but now i dont know what happened (they might be
-                        hacked even) that it can not find any song and it just makes up a different song to thats all
-                        and all the best Just makes up a different song to thats all and all the best </p>
-                </div>
-            </blockquote>
-        </div>
+        </blockquote>
+        
     </div>
 </div>

@@ -33,8 +33,7 @@ export class AddOrEditAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.userAddressForm = new FormGroup({
-
-      primary: new FormControl(false, [Validators.required]),
+      primary: new FormControl(true, [Validators.required]),
       apartment_number: new FormControl(''),
       address: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),

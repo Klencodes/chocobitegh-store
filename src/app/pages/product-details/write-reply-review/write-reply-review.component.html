@@ -1,0 +1,60 @@
+<!-- <mat-progress-bar mode="indeterminate" *ngIf="isProcessing"></mat-progress-bar> -->
+<perfect-scrollbar [config]="configData">
+    <div class="dialog-wrapper">
+        <div class="dialog-head">
+            <span class="dialog-head-title"> {{dialogTitle}}</span>
+            <span (click)="closeDialog()">
+                <i class="fe fe-x"></i>
+            </span>
+        </div>
+        <mat-divider class="no-spacing"></mat-divider>
+
+        <div class="dialog-body mt-4">
+            <form class="needs-validation" (ngSubmit)="onSubmit(reviewForm?.value)" [formGroup]="reviewForm">
+                <div class="row">
+                    <div class="col-12" *ngIf="!data?.isReply">
+                        <div class="form-group mb-3">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" formControlName="title"
+                                placeholder="e.g. Yummy chocolate">
+                            <div *ngIf="!title?.valid && title?.touched" class="error-message">
+                                Title is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mb-4">
+                            <label for="summary">Summary</label>
+                            <textarea type="text" class="form-control" id="summary" formControlName="summary"
+                                placeholder="Let others know what you think about this product..."></textarea>
+                            <div *ngIf="!summary?.valid && summary?.touched" class="error-message">Summary
+                                is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-3" *ngIf="!data?.isReply">
+                        <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+                            <li (click)="countStar(star)" [ngClass]="{'selected': (star <= rateValue)}">
+                                <i class="fa fa-star font-size-20"></i>
+                            </li>
+                        </ul>
+                        <span style="position: absolute; padding-left: 5px;" class="mx-2">{{rateValue || 0}}</span>
+                    </div>
+                </div>
+
+                <mat-divider class="no-spacing"></mat-divider>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="float-end">
+                            <button type="button" class="btn btn-outline-primary mx-2" (click)="closeDialog()">Cancel</button>
+                            <button class="btn btn-primary pull-right" type="submit" [disabled]="isProcessing">
+                                <span *ngIf="isProcessing" class="spinner-border spinner-border-sm mr-1"></span>
+                                {{btnTxt}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</perfect-scrollbar>

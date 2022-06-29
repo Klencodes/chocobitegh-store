@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CategoryModel, ProductModel } from 'src/app/core/models/product';
+import { BannerModel, CategoryModel, ProductModel } from 'src/app/core/models/product';
 import { ProductService } from 'src/app/core/services/api-calls/product.service';
 
 import SwiperCore, { Autoplay, Pagination, Navigation, Swiper, } from "swiper";
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     displayedList: ProductModel[] = [];
     canLoadMore = true;
     isProcessingMore = false;
-
+    displayBanners: BannerModel[] = [];
     constructor(
         private toast: ToastrService,
         private router: Router,
@@ -27,6 +27,11 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.fetchProducts()
+        this.productService.fetchBanners((error, result) => {
+            if (result !== null) {
+                this.displayBanners = result.results;
+            }
+        })
     }
 
     /**
@@ -35,7 +40,7 @@ export class HomeComponent implements OnInit {
     fetchProducts() {
         this.isProcessing = true;
         this.productService.fetchProducts(this.page, (error, result) => {
-        this.isProcessing = false;
+            this.isProcessing = false;
             if (result !== null) {
                 this.listArrayOfProducts = result.results;
                 this.displayedList = [...this.listArrayOfProducts];
@@ -63,7 +68,7 @@ export class HomeComponent implements OnInit {
             return;
         } else {
             this.page++;
-            if(this.canLoadMore){
+            if (this.canLoadMore) {
                 this.isProcessingMore = true;
                 this.productService.fetchProducts(this.page, async (error, result) => {
                     this.isProcessingMore = false;

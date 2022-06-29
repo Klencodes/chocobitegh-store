@@ -1,6 +1,7 @@
 <div class="py-4">
+    <div class="float-end validate-close-icon"><div class="fe fe-x fe-lg"></div></div>
     <div class="text-center">
-        <h2 class="mb-3">Phone Number Verification</h2>
+        <h4 class="mb-3">Phone Verification</h4>
         <p class="text-muted">Enter the otp received on your phone.</p>
     </div>
 
@@ -16,6 +17,10 @@
         <button class="btn btn-primary w-100" (click)="onOtpChange($event)" [disabled]="isVerifying" type="submit">
             <span *ngIf="isVerifying" class="spinner-border spinner-border-sm mr-1"></span>
             {{btnText}}</button>
+    </div>
+    <div class="mt-4 text-center">
+        <p>I did not receive OTP <strong class="text-primary cursor-pointer" (click)="resendOTP()">Re-Send OTP</strong>
+        </p>
     </div>
 
 </div>
