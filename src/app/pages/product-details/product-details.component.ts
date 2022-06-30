@@ -141,7 +141,6 @@ export class ProductDetailsComponent implements OnInit {
     this.productService.fetchProductReviews({ product_id: this.productId }, (error, result) => {
       if (result !== null) {
         this.reviewsDisplayed = result.results;
-
       }
 
     })

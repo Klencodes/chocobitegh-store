@@ -3,10 +3,10 @@
         <h5 class="form-label mb-3 text-center">My Addresses</h5>
     </div>
     <div class="cursor-pointer" (click)="closeDialog()">
-        <i class="fe fe-x"></i>
+        <i class="fe fe-x fe-lg"></i>
     </div>
 </div>
-<perfect-scrollbar style="position: relative; height: 70vh;" [config]="configData">
+<perfect-scrollbar style="position: relative; height: 60vh;" [config]="configData">
 <div class="row" *ngIf="addresses?.length > 0">
     <div class="col-12 mb-3" *ngFor="let item of addresses">
         <article class="box">

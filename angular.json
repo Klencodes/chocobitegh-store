@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "chocomallgh": {
+    "cocobytes-chocolate": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -99,15 +99,16 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "chocomallgh:build",
+            "browserTarget": "cocobytes-chocolate:build",
             "proxyConfig": "proxy.conf.json"
+
           },
           "configurations": {
             "production": {
-              "browserTarget": "chocomallgh:build:production"
+              "browserTarget": "cocobytes-chocolate:build:production"
             },
             "development": {
-              "browserTarget": "chocomallgh:build:development"
+              "browserTarget": "cocobytes-chocolate:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -115,7 +116,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "chocomallgh:build"
+            "browserTarget": "cocobytes-chocolate:build"
           }
         },
         "test": {
@@ -140,5 +141,5 @@
       }
     }
   },
-  "defaultProject": "chocomallgh"
+  "defaultProject": "cocobytes-chocolate"
 }
