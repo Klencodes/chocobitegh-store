@@ -1,6 +1,6 @@
 const compression = require('compression')
 const express = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 const helmet = require('helmet')
 const app = express();
 app.use(compression());
@@ -21,7 +21,7 @@ const forceSSL = function() {
     next();
   }
 }
-// app.use(cors());
+app.use(cors());
 app.use(forceSSL());
 const path = require('path');
 app.get('/*', function(req, res) {
