@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { ResponseStatus } from 'src/app/core/enums/enums';
 import { ProductService } from 'src/app/core/services/api-calls/product.service';
 
@@ -8,8 +9,7 @@ import { ProductService } from 'src/app/core/services/api-calls/product.service'
   templateUrl: './write-reply-review.component.html'
 })
 export class WriteOrReplyReviewComponent implements OnInit {
-  stars: number[] = [1, 2, 3, 4, 5];
-  rateValue: number;
+  rateValue: number = 5;
 
   productReviewIdCtrl: FormControl = new FormControl('');
   reviewForm: FormGroup;
@@ -20,6 +20,7 @@ export class WriteOrReplyReviewComponent implements OnInit {
   configData: { suppressScrollX: boolean; wheelSpeed: number; };
 
   constructor(
+    private toast: ToastrService,
     private productService: ProductService,
     private dialogRef: MatDialogRef<WriteOrReplyReviewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,9 +30,9 @@ export class WriteOrReplyReviewComponent implements OnInit {
     this.configData = { suppressScrollX: true, wheelSpeed: 0.3 };
 
     this.reviewForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.maxLength(80)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
       summary: new FormControl('', [Validators.required]),
-      rating: new FormControl('', [Validators.required]),
+      rating: new FormControl(''),
       product_id: new FormControl(''),
     });
     if (this.data.isReply) {
@@ -39,24 +40,22 @@ export class WriteOrReplyReviewComponent implements OnInit {
       this.btnTxt = 'Reply'
       this.productReviewIdCtrl.setValue(this.data.reviewData.id);
       // this.feedback.setValue(this.data.reviewData.name);
-    }else {
+    } else {
       this.product_id.setValue(this.data.reviewData)
     }
   }
-  /**
-   * Select star rating
-   * @param star 
-   */
-  countStar(star) {
-    this.rateValue = star;
-  }
+
   /**
    * Add new review or reply review dialog
    * @data payload to submit
    */
   onSubmit(data) {
-    console.log(data, 'data')
     if (!this.data.isReply) {
+      if (this.reviewForm.invalid) {
+        this.reviewForm.markAllAsTouched();
+        this.toast.error('Please enter all required fields');
+        return;
+      }
       this.isProcessing = true;
       data.rating = this.rateValue;
       this.productService.createProductReview(data, (error, result) => {
@@ -67,7 +66,7 @@ export class WriteOrReplyReviewComponent implements OnInit {
       })
     } else {
       this.isProcessing = true;
-      const replyData = { summary: data.summary, review_id: this.data.reviewData};
+      const replyData = { summary: data.summary, review_id: this.data.reviewData };
       this.productService.replyReview(replyData, (error, result) => {
         this.isProcessing = false;
         if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {

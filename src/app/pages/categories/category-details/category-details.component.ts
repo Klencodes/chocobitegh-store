@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ResponseStatus } from 'src/app/core/enums/enums';
 import { ProductModel } from 'src/app/core/models/product';
+import { CartService } from 'src/app/core/services/api-calls/cart.service';
 import { ProductService } from 'src/app/core/services/api-calls/product.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class CategoryDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class CategoryDetailsComponent implements OnInit {
   fetchCategoryProducts(cat) {
     this.isProcessing = true;
     this.productService.fetchCategoryDetails(cat, (error, result) =>{
-      // console.log(result)
+      console.log(result)
       this.isProcessing = false;
       if(result !== null && result.response === ResponseStatus.SUCCESSFUL){
         this.products = result.results.products;
@@ -39,11 +41,18 @@ export class CategoryDetailsComponent implements OnInit {
     })
   }
 
-  /**
- * View product details
- * @param product 
- */
-  productDetails(product) {
-    this.router.navigate(['/product-details', product.name, product.id])
+   /**
+     * View product details
+     * @param product 
+     */
+    productDetails(product) {
+      this.router.navigate(['/product-details', product.name, product.id])
   }
+/**
+ * Add to cart
+ */
+ addToCart(id) {
+  this.cartService.addProductToCart(id)
+}
+
 }

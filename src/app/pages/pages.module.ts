@@ -26,6 +26,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ChangeAddressComponent } from './checkout/change-address/change-address.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { WriteOrReplyReviewComponent } from './product-details/write-reply-review/write-reply-review.component';
+import { RelatedProductsComponent } from './product-details/related-products/related-products.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -44,6 +45,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PromoProductsComponent,
     ChangeAddressComponent,
     WriteOrReplyReviewComponent,
+    RelatedProductsComponent,
   ],
   imports: [
     CommonModule,

@@ -35,9 +35,10 @@ export class ConstantValueService {
 
   get FETCH_CATEGORIES_ENDPOINT() { return 'user/fetch_categories/' }
   get CATEGORY_DETAILS_ENDPOINT() { return 'user/category_details/' }
-
+  
   get FETCH_PRODUCTS_ENDPOINT() { return 'user/fetch_products/' }
   get PRODUCT_DETAILS_ENDPOINT() { return 'user/product_details/' }
+  get RELATED_PRODUCT_ENDPOINT() { return 'user/fetch_related_products/' }
   get SEARCH_PRODUCTS_ENDPOINT() { return 'product/search/' }
 
   get REDEEM_COUPON() { return 'user/claim_coupon/' }
@@ -59,7 +60,6 @@ export class ConstantValueService {
 
 
   get FETCH_TOP_PRODUCTS_OVERVIEW() { return 'top_products/' }
-  get RELATED_PRODUCT_ENDPOINT() { return 'product/related_products/' }
   get FILTER_PRODUCT_ENDPOINT() { return 'product/filter/' }
 
 

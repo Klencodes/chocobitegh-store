@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalAuthService } from 'src/app/core/services/helpers/local-auth.service';
 
 @Component({
   templateUrl: './account.component.html',
@@ -8,7 +9,8 @@ export class AccountComponent implements OnInit {
   breadCrumbItems: Array<{}>;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private localAuth: LocalAuthService,
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,6 @@ export class AccountComponent implements OnInit {
     this.router.navigate(['/account/transactions'])
   }
   logout() {
-
+    this.localAuth.logout()
   }
 }

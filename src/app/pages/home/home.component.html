@@ -41,19 +41,25 @@
                         <p class="title" (click)="productDetails(item)"> {{item?.name}}</p>
                         <div class="rating-wrap">
                             <ul class="rating-stars">
-                                <li class="stars-active" style="width: 70%;">
-                                    <img src="assets/images/misc/stars-active.svg" alt="">
-                                </li>
-                                <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                            </ul> <span class="label-rating text-warning">3.2</span>
+                                <ng-template #t let-fill="fill">
+                                    <span class="p-rating-star" [class.full]="fill === 100">
+                                        <span class="p-rating-half" [style.width.%]="fill"><i
+                                                class="fa fa-star"></i></span><i class="fa fa-star"></i>
+                                    </span>
+                                </ng-template>
+                                <ngb-rating [rate]="item?.rating" [starTemplate]="t" [readonly]="true"
+                                    [max]="5"></ngb-rating>
+                                
+                            </ul> <span class="label-rating text-warning">{{item?.rating}}</span>
                         </div>
                     </div>
                     <div class="bottom-wrap">
-                        <!-- <a href="#" class="btn btn-primary float-end">
+                        <a class="btn btn-primary float-end" [class.disabled]="!item?.stock_availability" (click)="addToCart(item?.id)">
                             <span class="d-block d-sm-none">
-                                <i class="fe fe-shopping-cart"></i></span>
-                            <span class="d-none d-sm-inline-block">Add to cart</span>
-                        </a> -->
+                                <i class="fe fe-shopping-cart"></i>
+                            </span>
+                            <span class="d-none d-sm-inline-block">{{ !item?.stock_availability ? "Out of stock": "Add to cart" }}</span>
+                        </a>
                         <div class="price-wrap lh-sm">
                             <strong class="price">{{item?.currency}} {{item?.new_price}} </strong> <br>
                             <del class="price-old"> {{item?.currency}} {{item?.old_price}}</del>

@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as e from 'express';
 import { ToastrService } from 'ngx-toastr';
 import { ResponseStatus } from 'src/app/core/enums/enums';
 import { UserService } from 'src/app/core/services/api-calls/user.service';
+import { LocalAuthService } from 'src/app/core/services/helpers/local-auth.service';
+import { MustMatch } from 'src/app/core/validators/must-match';
 
 @Component({
   selector: 'app-update-user-data',
@@ -19,11 +21,15 @@ export class UpdateUserDataComponent implements OnInit {
   stateCities;
   hideCurrentPassword = true;
   hidePassword = true;
+  submitted = false;
   dialogTitle = "";
   configData: { suppressScrollX: boolean; wheelSpeed: number; };
+
   constructor(
     private userService: UserService,
+    private localAuth: LocalAuthService,
     private toast: ToastrService,
+    private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<UpdateUserDataComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
@@ -35,24 +41,27 @@ export class UpdateUserDataComponent implements OnInit {
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
     })
-    this.userPasswordForm = new FormGroup({
-      old_password: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirm_password: new FormControl('', [Validators.required]),
-    })
+    this.userPasswordForm = this.formBuilder.group({
+      current_password: ['', Validators.required],
+      password: ['', Validators.required, Validators.minLength(6)],
+      confirm_password: ['', Validators.required],
+    }, { validator: MustMatch('password', 'confirm_password') });
 
-    if(this.data.isPassChange){
+    if(this.data.userData === null){
       this.dialogTitle = "Change Password"
     }else{
       this.dialogTitle = "Update Profile"
-
+      this.first_name.setValue(this.data.userData.first_name)
+      this.last_name.setValue(this.data.userData.last_name)
+      console.log(this.data.userData)
     }
   }
 
   onSubmit(data) {
-    if(this.data.isPassChange){
+    if(this.data.userData === null){
       if (this.userPasswordForm.invalid) {
-        this.userPasswordForm.markAllAsTouched()
+        this.userPasswordForm.markAllAsTouched();
+        this.submitted = true;
         this.toast.error('', 'Please enter all required fields')
         return;
       }
@@ -85,7 +94,7 @@ export class UpdateUserDataComponent implements OnInit {
   get first_name() { return this.userDataForm.get('first_name') }
   get last_name() { return this.userDataForm.get('last_name') }
 
-  get old_password() { return this.userPasswordForm.get('old_password') }
+  get current_password() { return this.userPasswordForm.get('current_password') }
   get password() { return this.userPasswordForm.get('password') }
   get confirm_password() { return this.userPasswordForm.get('confirm_password') }
 

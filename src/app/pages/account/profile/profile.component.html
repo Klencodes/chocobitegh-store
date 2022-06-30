@@ -9,7 +9,7 @@
                 <p>Email: {{userDetails?.email}} <br>
                     Phone: {{userDetails?.phone_number}} </p>
             </div>
-            <a href="#" class="px-2"><i class="fe fe-edit"></i></a>
+            <a  (click)="updateUserData(userDetails)" class="px-2"><i class="fe fe-edit"></i></a>
         </div>
         <hr>
         <p class="form-label mb-2">Delivery addresses</p>
@@ -30,8 +30,10 @@
                 </article>
             </div>
         </div>
-        <a class="btn btn-outline-primary" (click)="addAddress()">
-            <i class="me-2 fe fe-plus"></i> Add new address </a>
+        <div class="text-center">
+            <a class="btn btn-outline-primary" (click)="addAddress()">
+                <i class="me-2 fe fe-plus"></i> Add new address </a>
+        </div>
         <!-- <hr>
         <p class="form-label mb-2">Payment methods</p>
         <div class="row g-2 mb-3">
@@ -92,7 +94,7 @@
         <div class="row">
             <div class="col-sm">
                 <article class="box mb-3 bg-light"> 
-                    <a class="btn float-end btn-outline-warning btn-sm" href="#">Change</a>
+                    <a class="btn float-end btn-outline-primary btn-sm" (click)="updateUserData(null)">Change</a>
                     <p class="title mb-0">Password</p> 
                     <small class="text-muted d-block" style="width:70%">You can change your password by clicking change button</small>
                 </article>

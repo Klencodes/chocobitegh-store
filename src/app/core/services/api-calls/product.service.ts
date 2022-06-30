@@ -112,8 +112,8 @@ export class ProductService {
   * @id id of product to fetch its related products
   * @callback ICallback function that returns an error or result
   */
-  fetchRelatedProducts(id, callback: ICallback) {
-    this.dataProvider.getDataNoToken(this.constantValues.RELATED_PRODUCT_ENDPOINT + id + '/').subscribe(result => {
+  fetchRelatedProducts(data, callback: ICallback) {
+    this.dataProvider.postNoToken(this.constantValues.RELATED_PRODUCT_ENDPOINT, data).subscribe(result => {
       callback(null, result);
     }, error => {
       callback(error, null);
@@ -126,8 +126,8 @@ export class ProductService {
   * @param id ID of product to fetch reviews
   * @callback ICallback function that returns an error or result
   */
-  fetchProductReviews(id, callback: ICallback) {
-    this.dataProvider.getDataNoToken(this.constantValues.FETCH_PRODUCT_REVIEWS_ENDPOINT + id + '/').subscribe(result => {
+  fetchProductReviews(data, callback: ICallback) {
+    this.dataProvider.postNoToken(this.constantValues.FETCH_PRODUCT_REVIEWS_ENDPOINT, data).subscribe(result => {
       callback(null, result);
     }, error => {
       callback(error, null);

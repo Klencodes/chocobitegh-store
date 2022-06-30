@@ -2057,7 +2057,7 @@ ul.row {
     max-width: 100%;
     max-height: 365px;
     height: auto;
-    object-fit: contain;
+    object-fit: fill;
 }
 
 .gallery-wrap .thumbs-wrap {
@@ -2484,7 +2484,7 @@ table tr td {
 .p-rating-star {
     position: relative;
     display: inline-block;
-    font-size: 2rem;
+    font-size: 1.2rem;
     color: $gray;
 }
 
@@ -2493,7 +2493,7 @@ table tr td {
 }
 
 .p-rating-half {
-    font-size: 2rem;
+    font-size: 1.2rem;
     position: absolute;
     display: inline-block;
     overflow: hidden;
@@ -2506,7 +2506,9 @@ table tr td {
   
       display: flex;
       justify-content: space-between;
-  
+      line-height: 24px;
+      padding-top: 5px;
+      
       .dialog-head-title {
         line-height: 8px;
         font-size: 17px;

@@ -9,7 +9,7 @@
         </div>
         <mat-divider class="no-spacing"></mat-divider>
 
-        <div class="dialog-body mt-4">
+        <div class="dialog-body mt-3">
             <form class="needs-validation" (ngSubmit)="onSubmit(reviewForm?.value)" [formGroup]="reviewForm">
                 <div class="row">
                     <div class="col-12" *ngIf="!data?.isReply">
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="form-group mb-4">
+                        <div class="form-group mb-3">
                             <label for="summary">Summary</label>
                             <textarea type="text" class="form-control" id="summary" formControlName="summary"
                                 placeholder="Let others know what you think about this product..."></textarea>
@@ -33,17 +33,24 @@
                     </div>
 
                     <div class="col-12 mb-3" *ngIf="!data?.isReply">
-                        <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
-                            <li (click)="countStar(star)" [ngClass]="{'selected': (star <= rateValue)}">
-                                <i class="fa fa-star font-size-20"></i>
-                            </li>
-                        </ul>
-                        <span style="position: absolute; padding-left: 5px;" class="mx-2">{{rateValue || 0}}</span>
+                        <ng-template #t let-fill="fill">
+                            <span class="p-rating-star" [class.full]="fill === 100">
+                                <span class="p-rating-half" [style.width.%]="fill">
+                                    <i class="fa fa-star"></i></span><i class="fa fa-star"></i>
+                            </span>
+                        </ng-template>
+                        <div class="rating-wrap">
+                            <div class="rating-stars">
+                                <ngb-rating [(rate)]="rateValue" [starTemplate]="t" [readonly]="false" [max]="5">
+                                </ngb-rating>
+                                <span class="mx-2">{{rateValue || 0}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <mat-divider class="no-spacing"></mat-divider>
-                <div class="row mt-4">
+                <div class="row mt-3">
                     <div class="col-12">
                         <div class="float-end">
                             <button type="button" class="btn btn-outline-primary mx-2" (click)="closeDialog()">Cancel</button>

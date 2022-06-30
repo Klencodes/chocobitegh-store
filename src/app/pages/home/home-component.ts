@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { BannerModel, CategoryModel, ProductModel } from 'src/app/core/models/product';
+import { CartService } from 'src/app/core/services/api-calls/cart.service';
 import { ProductService } from 'src/app/core/services/api-calls/product.service';
 
 import SwiperCore, { Autoplay, Pagination, Navigation, Swiper, } from "swiper";
@@ -19,8 +19,9 @@ export class HomeComponent implements OnInit {
     canLoadMore = true;
     isProcessingMore = false;
     displayBanners: BannerModel[] = [];
+    
     constructor(
-        private toast: ToastrService,
+        private cartService: CartService,
         private router: Router,
         private productService: ProductService,
     ) { this.loadMoreData(null) }
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
             if (result !== null) {
                 this.listArrayOfProducts = result.results;
                 this.displayedList = [...this.listArrayOfProducts];
+                console.log(this.displayedList, 'PRODUCTS')
             }
         })
     }
@@ -54,7 +56,12 @@ export class HomeComponent implements OnInit {
     productDetails(product) {
         this.router.navigate(['/product-details', product.name, product.id])
     }
-
+  /**
+   * Add to cart
+   */
+   addToCart(id) {
+    this.cartService.addProductToCart(id)
+  }
 
     /**
      * Load more product 

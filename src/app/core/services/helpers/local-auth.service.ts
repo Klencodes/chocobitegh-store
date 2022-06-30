@@ -143,11 +143,6 @@ export class LocalAuthService {
       }
       return token;
     }
-    removeUserAndToken() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('browser_token');
-    }
     /**
      * Locally update user information in localStorage
      * @param key Key to update
@@ -155,7 +150,7 @@ export class LocalAuthService {
      */
     updateUser(key: string, value: any) {
       const user: any = <UserModel>JSON.parse(localStorage.getItem('user') || '{}');
-      if (this.user) {
+      if (user) {
         user[key] = value;
         localStorage.setItem('user', JSON.stringify(user));
       }

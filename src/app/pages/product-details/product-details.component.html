@@ -61,7 +61,7 @@
                                     {{productDetails?.old_price}}</span></del>
                         </div>
                         <p [innerHTML]="productDetails?.description"></p>
-                        <dl class="row">
+                        <!-- <dl class="row">
                             <dt class="col-3">Model#</dt>
                             <dd class="col-9">Hugo Boss</dd>
                             <dt class="col-3">Color</dt>
@@ -70,15 +70,14 @@
                             <dd class="col-9">Cotton, Jeans </dd>
                             <dt class="col-3">Delivery</dt>
                             <dd class="col-9">Russia, USA, and Europe </dd>
-                        </dl>
+                        </dl> -->
                         <hr>
 
-                        <a class="btn btn-primary" [class.disabled]="!productDetails?.stock_availability"
-                            (click)="addToCart(productDetails?.id)">
+                        <a class="btn btn-primary" [class.disabled]="!productDetails?.stock_availability" (click)="addToCart(productDetails?.id)">
                             <i class="me-2 fe fe-shopping-cart"></i>
                             <span>{{ !productDetails?.stock_availability ? "Out of stock": "Add to cart" }}</span>
                         </a>
-                        <a class="btn btn-secondary mx-3" [routerLink]="['/checkout']"> Checkout </a>
+                        <a class="btn btn-secondary mx-3" [routerLink]="['/checkout']" [class.disabled]="!canCheckout"> Checkout </a>
                         <a class="btn btn-light" (click)="saveNewItem()"> <i class="me-2 fe fe-heart"></i> Save </a>
                     </article>
                 </div>
@@ -88,51 +87,13 @@
 
     <div class="row my-5">
         <h4 class="card-title">Related Products</h4>
-        <div class="col-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let item of displayedList">
-            <div class="card card-product-grid">
-                <div class="img-wrap" (click)="viewProductDetails(item)">
-                    <img *ngIf="item?.image" [src]="item?.image">
-                    <img *ngIf="!item?.image" src="assets/images/misc/product-placeholder.png">
-                    <span class="topbar">
-                        <span class="badge bg-danger" *ngIf="!item?.stock_availability"> Out of stock </span>
-                        <!-- <span class="badge bg-success"> New arrival </span>  -->
-                    </span>
-                </div>
-                <div class="info-wrap">
-                    <!-- <span class="text-warning show-xs-tag">
-                        <i class="fe fe-tag"></i>
-                        <span class="tags" *ngIf="item?.tags?.length <= 24"> {{item?.tags.substr(0, 24)}}</span>
-                        <span class="tags" *ngIf="item?.tags?.length >= 25"> {{item?.tags.substr(0, 21)}}..</span>
-                    </span> -->
-                    <p class="title" (click)="viewProductDetails(item)"> {{item?.name}}</p>
-                    <div class="rating-wrap">
-                        <ul class="rating-stars">
-                            <li class="stars-active" style="width: 70%;">
-                                <img src="assets/images/misc/stars-active.svg" alt="">
-                            </li>
-                            <li> <img src="assets/images/misc/starts-disable.svg" alt=""> </li>
-                        </ul> <span class="label-rating text-warning">3.2</span>
-                    </div>
-                </div>
-                <div class="bottom-wrap">
-                    <!-- <a href="#" class="btn btn-primary float-end">
-                        <span class="d-block d-sm-none">
-                            <i class="fe fe-shopping-cart"></i></span>
-                        <span class="d-none d-sm-inline-block">Add to cart</span>
-                    </a> -->
-                    <div class="price-wrap lh-sm">
-                        <strong class="price">{{item?.currency}} {{item?.new_price}} </strong> <br>
-                        <del class="price-old"> {{item?.currency}} {{item?.old_price}}</del>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-related-products [productId]="productId"></app-related-products>
     </div>
     <!-- Product Reviews Section -->
     <div>
         <div class="row">
-            <div class="col-6">
-                <h5 class="card-title">Reviews </h5>
+            <div class="col-6 align-self-end">
+                <h5 class="card-title mb-0">Reviews </h5>
             </div>
             <div class="col-6">
                 <button class="btn btn-outline-primary float-end"
@@ -140,18 +101,23 @@
             </div>
         </div>
         <hr>
-        <blockquote class="card" *ngFor="let review of productDetails?.reviews">
+        <blockquote class="card" *ngIf="reviewsDisplayed?.length <= 0">
+            <div class="card-body text-center py-5">
+                <div class="h5">There is no review for this product yet.</div>
+            </div>
+        </blockquote>
+        <blockquote class="card" *ngFor="let review of reviewsDisplayed">
             <div class="card-body">
-                <div class="border-bottom">
-                    <div class="float-lg-end d-flex mb-3">
+                <div>
+                    <div class="float-end d-flex mb-3">
                         <div class="btn-group d-inline-flex me-2">
                             <span class="mr-2">{{review?.likes}}</span>
-                            <a class="float-end mr-3" data-bs-toggle="tooltip"
+                            <a (click)="likeOrDislikeReview(review?.id, true)" class="float-end mr-3" data-bs-toggle="tooltip"
                                 data-bs-title="Like">
                                 <i class="fe fe-thumbs-up align-middle"></i>
                             </a>
                             <span class="mr-2">{{review?.dislikes}}</span>
-                            <a class="mr-3 float-end" data-bs-toggle="tooltip"
+                            <a (click)="likeOrDislikeReview(review?.id, false)" class="mr-3 float-end" data-bs-toggle="tooltip"
                                 data-bs-title="Dislike">
                                 <i class="fe fe-thumbs-down align-middle"></i>
                             </a>
@@ -176,18 +142,19 @@
                                     </ngb-rating>
                                 </ul>
                                 <b class="dot"></b>
-                                <small class="label-rating text-muted"> Posted on {{review?.date_created | date:
-                                    'medium'}}
+                                <small class="label-rating text-muted"> Posted on {{review?.date_created | date: 'medium'}}
                                 </small>
                             </div>
                         </div>
                     </div>
                     <div class="mt-3">
+                        <h6 class="">{{review?.title}} </h6>
                         <p> {{review?.summary}}</p>
                     </div>
                 </div>
 
-                <div class="row mt-3">
+                <div class="row">
+                    <div class="col-12" *ngIf="review?.replies?.length > 0"> <div class="border-bottom"> </div></div>
                     <div class="col-1"></div>
                     <div class="col-11">
                         <blockquote *ngFor="let reply of review?.replies" class="border-bottom my-2">

@@ -1,0 +1,48 @@
+<div class="related-slide">
+    <swiper [config]="swiperConfig">
+        <ng-template swiperSlide *ngFor="let item of relatedProducts">
+            <div class="card card-product-grid">
+                <div class="img-wrap" (click)="viewProductDetails(item)">
+                    <img *ngIf="item?.image" [src]="item?.image" style="max-height: 280px;">
+                    <img *ngIf="!item?.image" src="assets/images/misc/product-placeholder.png" style="max-height: 280px;">
+                    <span class="topbar">
+                        <span class="badge bg-danger" *ngIf="!item?.stock_availability"> Out of stock </span>
+                        <!-- <span class="badge bg-success"> New arrival </span>  -->
+                    </span>
+                </div>
+                <div class="info-wrap" style="text-align: left;">
+                    <!-- <span class="text-warning show-xs-tag">
+                        <i class="fe fe-tag"></i>
+                        <span class="tags" *ngIf="item?.tags?.length <= 24"> {{item?.tags.substr(0, 24)}}</span>
+                        <span class="tags" *ngIf="item?.tags?.length >= 25"> {{item?.tags.substr(0, 21)}}..</span>
+                    </span> -->
+                    <p class="title" (click)="viewProductDetails(item)"> {{item?.name}}</p>
+                    <div class="rating-wrap">
+                        <ul class="rating-stars">
+                            <ng-template #t let-fill="fill">
+                                <span class="p-rating-star" [class.full]="fill === 100">
+                                    <span class="p-rating-half" [style.width.%]="fill"><i
+                                            class="fa fa-star"></i></span><i class="fa fa-star"></i>
+                                </span>
+                            </ng-template>
+                            <ngb-rating [rate]="item?.rating" [starTemplate]="t" [readonly]="true"
+                                [max]="5"></ngb-rating>
+                            
+                        </ul> <span class="label-rating text-primary">{{item?.rating}}</span>
+                    </div>
+                </div>
+                <div class="bottom-wrap" style="text-align: left;">
+                    <a class="btn btn-primary float-end" [class.disabled]="!item?.stock_availability" (click)="addToCart(item?.id)">
+                        <span class="d-block d-sm-none">
+                            <i class="fe fe-shopping-cart"></i></span>
+                        <span class="d-none d-sm-inline-block">{{ !item?.stock_availability ? "Out of stock": "Add to cart" }}</span>
+                    </a>
+                    <div class="price-wrap lh-sm">
+                        <strong class="price">{{item?.currency}} {{item?.new_price}} </strong> <br>
+                        <del class="price-old"> {{item?.currency}} {{item?.old_price}}</del>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </swiper>
+</div>

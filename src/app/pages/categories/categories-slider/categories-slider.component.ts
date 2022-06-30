@@ -26,12 +26,16 @@ export class CategoriesSliderComponent implements OnInit {
     // },
     breakpoints: {
  
-      1024: {
+      1284: {
         slidesPerView: 8,
         spaceBetween: 20
       },
-      768: {
+      1024: {
         slidesPerView: 6,
+        spaceBetween: 20
+      },
+      768: {
+        slidesPerView: 5,
         spaceBetween: 10
       },
       640: {
