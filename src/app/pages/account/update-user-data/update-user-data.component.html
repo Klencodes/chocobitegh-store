@@ -1,12 +1,12 @@
 <!-- <perfect-scrollbar [config]="configData"> -->
-    <div class="dialog-wrapper">
+    <div class="dialog-wrapper" style="max-width: 500px;">
         <div class="dialog-head">
             <h4 class="dialog-head-title"> {{dialogTitle}}</h4>
             <span (click)="closeDialog()"> <i class="fe fe-x fe-lg"></i> </span>
         </div>
 
         <mat-divider class="no-spacing"></mat-divider>
-        <div class="dialog-body">
+        <div class="dialog-body" >
             <div *ngIf="data.userData">
                 <form [formGroup]="userDataForm" (ngSubmit)="onSubmit(userDataForm?.value)">
                     <div class="row">
