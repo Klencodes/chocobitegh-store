@@ -26,7 +26,8 @@
                             <span class="tags" *ngIf="item?.tags?.length <= 24"> {{item?.tags.substr(0, 24)}}</span>
                             <span class="tags" *ngIf="item?.tags?.length >= 25"> {{item?.tags.substr(0, 21)}}..</span>
                         </span> -->
-                        <p class="title" (click)="productDetails(item)"> {{item?.name}}</p>
+                        <p class="title" (click)="productDetails(item)" *ngIf="item?.name?.length <= 24"> {{item?.name}}</p>
+                        <p class="title" (click)="productDetails(item)" *ngIf="item?.name?.length >= 24"> {{item?.name.substr(0, 22)}}..</p>
                         <div class="rating-wrap">
                             <ul class="rating-stars">
                                 <ng-template #t let-fill="fill">

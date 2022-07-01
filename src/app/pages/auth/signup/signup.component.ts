@@ -44,7 +44,6 @@ export class SignupComponent implements OnInit {
    * @param data login credential(email & password)
    */
   onSubmit(data) {
-    console.log(data)
     if (this.signupForm.invalid) {
       this.submitted = true;
       this.signupForm.markAllAsTouched()

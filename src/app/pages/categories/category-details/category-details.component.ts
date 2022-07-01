@@ -33,7 +33,6 @@ export class CategoryDetailsComponent implements OnInit {
   fetchCategoryProducts(cat) {
     this.isProcessing = true;
     this.productService.fetchCategoryDetails(cat, (error, result) =>{
-      console.log(result)
       this.isProcessing = false;
       if(result !== null && result.response === ResponseStatus.SUCCESSFUL){
         this.products = result.results.products;

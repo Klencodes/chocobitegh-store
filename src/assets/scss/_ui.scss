@@ -2177,7 +2177,10 @@ ul.row {
     font-weight: 500;
     vertical-align: text-top;
 }
-
+.fe-bold{
+    font-weight: 600;
+    color: $primary;
+}
 .bg-cover-centered {
     background-repeat: no-repeat;
     background-position: center;
@@ -2531,6 +2534,4 @@ table tr td {
     }
   
   }
-  
-  
   

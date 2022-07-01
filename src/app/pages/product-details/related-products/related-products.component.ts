@@ -55,8 +55,6 @@ export class RelatedProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.productId, 'productId')
-     // this.productService.fetchRelatedProducts(this.productId, (error, result) => {
       this.productService.fetchRelatedProducts({product_id: this.productId}, (error, result) => {
         if (result !== null) {
           this.relatedProducts = result.results;

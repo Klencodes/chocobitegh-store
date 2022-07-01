@@ -53,7 +53,6 @@ export class UpdateUserDataComponent implements OnInit {
       this.dialogTitle = "Update Profile"
       this.first_name.setValue(this.data.userData.first_name)
       this.last_name.setValue(this.data.userData.last_name)
-      console.log(this.data.userData)
     }
   }
 

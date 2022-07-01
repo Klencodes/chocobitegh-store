@@ -37,7 +37,7 @@ export class ConstantValueService {
   get CATEGORY_DETAILS_ENDPOINT() { return 'user/category_details/' }
   
   get FETCH_PRODUCTS_ENDPOINT() { return 'user/fetch_products/' }
-  get PRODUCT_DETAILS_ENDPOINT() { return 'user/product_details/' }
+  get PRODUCT_DETAILS_ENDPOINT() { return 'product_details/' }
   get RELATED_PRODUCT_ENDPOINT() { return 'user/fetch_related_products/' }
   get SEARCH_PRODUCTS_ENDPOINT() { return 'product/search/' }
 
@@ -53,13 +53,11 @@ export class ConstantValueService {
 
   get FETCH_PRODUCT_REVIEWS_ENDPOINT() { return 'user/fetch_product_reviews/' }
   get CREATE_REVIEW_ENDPOINT() { return 'user/create_product_review/' }
-  get REPLY_REVIEW_ENDPOINT() { return 'user/reply_product_review/' }
+  get REPLY_REVIEW_ENDPOINT() { return 'reply_product_review/' }
   get LIKE_OR_DISLIKE_REVIEW() { return 'user/like_or_dislike_product_review/' }
 
 
 
-
-  get FETCH_TOP_PRODUCTS_OVERVIEW() { return 'top_products/' }
   get FILTER_PRODUCT_ENDPOINT() { return 'product/filter/' }
 
 

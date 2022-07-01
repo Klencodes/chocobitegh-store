@@ -67,7 +67,6 @@ export class ValidateOtpComponent implements OnInit {
   resendOTP() {
     this.isProcessing = true;
     this.authService.sendOtp({ phone_number: this.data.formData.phone_number }, (error, result) => {
-      console.log(result, 'RESUKT')
       this.isProcessing = false;
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) { }
     })

@@ -33,12 +33,14 @@
                         </span>
                     </div>
                     <div class="info-wrap">
-                        <!-- <span class="text-warning show-xs-tag">
+                        <!-- <span class="text-warning">
                             <i class="fe fe-tag"></i>
-                            <span class="tags" *ngIf="item?.tags?.length <= 24"> {{item?.tags.substr(0, 24)}}</span>
                             <span class="tags" *ngIf="item?.tags?.length >= 25"> {{item?.tags.substr(0, 21)}}..</span>
+                            <span class="tags" *ngIf="item?.tags?.length <= 24"> {{item?.tags.substr(0, 24)}}</span>
                         </span> -->
-                        <p class="title" (click)="productDetails(item)"> {{item?.name}}</p>
+                        <p class="title" (click)="productDetails(item)" *ngIf="item?.name?.length <= 24"> {{item?.name}}</p>
+                        <p class="title show-sm-tag" (click)="productDetails(item)" *ngIf="item?.name?.length >= 24"> {{item?.name.substr(0, 22)}}..</p>
+                        <p class="title show-xs-tag" (click)="productDetails(item)" *ngIf="item?.name?.length >= 24"> {{item?.name.substr(0, 20)}}..</p>
                         <div class="rating-wrap">
                             <ul class="rating-stars">
                                 <ng-template #t let-fill="fill">

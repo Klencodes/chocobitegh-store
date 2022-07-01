@@ -28,7 +28,7 @@ export class OrdersComponent implements OnInit {
   }
 
   repeatOrder(order) {
-    console.log(order)
+    // console.log(order)
   }
   viewOrderDetails(order) {
     this.router.navigate(['/account/orders/order-details', order.order_code, order.id])

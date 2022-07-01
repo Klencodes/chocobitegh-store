@@ -29,7 +29,7 @@
                 </aside>
                 <div class="col-lg-6">
                     <article class="ps-lg-3">
-                        <h4 class="title text-dark">{{productDetails?.name}}</h4>
+                        <h4 class="title text-dark">{{productDetails?.name | titlecase}}</h4>
                         <!-- <small class="text-muted cursor-pointer"><b>{{productDetails?.category?.name}}</b></small> -->
                         <div class="text-secondary mt-2">
                             <i class="fe fe-tag tags-icon"></i>
@@ -114,12 +114,12 @@
                             <span class="mr-2">{{review?.likes}}</span>
                             <a (click)="likeOrDislikeReview(review?.id, true)" class="float-end mr-3" data-bs-toggle="tooltip"
                                 data-bs-title="Like">
-                                <i class="fe fe-thumbs-up align-middle"></i>
+                                <i [ngClass]="{'fe-bold': review?.likes > 0}" class="fe fe-thumbs-up align-middle"></i>
                             </a>
                             <span class="mr-2">{{review?.dislikes}}</span>
                             <a (click)="likeOrDislikeReview(review?.id, false)" class="mr-3 float-end" data-bs-toggle="tooltip"
                                 data-bs-title="Dislike">
-                                <i class="fe fe-thumbs-down align-middle"></i>
+                                <i [ngClass]="{'fe-bold': review?.dislikes > 0}" class="fe fe-thumbs-down align-middle"></i>
                             </a>
                         </div>
                         <button class="float-end btn-sm btn btn-outline-primary" (click)="writeOrReplyReview(review?.id, true)"> 

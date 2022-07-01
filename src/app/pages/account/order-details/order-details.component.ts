@@ -45,7 +45,7 @@ export class OrderDetailsComponent implements OnInit {
    * @param order 
    */
   repeatOrder(order){
-    console.log(order, 'ORDER')
+    // console.log(order, 'ORDER')
   }
 
   /**

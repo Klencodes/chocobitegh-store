@@ -47,7 +47,6 @@ export class AddOrEditAddressComponent implements OnInit {
         if (x.name === value) {
           this.stateCities = x.cities;
           this.postal_code.setValue(x.postal_code)
-          console.log(this.stateCities)
         }
       })
     })

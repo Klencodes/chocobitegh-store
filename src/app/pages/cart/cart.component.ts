@@ -25,7 +25,6 @@ export class CartComponent implements OnInit {
     this.user = this.localAuth.userObj,
     this.cartService.cartDataObs$.subscribe(data =>{
       this.cartData = data;
-      // console.log(data)
     })
    }
 

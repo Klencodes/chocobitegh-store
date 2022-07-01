@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { BannerModel, CategoryModel, ProductModel } from 'src/app/core/models/product';
 import { CartService } from 'src/app/core/services/api-calls/cart.service';
 import { ProductService } from 'src/app/core/services/api-calls/product.service';
-
 import SwiperCore, { Autoplay, Pagination, Navigation, Swiper, } from "swiper";
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -45,7 +44,6 @@ export class HomeComponent implements OnInit {
             if (result !== null) {
                 this.listArrayOfProducts = result.results;
                 this.displayedList = [...this.listArrayOfProducts];
-                console.log(this.displayedList, 'PRODUCTS')
             }
         })
     }

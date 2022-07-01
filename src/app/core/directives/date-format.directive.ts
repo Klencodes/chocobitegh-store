@@ -11,7 +11,6 @@ export class DateDirective {
   constructor(private e: ElementRef) { }
 
   @HostListener('ngModelChange', ['$event']) dateChange(value) {
-    console.log('blur')
     const year = value.year;
     const date = value.day;
     const month = value.month;
