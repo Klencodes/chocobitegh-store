@@ -29,7 +29,8 @@
                 </aside>
                 <div class="col-lg-6">
                     <article class="ps-lg-3">
-                        <h4 class="title text-dark">{{productDetails?.name | titlecase}}</h4>
+                        <h4 class="title text-dark mt-lg-4">{{productDetails?.name | titlecase}}</h4>
+                        <div class="text-primary mt-2">{{productDetails?.category?.name | titlecase}}</div>
                         <!-- <small class="text-muted cursor-pointer"><b>{{productDetails?.category?.name}}</b></small> -->
                         <div class="text-secondary mt-2">
                             <i class="fe fe-tag tags-icon"></i>
@@ -89,6 +90,7 @@
         <h4 class="card-title">Related Products</h4>
         <app-related-products [productId]="productId"></app-related-products>
     </div>
+
     <!-- Product Reviews Section -->
     <div>
         <div class="row">
@@ -127,9 +129,10 @@
                         </button>
                     </div>
                     <div class="icontext">
-                        <img src="assets/images/avatar1.jpg" class="img-xs icon rounded-circle">
+                        <img *ngIf="!review?.reviewer?.image" src="assets/images/avatar1.jpg" class="img-xs icon rounded-circle">
+                        <img *ngIf="review?.reviewer?.image" [src]="review?.reviewer?.image" class="img-xs icon rounded-circle">
                         <div class="text">
-                            <h6 class="mb-0">{{review?.reviewer}} </h6>
+                            <h6 class="mb-0">{{review?.reviewer?.first_name}} {{review?.reviewer?.last_name}}</h6>
                             <div class="rating-wrap">
                                 <ul class="rating-stars">
                                     <ng-template #t let-fill="fill">

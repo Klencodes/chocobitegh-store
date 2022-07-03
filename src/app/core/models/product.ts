@@ -2,7 +2,7 @@ import { UserModel } from "./user";
 
 export class ProductModel {
   id: number;
-  category: CategoryModel[];
+  category: CategoryModel;
   currency: string;
   description: string;
   extra_images: ExtraImages[];

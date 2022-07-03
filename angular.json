@@ -89,6 +89,7 @@
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
+              "aot": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
