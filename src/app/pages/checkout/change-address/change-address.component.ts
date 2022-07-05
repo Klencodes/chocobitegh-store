@@ -49,7 +49,7 @@ export class ChangeAddressComponent implements OnInit {
   selectDeliveryAddress(address) {
     this.userService.updateUserPrimaryAddress({ address_id: address.id, address_state: true }, (error, result) => {
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        this.closeDialog()
+        this.dialogRef.close(address);
       }
     })
   }
@@ -57,8 +57,13 @@ export class ChangeAddressComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
-  addOrEditAddress() {
-      this.dialog.open(AddOrEditAddressComponent, { disableClose: true, data: {} })
+  /**
+   * Add or Edit address
+   * @param address 
+   * @param isEdit 
+   */
+  addOrEditAddress(address, isEdit) {
+      this.dialog.open(AddOrEditAddressComponent, { disableClose: true, data: {dialogData: address, isEdit: isEdit} })
         .afterClosed().subscribe((isSuccess: boolean) => {
           if (isSuccess) {
             this.fetchUserAddresses()

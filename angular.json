@@ -51,15 +51,16 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "./node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "node_modules/sweetalert2/src/sweetalert2.scss",
-              "src/styles.scss",
+              "./node_modules/ngx-toastr/toastr.css",
               "src/assets/plugins/bootstrap.css",
-              "src/assets/scss/_ui.scss"
+              "src/assets/scss/_ui.scss",
+              "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/plugins/bootstrap.js",
               "src/assets/plugins/fslightbox.js",
+              "src/assets/plugins/bootstrap.js",
               "src/assets/plugins/script.js"
             ]
           },

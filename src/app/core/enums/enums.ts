@@ -4,10 +4,10 @@ export enum EmailVerify {
 }
 
 export enum PaymentOptionEnums {
-  MOMO = 'MOMO',
-  CARD = 'CARD',
-  CASH = 'CASH',
-
+  MOMO = 'Mobile Money',
+  CARD = 'Card Payment',
+  CASH = 'Cash Payment',
+  BANK = 'Bank Payment',
 }
 export enum DelievryOptionEnums {
   NORMAL = 'NORMAL',
@@ -17,8 +17,8 @@ export enum DelievryOptionEnums {
 }
 export enum NetworkProviders {
   MTN = 'MTN',
-  AIR = 'AIR',
-  VODA = 'VODA',
+  AIR = 'AIRTEL',
+  VODA = 'VODAFONE',
   TIGO = 'TIGO',
 }
 export enum ResponseStatus {

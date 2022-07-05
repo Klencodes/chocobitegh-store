@@ -3,18 +3,52 @@
         "name": "Greater Accra",
         "postal_code": "002233",
         "cities": [
-            "Dzorwulu",
-            "East Legon",
-            "Medina"
+            {
+                "name": "Dzowulu",
+                "price": "20.50"
+            },
+            {
+                "name": "Ashaiman",
+                "price": "45.30"
+            },
+            {
+                "name": "Ashaiman",
+                "price": "45.30"
+            },
+            {
+                "name": "Kasoa",
+                "price": "30.80"
+            },
+            {
+                "name": "Abelemkpe",
+                "price": "25.80"
+            },
+            {
+                "name": "Tema",
+                "price": "30.50"
+            }
         ]
     },
     {
         "name": "Volta",
         "postal_code": "0022",
         "cities": [
-            "Sogakope",
-            "Akatsi",
-            "Aflao"
+            {
+                "name": "Sogakope",
+                "price": "45.50"
+            },
+            {
+                "name": "Akatsi",
+                "price": "50.50"
+            },
+            {
+                "name": "Aflao",
+                "price": "35.50"
+            },
+            {
+                "name": "Ho",
+                "price": "45.40"
+            }
         ]
     }
 ]

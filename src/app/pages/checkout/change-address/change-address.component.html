@@ -1,41 +1,41 @@
-<div class="d-flex justify-content-between">
-    <div>
-        <h5 class="form-label mb-3 text-center">My Addresses</h5>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h5 class="form-label mb-3 text-center">My Addresses</h5>
+        </div>
+        <div class="cursor-pointer" (click)="closeDialog()">
+            <i class="fe fe-x fe-lg"></i>
+        </div>
     </div>
-    <div class="cursor-pointer" (click)="closeDialog()">
-        <i class="fe fe-x fe-lg"></i>
-    </div>
-</div>
-<perfect-scrollbar style="position: relative; height: 60vh;" [config]="configData">
-<div class="row" *ngIf="addresses?.length > 0">
-    <div class="col-12 mb-3" *ngFor="let item of addresses">
-        <article class="box">
-            <div class="mx-2 d-flex justify-content-between">
-                <div>
-                    <i class="fe fe-map-pin"></i>
-                    <span class="">
-                        {{item?.state}}, {{item?.city}}, <br>
-                        {{item?.address}}, {{item?.apartment_number}}
-                    </span>
+    <perfect-scrollbar style="position: relative; height: 60vh;" [config]="configData">
+    <div class="row" *ngIf="addresses?.length > 0">
+        <div class="col-12 mb-3" *ngFor="let item of addresses">
+            <article class="box" [ngClass]="{'active-address': item?.primary}">
+                <div class="mx-2 d-flex justify-content-between">
+                    <div>
+                        <i class="fe fe-map-pin"></i>
+                        <span class="">
+                            {{item?.state}}, {{item?.city}}, <br>
+                            {{item?.address}}, {{item?.apartment_number}}
+                        </span>
+                    </div>
+                    <div class="address-primary-icon cursor-pointer text-primary" (click)="addOrEditAddress(item, true)">
+                        Edit
+                    </div>
                 </div>
-                <div class="address-primary-icon cursor-pointer text-primary">
-                    Edit
-                </div>
-            </div>
-
-            <button (click)="selectDeliveryAddress(item)" class="btn btn-outline-dark mt-2">Select this address</button>
-
-        </article>
+    
+                <button (click)="selectDeliveryAddress(item)" class="btn btn-outline-dark mt-2">Select this address</button>
+    
+            </article>
+        </div>
+    
     </div>
-
-</div>
-
-<div class="text-center my-4" *ngIf="addresses?.length <= 0">
-    <div class="">
-        No Address added yet
+    
+    <div class="text-center my-4" *ngIf="addresses?.length <= 0">
+        <div class="">
+            No Address added yet
+        </div>
     </div>
-</div>
-<div class="text-center">
-    <button class="btn btn-primary" (click)="addOrEditAddress()">Add Address</button>
-</div>
-</perfect-scrollbar>
+    <div class="text-center">
+        <button class="btn btn-primary" (click)="addOrEditAddress(null, false)">Add Address</button>
+    </div>
+    </perfect-scrollbar>

@@ -175,172 +175,255 @@
             <!-- <article class="card mb-4" *ngIf="!isGuestCheckout"> -->
             <article class="card mb-4">
                 <form [formGroup]="userCheckoutData" (ngSubmit)="onCheckout(userCheckoutData?.value)">
-                <div class="card-body">
-                    <h5 class="card-title">Checkout</h5>
-                    <div class="accordion accordion-flush" id="accordion_payment">
-                        <!-- Shipping Information  -->
-                        <article class="accordion-item">
-                            <!-- <h6 class="accordion-header">
+                    <div class="card-body">
+                        <h5 class="card-title">Checkout</h5>
+                        <div class="accordion accordion-flush" id="accordion_payment">
+                            <!-- Shipping Information  -->
+                            <article class="accordion-item">
+                                <!-- <h6 class="accordion-header">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"> 
                                     <span class="checkout-label">Shipping Information</span>      
                                 </button>
                             </h6> -->
-                            <div id="collapseOne" data-bs-parent="#accordion_payment"
-                                class="accordion-collapse collapse show">
-                                <div class="accordion-body">
-                                    <!-- Shipping Address -->
-                                    <strong class="form-label mb-3">Shipping address</strong>
-                                    <div class="row mb-4">
-                                        <div class="col-12 ">
-                                            <article class="box">
-                                                <div class="mx-2 d-flex justify-content-between" *ngIf="deliveryAddress">
-                                                    <div>
-                                                        <i class="fe fe-map-pin"></i>
-                                                        <span >
-                                                            {{deliveryAddress?.state}}, {{deliveryAddress?.city}}, <br>
-                                                            {{deliveryAddress?.address}}, {{deliveryAddress?.apartment_number}}
-                                                        </span>
+                                <div id="collapseOne" data-bs-parent="#accordion_payment"
+                                    class="accordion-collapse collapse show">
+                                    <div class="accordion-body">
+                                        <!-- Shipping Address -->
+                                        <strong class="form-label">Shipping address</strong>
+                                        <div class="row mb-4 pt-2">
+                                            <div class="col-12 ">
+                                                <article class="box">
+                                                    <div class="mx-2 d-flex justify-content-between"
+                                                        *ngIf="deliveryAddress">
+                                                        <div>
+                                                            <i class="fe fe-map-pin"></i>
+                                                            <span>
+                                                                {{deliveryAddress?.state}}, {{deliveryAddress?.city}},
+                                                                <br>
+                                                                {{deliveryAddress?.address}},
+                                                                {{deliveryAddress?.apartment_number}}
+                                                            </span>
+                                                        </div>
+                                                        <div class="address-primary-icon cursor-pointer text-primary"
+                                                            (click)="changeDeliveryAddress()">
+                                                            Change
+                                                        </div>
                                                     </div>
-                                                    <div class="address-primary-icon cursor-pointer text-primary" (click)="changeDeliveryAddress()">
-                                                        Change
+                                                    <div *ngIf="!deliveryAddress" class="text-center">
+                                                        <button class="btn btn-primary" type="button"
+                                                            (click)="addUserAddress()">Add address</button>
                                                     </div>
-                                                </div>
-                                                <div *ngIf="!deliveryAddress" class="text-center">
-                                                   <button class="btn btn-primary" type="button" (click)="addUserAddress()">Add address</button>
-                                                </div>
-                                            </article>
-                                            <div *ngIf="!deliveryAddress && submitted" class="error-message"> Address is required</div>
+                                                </article>
+                                                <div *ngIf="!deliveryAddress && submitted" class="error-message">
+                                                    Address is required</div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Delivery Options -->
-                                    <strong class="form-label mb-2">Delivery Options</strong>
-                                    <div class="row">
-                                        <div class="col-lg-4 mb-3">
-                                            <div class="box box-check">
-                                                <label class="form-check">
-                                                    <input class="form-check-input" type="radio" name="delivery_method" checked=""
-                                                        [value]="deliveryOptions?.NORMAL" formControlName="delivery_method">
-                                                    <b class="border-oncheck"></b>
-                                                    <span class="form-check-label">
-                                                        Normal Delivery <br>
-                                                        <small class="text-muted">3-7 days via Dispatch</small>
-                                                    </span>
-                                                </label>
+                                        <!-- Delivery Options -->
+                                        <strong class="form-label">Delivery Options</strong>
+                                        <div class="row pt-2">
+                                            <div class="col-lg-4 mb-3">
+                                                <div class="box box-check">
+                                                    <label class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="delivery_method" checked=""
+                                                            [value]="deliveryOptions?.NORMAL"
+                                                            formControlName="delivery_method">
+                                                        <b class="border-oncheck"></b>
+                                                        <span class="form-check-label">
+                                                            Normal Delivery <br>
+                                                            <small class="text-muted">3-7 days via Dispatch</small>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <div class="box box-check">
+                                                    <label class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="delivery_method" [value]="deliveryOptions?.EXPRESS"
+                                                            formControlName="delivery_method">
+                                                        <b class="border-oncheck"></b>
+                                                        <span class="form-check-label">
+                                                            Express Delivery <br>
+                                                            <small class="text-muted">1-2 days via Fedex </small>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 mb-3">
+                                                <div class="box box-check">
+                                                    <label class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="delivery_method" [value]="deliveryOptions?.PICK_UP"
+                                                            formControlName="delivery_method">
+                                                        <b class="border-oncheck"></b>
+                                                        <span class="form-check-label">
+                                                            Self pick-up <br>
+                                                            <small class="text-muted"> Come to our shop </small>
+                                                        </span>
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 mb-3">
-                                            <div class="box box-check">
-                                                <label class="form-check">
-                                                    <input class="form-check-input" type="radio" name="delivery_method"
-                                                    [value]="deliveryOptions?.EXPRESS" formControlName="delivery_method">
-                                                    <b class="border-oncheck"></b>
-                                                    <span class="form-check-label">
-                                                       Express Delivery <br>
-                                                        <small class="text-muted">1-2 days via Fedex </small>
-                                                    </span>
-                                                </label>
-                                            </div>
+
+                                        <!-- PAYMENT INFOMATION -->
+                                        <strong class="form-label">Payment Information</strong>
+                                        <div class="box box-check mb-3 mt-2">
+                                            <ul ngbNav #customNav="ngbNav" [activeId]="paymentOptions?.MOMO"
+                                                class="nav-tabs nav-tabs-custom nav-justified"
+                                                (click)="paymentMethodChange($event?.target)">
+                                                <li [ngbNavItem]="paymentOptions?.MOMO">
+                                                    <a ngbNavLink class="">
+                                                        <!-- <span class="d-none d-sm-block"><i class="fe fe-user"></i></span> -->
+                                                        <span>Mobile Money</span>
+                                                    </a>
+                                                    <ng-template ngbNavContent>
+                                                        <ng-template [ngTemplateOutlet]="momoContent"></ng-template>
+                                                    </ng-template>
+                                                </li>
+                                                <li [ngbNavItem]="paymentOptions?.CARD">
+                                                    <a ngbNavLink>
+                                                        <!-- <span class="d-none d-xs-block"><i class="fe fe-user"></i></span> -->
+                                                        <span>Card Payment</span>
+                                                    </a>
+                                                    <ng-template ngbNavContent>
+                                                        <ng-template [ngTemplateOutlet]="cardContent"></ng-template>
+                                                    </ng-template>
+                                                </li>
+                                                <li [ngbNavItem]="paymentOptions?.BANK">
+                                                    <a ngbNavLink>
+                                                        <!-- <span class="d-none d-xs-block"><i class="fe fe-user"></i></span> -->
+                                                        <span>Bank Payment</span>
+                                                    </a>
+                                                    <ng-template ngbNavContent>
+                                                        <ng-template [ngTemplateOutlet]="bankContent"></ng-template>
+                                                    </ng-template>
+                                                </li>
+
+                                            </ul>
+                                            <div [ngbNavOutlet]="customNav"></div>
+                                            <!-- MOMO Tab Content -->
+                                            <ng-template #momoContent>
+                                                <div class="pt-3 mb-0">
+                                                    <div class="row">
+                                                        <div class="col-12 mb-3">
+                                                            <label class="form-label">Network Provider</label>
+                                                            <select class="form-select"
+                                                                formControlName="network_provider">
+                                                                <option hidden>MTN</option>
+                                                                <option [value]="networkProviders.MTN">MTN</option>
+                                                                <option [value]="networkProviders.VODA">Vodafone
+                                                                </option>
+                                                                <option [value]="networkProviders.AIR">Airtel-Tigo
+                                                                </option>
+                                                            </select>
+                                                            <div *ngIf="!network_provider?.valid && network_provider?.touched"
+                                                                class="error-message"> Network provider is required
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label class="form-label">Phone Number</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="phone_number" placeholder="0244000000">
+                                                            <div *ngIf="!phone_number?.valid && phone_number?.touched"
+                                                                class="error-message"> Phone number is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
+                                            <!--CARD Tab Content -->
+                                            <ng-template #cardContent>
+                                                <div class="pt-3 mb-0">
+                                                    <div class="row">
+                                                        <div class="col-12 mb-3">
+                                                            <label class="form-label">Full name</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="card_holder"
+                                                                placeholder="Full name on card">
+                                                            <div *ngIf="!card_holder?.valid && card_holder?.touched"
+                                                                class="error-message"> Full name on card is required
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-5 mb-3">
+                                                            <label class="form-label">Card number</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="card_number"
+                                                                placeholder="xxxx-xxxx-xxxx-xxxx">
+                                                            <div *ngIf="!card_number?.valid && card_number?.touched"
+                                                                class="error-message"> Card number is required</div>
+                                                        </div>
+                                                        <div class="col-7 col-sm-4 mb-3">
+                                                            <label class="form-label">Expiry date</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="card_expiry_date" placeholder="mm/yy">
+                                                            <div *ngIf="!card_expiry_date?.valid && card_expiry_date?.touched"
+                                                                class="error-message"> Expiry date is required</div>
+                                                        </div>
+                                                        <div class="col-5 col-sm-3">
+                                                            <label class="form-label">CVV</label>
+                                                            <input type="text" class="form-control"
+                                                                formControlName="card_cvv" placeholder="cvc">
+                                                            <div *ngIf="!card_cvv?.valid && card_cvv?.touched"
+                                                                class="error-message"> CVV is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
+                                            <!--BANK Tab Content -->
+                                            <ng-template #bankContent>
+                                                <div class="pt-3 mb-0">
+                                                    <div class="alert alert-success-primary" role="alert"> Some information or
+                                                        instruction </div>
+                                                    <dl class="row">
+                                                        <dt class="col-5">Bank Name</dt>
+                                                        <dd class="col-7">Zenit Bank Ghana Ltd</dd>
+                                                        <dt class="col-5">Branch</dt>
+                                                        <dd class="col-7">Patrice Lumumba Branch</dd>
+                                                        <dt class="col-5">Acount Name</dt>
+                                                        <dd class="col-7">Chocolate Mall Ltd</dd>
+                                                        <dt class="col-5">Account Number</dt>
+                                                        <dd class="col-7">6010228769 </dd>
+                                                        <dt class="col-5">Swift Code</dt>
+                                                        <dd class="col-7">ZEBLGHAC </dd>
+                                                    </dl>
+                                                </div>
+                                            </ng-template>
+
                                         </div>
-                                        <div class="col-lg-4 mb-3">
-                                            <div class="box box-check">
-                                                <label class="form-check">
-                                                    <input class="form-check-input" type="radio" name="delivery_method"
-                                                    [value]="deliveryOptions?.PICK_UP" formControlName="delivery_method">
-                                                    <b class="border-oncheck"></b>
-                                                    <span class="form-check-label">
-                                                        Self pick-up <br>
-                                                        <small class="text-muted"> Come to our shop </small>
-                                                    </span>
-                                                </label>
-                                            </div>
+                                        <!-- Seller Message -->
+                                        <div class="">
+                                            <label for="" class="form-label">Message to seller</label>
+                                            <textarea class="form-control" formControlName="order_note"></textarea>
                                         </div>
-                                    </div>                
-                                    <strong class="form-label mb-2">Payment Information</strong>
-                                    
-                                    <div class="row">
-                                        <div class="col-12 mb-3"> 
-                                            <label class="form-label">Network Provider</label> 
-                                            <select class="form-select" formControlName="network_provider">
-                                                <option hidden>MTN</option>
-                                                <option [value]="networkProviders.MTN">MTN</option>
-                                                <option [value]="networkProviders.VODA">Vodafone</option>
-                                                <option [value]="networkProviders.AIR">AirtelTigo</option>
-                                            </select>
-                                            <div *ngIf="!network_provider?.valid && network_provider?.touched" class="error-message"> Network provider is required</div>
-                                        </div>
-                                        <div class="col-12 mb-3"> 
-                                            <label class="form-label">Phone Number</label>
-                                            <input type="text" class="form-control" formControlName="phone_number" placeholder="0244000000">
-                                            <div *ngIf="!phone_number?.valid && phone_number?.touched" class="error-message"> Phone number is required</div>
-                                        </div>
-                                    </div>
-                                    <!-- Seller Message -->
-                                    <div class="mb-4">
-                                        <label for="" class="form-label">Message to seller</label>
-                                        <textarea class="form-control" formControlName="order_note"></textarea>
                                     </div>
                                 </div>
-                            </div>
-                        </article> 
-                        <!-- Payment Information  -->
-                        <!-- <article class="accordion-item">
-                            <h2 class="accordion-header"> 
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo"> 
-                                <span class="checkout-label">Payment Method</span> 
-                            </button> 
-                        </h2>
-                        <div id="collapseTwo" data-bs-parent="#accordion_payment" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <div class="alert alert-success" role="alert"> Some information or instruction </div>
-                                <div class="row">
-                                    <div class="col-12 mb-3"> 
-                                            <label class="form-label">Full name</label> 
-                                            <input type="text" class="form-control" formControlName="card_holder" placeholder="Full name on card"> 
-                                            <div *ngIf="!card_holder?.valid && card_holder?.touched" class="error-message"> Full name on card is required</div>
-                                        </div>
-                                        <div class="col-12 col-sm-5 mb-3"> 
-                                            <label class="form-label">Card number</label> 
-                                            <input type="text" class="form-control" formControlName="card_number" placeholder="xxxx-xxxx-xxxx-xxxx"> 
-                                            <div *ngIf="!card_number?.valid && card_number?.touched" class="error-message"> Card number is required</div>
-                                        </div>
-                                        <div class="col-7 col-sm-4 mb-3"> 
-                                            <label class="form-label">Expiry date</label> 
-                                            <input type="text" class="form-control" formControlName="card_expiry_date" placeholder="mm/yy"> 
-                                            <div *ngIf="!card_expiry_date?.valid && card_expiry_date?.touched" class="error-message"> Expiry date is required</div>
-                                        </div>
-                                        <div class="col-5 col-sm-3 mb-3"> 
-                                            <label class="form-label">CVV</label>
-                                            <input type="text" class="form-control" formControlName="card_cvv" placeholder="cvc">
-                                            <div *ngIf="!card_cvv?.valid && card_cvv?.touched" class="error-message"> CVV is required</div>
-                                        </div>
-                                    </div>
+                            </article>
+
+                        </div>
+                        <!-- Place order section-->
+                        <div class="place-order-show-md mt-3">
+                            <div class="row">
+                                <div class="col align-self-center">
+                                    <a [routerLink]="[ '/cart' ]" class="text-primary">
+                                        <i class="fe fe-chevron-left"></i>
+                                        Return to Cart
+                                    </a>
                                 </div>
-                            </div>
-                        </article> -->
-                      
-                    </div>
-                    <!-- Place order section-->
-                    <div class="place-order-show-md mt-3">
-                        <div class="row">
-                            <div class="col align-self-center">
-                                <a [routerLink]="[ '/cart' ]" class="text-primary">
-                                    <i class="fe fe-chevron-left"></i>
-                                    Return to Cart
-                                </a>
-                            </div>
-                            <div class="col-auto float-end">
-                                <button class="btn btn-primary float-end" type="button" (click)="onCheckout(userCheckoutData?.value)">
-                                    <span class="mx-4">Place Order</span></button>
+                                <div class="col-auto float-end">
+                                    <button class="btn btn-primary float-end" type="button"
+                                        (click)="onCheckout(userCheckoutData?.value)">
+                                        <span class="mx-4">Place Order</span></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </article>
         </main>
-        
+
         <aside class="col-md-4">
             <aside class="card p-4">
                 <!-- ============== COMPONENT SUMMARY =============== -->
@@ -355,7 +438,8 @@
                         </div>
                         <figcaption class="info">
                             <a class="title">{{item?.product?.name}}</a>
-                            <div class="price text-muted">Total: {{item?.product?.currency}} {{item?.product?.new_price * item?.numInCart | priceDecimal}}</div>
+                            <div class="price text-muted">Total: {{item?.product?.currency}} {{item?.product?.new_price
+                                * item?.numInCart | priceDecimal}}</div>
                         </figcaption>
                     </figure>
                     <hr>
@@ -367,20 +451,24 @@
                     </dl>
                     <dl class="dlist-align">
                         <dt>Discount:</dt>
-                        <dd class="text-end text-danger"> - GHS {{cartData?.discount | priceDecimal}} </dd>
+                        <dd class="text-end text-success"> - GHS {{cartData?.discount | priceDecimal}} </dd>
                     </dl>
-                    <!-- <dl class="dlist-align">
-                        <dt>TAX:</dt>
-                        <dd class="text-end text-danger"> + GHS14.00 </dd>
-                    </dl> -->
+                    <dl class="dlist-align">
+                        <dt>Tax:</dt>
+                        <dd class="text-end text-danger"> + {{cartData?.tax | priceDecimal}} </dd>
+                    </dl>
                     <dl class="dlist-align">
                         <dt class="form-label">Delivery fee:</dt>
-                        <dd class="text-end text-success"> + GHS {{cartData.delivery_fee | priceDecimal}} </dd>
+                        <dd class="text-end text-danger"> + GHS {{cartData?.delivery_fee}} </dd>
                     </dl>
                     <hr>
                     <dl class="dlist-align">
                         <dt class="form-label"> Total: </dt>
-                        <dd class="text-end"> <strong class="text-dark">GHS {{cartData?.total - cartData?.discount + cartData.delivery_fee | priceDecimal}}</strong> </dd>
+                        <dd class="text-end"> 
+                            <strong class="text-dark">
+                                GHS {{cartData?.total - cartData?.discount + cartData?.delivery_fee + cartData?.tax | priceDecimal}}
+                            </strong>
+                        </dd>
                     </dl>
 
                 </article>
@@ -393,7 +481,8 @@
                             </a>
                         </div>
                         <div class="col-auto float-end">
-                            <button class="btn btn-primary float-end" type="submit" (click)="onCheckout(userCheckoutData?.value)">
+                            <button class="btn btn-primary float-end" type="submit"
+                                (click)="onCheckout(userCheckoutData?.value)">
                                 <span class="mx-4">Place Order</span>
                             </button>
                         </div>
@@ -403,3 +492,8 @@
         </aside>
     </div>
 </div>
+<!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-atom" [fullScreen] = "true"><p style="color: white" > Placing Order... </p></ngx-spinner> -->
+
+<ngx-spinner bdColor="rgba(107, 23, 3, 0.8)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true">
+    <p style="font-size: 20px; color: white">Placing Order...</p>
+  </ngx-spinner>

@@ -41,15 +41,18 @@ export class CheckoutComponent implements OnInit {
     private dataProvider: DataProviderService,
 
   ) {
-    // this.dataProvider.getLocalData('assets/json/gh-states.json').subscribe(result => {
-    //   if (result !== null) {
-    //     this.statesData = result;
-    //   }
-    // })
     this.user = this.localAuth.userObj,
-      this.cartService.cartDataObs$.subscribe(data => {
-        this.cartData = data;
-      })
+    this.cartService.cartDataObs$.subscribe(data => {
+      this.cartData = data;
+      // this.tax?.setValue(this.cartData.tax.toFixed(2))
+      // this.delivery_fee?.setValue(this.cartData.delivery_fee)
+    })
+    this.dataProvider.getLocalData('assets/json/gh-states.json').subscribe(result => {
+      if (result !== null) {
+        this.statesData = result;
+      }
+    })
+   
   }
 
   ngOnInit(): void {
@@ -79,21 +82,21 @@ export class CheckoutComponent implements OnInit {
     // })
 
     this.userCheckoutData = new FormGroup({
-      is_guest_checkout: new FormControl(false, [Validators.required]),
-      address_id: new FormControl('', [Validators.required]),
-      coupon_code: new FormControl(this.cartData.coupon_code),
       order_note: new FormControl(''),
-      delivery_fee: new FormControl(this.cartData.delivery_fee),
+      // coupon_code: new FormControl(this.cartData.coupon_code),
+      // delivery_fee: new FormControl('', [Validators.required]),
+      // tax: new FormControl('', [Validators.required]),
+      address_id: new FormControl('', [Validators.required]),
+      is_guest_checkout: new FormControl(false, [Validators.required]),
       delivery_method: new FormControl(this.deliveryOptions.NORMAL, [Validators.required]),
-      payment_method: new FormControl(this.paymentOptions.MOMO, [Validators.required]),
-      network_provider: new FormControl(this.networkProviders.MTN, [Validators.required]),
+      payment_method: new FormControl(this.paymentOptions.MOMO),
+      network_provider: new FormControl(this.networkProviders.MTN),
       phone_number: new FormControl('', [Validators.required]),
-      // card_holder: new FormControl('', [Validators.required]),
-      // card_number: new FormControl('', [Validators.required]),
-      // card_expiry_date: new FormControl('', [Validators.required]),
-      // card_cvv: new FormControl('', [Validators.required]),
+      card_holder: new FormControl(''),
+      card_number: new FormControl(''),
+      card_expiry_date: new FormControl(''),
+      card_cvv: new FormControl(''),
     })
-    // this.formValidators();
     //Breadcrumb items
     this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Checkout', active: true }];
     // Check if the user is loggedin
@@ -111,6 +114,7 @@ export class CheckoutComponent implements OnInit {
     //     }
     //   })
     // })
+
   }
 
   /**
@@ -118,13 +122,14 @@ export class CheckoutComponent implements OnInit {
    */
   fetchUserAddresses() {
     this.isProcessing = true;
-    if(this.user.auth_token){
+    if (this.user.auth_token) {
       this.userService.fetchUserAddresses((error, result) => {
         this.isProcessing = false;
-        if (result !== null) {
+        if (result !== null && result.results) {
           result.results.find(x => {
             if (x.primary === true) {
               this.deliveryAddress = x;
+              this.calculateDeliveryFee(this.deliveryAddress)
               if (this.deliveryAddress !== null) {
                 this.userCheckoutData.get('address_id').setValue(this.deliveryAddress?.id)
               }
@@ -139,11 +144,30 @@ export class CheckoutComponent implements OnInit {
    */
   changeDeliveryAddress() {
     this.dialog.open(ChangeAddressComponent)
-      .afterClosed().subscribe((isSuccess: boolean) => {
-        if (isSuccess) {
+      .afterClosed().subscribe(address => {
+        if (address) {
           this.fetchUserAddresses();
+          this.calculateDeliveryFee(address)
         }
       })
+  }
+  /**
+   * Calculate delivery fee on address changed
+   * @param address 
+   */
+  calculateDeliveryFee(address) {
+    this.statesData.find(x => {
+      if (x.name === address.state) {
+        x.cities.filter(x => {
+          if (x.name === address.city) {
+            this.cartService.cartDataServer.delivery_fee = parseFloat(x.price);
+            this.cartService.cartDataClient.delivery_fee = this.cartService.cartDataServer.delivery_fee;
+            localStorage.setItem('cart', JSON.stringify(this.cartService.cartDataClient));
+            this.cartService.cartDataObs$.next({ ...this.cartService.cartDataServer });
+          }
+        })
+      }
+    })
   }
   /**
    * Change delivery address
@@ -162,7 +186,7 @@ export class CheckoutComponent implements OnInit {
    * @param data checkout data to submit to server
    */
   onCheckout(data) {
-    if(this.userCheckoutData.invalid){
+    if (this.userCheckoutData.invalid) {
       this.submitted = true;
       this.userCheckoutData.markAllAsTouched();
       this.toast.error('Please enter all the required fields')
@@ -172,11 +196,25 @@ export class CheckoutComponent implements OnInit {
 
   }
 
+  paymentMethodChange(event) {
+    this.payment_method.setValue(event?.innerText)
+    this.formValidators(event?.innerText);
+  }
 
-  formValidators() {
-    this.payment_method.valueChanges.subscribe(value => {
-      this.userCheckoutData.clearValidators();
-      this.userCheckoutData.updateValueAndValidity();
+  formValidators(value) {
+    if (value) {
+      this.card_cvv.clearValidators()
+      this.card_cvv.updateValueAndValidity();
+      this.card_expiry_date.clearValidators()
+      this.card_expiry_date.updateValueAndValidity();
+      this.card_number.clearValidators()
+      this.card_number.updateValueAndValidity();
+      this.card_holder.clearValidators()
+      this.card_holder.updateValueAndValidity();
+      this.phone_number.clearValidators();
+      this.phone_number.updateValueAndValidity()
+      this.network_provider.clearValidators();
+      this.network_provider.updateValueAndValidity()
 
       if (value === this.paymentOptions.CARD) {
         this.card_cvv.setValidators([Validators.required])
@@ -195,13 +233,14 @@ export class CheckoutComponent implements OnInit {
         this.network_provider.setValidators([Validators.required]);
         this.network_provider.updateValueAndValidity()
       }
-    })
-
+    }
   }
   get address_id() { return this.userCheckoutData.get('addres_id') }
   get delivery_method() { return this.userCheckoutData.get('delivery_method') }
   get payment_method() { return this.userCheckoutData.get('payment_method') }
-  get coupon_code() { return this.userCheckoutData.get('coupon_code') }
+  // get tax() { return this.userCheckoutData.get('tax') }
+  // get coupon_code() { return this.userCheckoutData.get('coupon_code') }
+  // get delivery_fee() { return this.userCheckoutData.get('delivery_fee') }
   get card_holder() { return this.userCheckoutData.get('card_holder') }
   get card_number() { return this.userCheckoutData.get('card_number') }
   get card_expiry_date() { return this.userCheckoutData.get('card_expiry_date') }

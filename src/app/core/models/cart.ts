@@ -14,6 +14,7 @@ export interface CartModelServer {
     numInCart: number,
   }],
   total: number,
+  tax: number;
   coupon_code: string,
   delivery_fee: number
   discount: number
@@ -25,9 +26,10 @@ export interface CartModelClient {
     quantity: number
   }],
   total: number;
-  // coupon_code: string;
-  // delivery_fee: number;
-  // discount: number;
+  tax: number;
+  coupon_code: string;
+  delivery_fee: number;
+  discount: number;
 }
 
 export interface CouponModelServer {

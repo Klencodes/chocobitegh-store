@@ -1,64 +1,70 @@
-<form [formGroup]="userAddressForm" (ngSubmit)="onSubmit(userAddressForm?.value)">
-    <div class="row">
-        <div class="col-12 mb-3">
-            <h5>Add Address</h5>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h5 class="form-label mb-3">{{dialogTitle}}</h5>
         </div>
-        <div class="col-sm-8 mb-3">
-            <label for="" class="form-label">Street Address <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="address" formControlName="address"
-                placeholder="ex. 14th Schandorf street">
-            <div *ngIf="!address?.valid && address?.touched" class="error-message">
-                Address
-                is required</div>
+        <div class="cursor-pointer" (click)="closeDialog()">
+            <i class="fe fe-x fe-lg"></i>
         </div>
-    
-        <div class="col-sm-4 mb-3">
-            <label for="" class="form-label">State <span class="text-danger">*</span></label>
-            <select class="form-select" formControlName="state" id="state">
-                <option *ngFor="let item of statesData" [value]="item?.name">{{item?.name}}</option>
-            </select>
-            <div *ngIf="!state?.valid && state?.touched" class="error-message">State is
-                required</div>
-        </div>
-    
-        <div class="col-sm-4 mb-3">
-            <label for="" class="form-label">City / Town <span class="text-danger">*</span></label>
-            <select class="form-select" formControlName="city" id="city">
-                <option *ngFor="let city of stateCities" [value]="city">{{city}}</option>
-            </select>
-            <div *ngIf="!city?.valid && city?.touched" class="error-message">Town / City is
-                required</div>
-        </div>
-    
-        <div class="col-sm-4 col-6 mb-3">
-            <div class="form-group">
-                <label for="apartment">Apartment
-                    <small class="text-muted">(Optional)</small>
-                </label>
-                <input type="text" class="form-control" id="apartment" formControlName="apartment_number"
-                    placeholder="Apartment or Suite">
-                <!-- <div *ngIf="!apartment_number?.valid && apartment_number?.touched"
+    </div>
+    <form [formGroup]="userAddressForm" (ngSubmit)="onSubmit(userAddressForm?.value)">
+        <div class="row">
+            <div class="col-sm-8 mb-3">
+                <label for="" class="form-label">Street Address <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="address" formControlName="address"
+                    placeholder="ex. 14th Schandorf street">
+                <div *ngIf="!address?.valid && address?.touched" class="error-message">
+                    Address
+                    is required</div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <label for="" class="form-label">State <span class="text-danger">*</span></label>
+                <select class="form-select" formControlName="state" id="state">
+                    <option *ngFor="let item of statesData" [value]="item?.name">{{item?.name}}</option>
+                </select>
+                <div *ngIf="!state?.valid && state?.touched" class="error-message">State is
+                    required</div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <label for="" class="form-label">City / Town <span class="text-danger">*</span></label>
+                <select class="form-select" formControlName="city" id="city">
+                    <option *ngFor="let city of stateCities" [value]="city?.name">{{city?.name}}</option>
+                </select>
+                <div *ngIf="!city?.valid && city?.touched" class="error-message">Town / City is
+                    required</div>
+            </div>
+
+            <div class="col-sm-4 col-6 mb-3">
+                <div class="form-group">
+                    <label for="apartment">Apartment
+                        <small class="text-muted">(Optional)</small>
+                    </label>
+                    <input type="text" class="form-control" id="apartment" formControlName="apartment_number"
+                        placeholder="Apartment or Suite">
+                    <!-- <div *ngIf="!apartment_number?.valid && apartment_number?.touched"
                      class="error-message">Apartment number
                                                 is required</div> -->
+                </div>
             </div>
-        </div>
-    
-        <div class="col-sm-4 col-6 mb-3">
-            <label for="postal_code" class="form-label">Postal code</label>
-            <input type="text" class="form-control" id="postal_code" formControlName="postal_code" placeholder="62510">
-            <div *ngIf="!postal_code?.valid && postal_code?.touched" class="error-message">
-                Zip / Postcode is required</div>
-        </div>
-    
-    </div>
-    
-    <label class="form-check mb-4">
-        <input class="form-check-input" type="checkbox" value="" formControlName="primary">
-        <span class="form-check-label"> Set as default address </span>
-    </label>
 
-    <div class="float-end">
-        <button class="btn btn-outline-dark" (click)="closeDialog()" type="button">Cancel</button>
-        <button class="btn btn-primary ml-3" type="submit">Add Address</button>
-    </div>
-</form>
+            <div class="col-sm-4 col-6 mb-3">
+                <label for="postal_code" class="form-label">Postal code</label>
+                <input type="text" class="form-control" id="postal_code" formControlName="postal_code"
+                    placeholder="62510">
+                <div *ngIf="!postal_code?.valid && postal_code?.touched" class="error-message">
+                    Zip / Postcode is required</div>
+            </div>
+
+        </div>
+
+        <label class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" value="" formControlName="primary">
+            <span class="form-check-label"> Set as default address </span>
+        </label>
+
+        <div class="float-end">
+            <button class="btn btn-outline-dark" (click)="closeDialog()" type="button">Cancel</button>
+            <button class="btn btn-primary ml-3" type="submit">{{btnTxt}}</button>
+        </div>
+    </form>

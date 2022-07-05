@@ -15,18 +15,19 @@ import Swal from 'sweetalert2';
 })
 export class CartService {
   //Data variables to store client information on the client's localStorage
-  private cartDataClient: CartModelClient = {
+  public cartDataClient: CartModelClient = {
     prodData: [
       { quantity: 0, product_id: 0 }
     ],
     total: 0,
-    // coupon_code: '',
-    // delivery_fee: 20,
-    // discount: 0
+    coupon_code: '',
+    tax: 0,
+    delivery_fee: 0,
+    discount: 0
   }; // This will be sent to the backend Server as post data
 
   // Cart Data variable to store the cart information on the server (Angular not Backend)
-  private cartDataServer: CartModelServer = {
+  public cartDataServer: CartModelServer = {
     data: [
       {
         product: undefined,
@@ -35,7 +36,8 @@ export class CartService {
     ],
     total: 0,
     coupon_code: '',
-    delivery_fee: 20,
+    tax: 0,
+    delivery_fee: 0,
     discount: 0
   };
 
@@ -47,6 +49,7 @@ export class CartService {
   cartTotal: number;
   orderId;
   couponVal: any;
+  taxValue: number = 0.05;
   // couponDataSaved: CouponModelServer;
   // amountPaid = 0
   // amountSaved = 0
@@ -83,6 +86,10 @@ export class CartService {
               // }
               this.calculateTotal();
               this.cartDataClient.total = this.cartDataServer.total;
+              this.cartDataClient.tax = this.cartDataServer.tax;
+              this.cartDataClient.delivery_fee = this.cartDataServer.delivery_fee;
+              this.cartDataClient.coupon_code = this.cartDataServer.coupon_code;
+              this.cartDataClient.discount = this.cartDataServer.discount;
               localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
               this.cartDataObs$.next({ ...this.cartDataServer });
             } else {
@@ -237,13 +244,12 @@ export class CartService {
         const coupon = result.results;
         if (coupon) {
           this.cartDataServer.discount = coupon.discount_amount;
-          this.cartDataServer.coupon_code =  coupon.code;
+          this.cartDataServer.coupon_code = coupon.code;
+          this.cartDataClient.discount = this.cartDataServer.discount;
+          this.cartDataClient.coupon_code = this.cartDataServer.coupon_code;
           localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
           this.cartDataObs$.next({ ...this.cartDataServer });
         }
-        // this.couponData$.next(coupon);
-        // this.amountPaid = this.couponData$.value.amount_paid;
-        // this.amountSaved = this.couponData$.value.amount_saved
       }
     })
   }
@@ -253,8 +259,14 @@ export class CartService {
    * Here Customer payment info is sent together with order
    */
   checkoutCart(data) {
-    const orderData = { order_items: this.cartDataClient.prodData, customer: data };
-    this.spinner.hide().then();
+    const customerData = {
+      address_id: data.address_id, card_cvv: data.card_cvv, card_expiry_date: data.card_expiry_date, card_holder: data.card_holder,
+      card_number: data.card_number, delivery_method: data.delivery_method, is_guest_checkout: data.is_guest_checkout, network_provider: data.network_provider,
+      order_note: data.order_note, payment_method: data.payment_method, phone_number: data.phone_number, coupon_code: this.cartDataClient.coupon_code,
+      tax: this.cartDataClient.tax.toFixed(2), delivery_fee: this.cartDataClient.delivery_fee
+    }
+    const orderData = { order_items: this.cartDataClient.prodData, customer: customerData };
+    this.spinner.show().then();
     this.orderService.createOrder(orderData, (error, result) => {
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
         this.emptyCartServer();
@@ -311,6 +323,7 @@ export class CartService {
       const { new_price }: any = p.product;
       Total += numInCart * new_price;
     });
+    this.cartDataServer.tax = Total * this.taxValue;
     this.cartDataServer.total = Total;
     this.cartTotal$.next(this.cartDataServer.total);
   }
@@ -333,6 +346,10 @@ export class CartService {
     this.cartDataClient = {
       prodData: [{ quantity: 0, product_id: 0 }],
       total: 0,
+      tax: 0,
+      coupon_code: '',
+      delivery_fee: 20,
+      discount: 0
     };
     localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
   }
@@ -343,6 +360,7 @@ export class CartService {
         { product: undefined, numInCart: 0 }],
       total: 0,
       coupon_code: '',
+      tax: 0,
       delivery_fee: 0,
       discount: 0
     };

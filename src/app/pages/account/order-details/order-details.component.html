@@ -32,10 +32,11 @@
             <hr class="place-order-show-sm mt-3">
             <div class="col-md-4 border-start">
                 <p class="order-label-bold">Payment</p>
-                <p class="m-0"> <span class="text-success"> MoMo **** {{orderDetails?.payment?.phone_number.slice(6,10)}} </span> </p>
-                <p class="mb-0"> <span *ngIf="orderDetails?.delivery_fee > 0">Delivery fee: {{orderDetails?.currency}} {{orderDetails?.delivery_fee}} </span> </p>
-                <p class="mb-0"><span *ngIf="orderDetails?.discount > 0">Discount: {{orderDetails?.currency}} {{orderDetails?.discount}}</span> </p>
-                <p class="mb-0"> Total paid: {{orderDetails?.currency}} {{orderDetails?.payment?.amount_paid}} </p>
+                <p class="m-0"><span class="text-success"> MoMo **** {{orderDetails?.payment?.phone_number.slice(6,10)}} </span> </p>
+                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.delivery_fee > 0">Delivery fee: {{orderDetails?.currency}} {{orderDetails?.delivery_fee}} </span> </p>
+                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.discount > 0">Discount: {{orderDetails?.currency}} {{orderDetails?.discount}}</span> </p>
+                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.tax > 0">Tax: {{orderDetails?.currency}} {{orderDetails?.tax}}</span> </p>
+                <p class="mb-0"> Total <span *ngIf="orderDetails?.is_paid">paid</span>: {{orderDetails?.currency}} {{orderDetails?.payment?.amount_paid}} </p>
             </div> 
         </div> 
         <hr>

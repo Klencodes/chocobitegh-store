@@ -1697,7 +1697,7 @@ b.price,
 
 .box-check input:checked~.border-oncheck {
     // border-color: $primary;
-    background-color: rgba($primary, .2)
+    background-color: rgba($primary, .1)
 }
 
 .gallery-uploader-wrap .uploader-img {
@@ -2196,7 +2196,7 @@ ul.row {
 
 .bg-cover-centered-box {
     position: absolute;
-    top: 40%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 30rem;
@@ -2454,7 +2454,8 @@ table tr td {
 }
 
 .mat-dialog-container {
-    min-width: 30vw !important;
+    min-width: 40vw !important;
+    max-width: 500px !important;
     box-shadow: 0px 0px 24px rgba(92, 90, 90, 0.18) !important;
 }
 
@@ -2534,3 +2535,15 @@ table tr td {
   
   }
   
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    background-color: rgba($primary, .1);
+}
+.alert-success-primary {
+    color: $primary;
+    background-color: rgba($success, .1);
+    background-color: rgba($success, .1);
+}
+.active-address {
+    background-color: rgba($primary, .1);
+}

@@ -6,11 +6,13 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { FooterComponent } from './footer/footer.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
     FooterComponent,
-    TopbarComponent, 
+    TopbarComponent,
+    AboutUsComponent, 
   ],
   imports: [
     CommonModule,

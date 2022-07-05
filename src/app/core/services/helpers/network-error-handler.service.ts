@@ -33,6 +33,6 @@ export class NetworkErrorHandlerService {
     } else if (err.status === 400) {
       return throwError(() => new Error(err.error.message || err.error.detail ))
     }
-    return throwError(() => new Error('You are offline, Check your internet connection!!' || err.error.detail ));
+    return throwError(() => new Error('An error occurred processing request' || err.error.detail ));
   }
 }

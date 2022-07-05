@@ -24,7 +24,7 @@ import { SharedModule } from './shared/shared.module';
 import { PromoProductsComponent } from './home/promo-products/promo-products.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ChangeAddressComponent } from './checkout/change-address/change-address.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { WriteOrReplyReviewComponent } from './product-details/write-reply-review/write-reply-review.component';
 import { RelatedProductsComponent } from './product-details/related-products/related-products.component';
 
@@ -61,7 +61,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgxSpinnerModule,
     InfiniteScrollModule,
     SharedModule,
-    NgbModule 
+    NgbModule,
+    NgbNavModule, 
   ],
   providers: [
     {

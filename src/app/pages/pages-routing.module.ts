@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { AboutUsComponent } from '../layouts/shared/about-us/about-us.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { HomeComponent } from './home/home-component';
@@ -11,6 +12,8 @@ const routes: Routes = [
     { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule), canActivate: [AuthGuard] },
     
     { path: '', component: HomeComponent, data: { title: 'Home' } },
+
+    { path: 'about-us', component: AboutUsComponent, data: { title: 'About Us' } },
     
     { path: 'categories', loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule) },
     

@@ -78,15 +78,15 @@
                     </dl>
                     <dl class="dlist-align">
                         <dt>Discount:</dt>
-                        <dd class="text-end text-danger"> - GHS {{cartData?.discount | priceDecimal}} </dd>
+                        <dd class="text-end text-success"> - GHS {{cartData?.discount | priceDecimal}} </dd>
                     </dl>
-                    <!-- <dl class="dlist-align">
-                        <dt>TAX:</dt>
-                        <dd class="text-end text-danger"> + GHS14.00 </dd>
-                    </dl> -->
+                    <dl class="dlist-align">
+                        <dt>Tax:</dt>
+                        <dd class="text-end text-danger"> + {{cartData?.tax | priceDecimal}} </dd>
+                    </dl>
                     <dl class="dlist-align">
                         <dt>Total:</dt>
-                        <dd class="text-end text-dark"> <strong>GHS {{cartData?.total - cartData?.discount | priceDecimal}}</strong> </dd>
+                        <dd class="text-end text-dark"> <strong>GHS {{cartData?.total - cartData?.discount + cartData?.tax | priceDecimal}}</strong> </dd>
                     </dl>
                     <hr>
                     <p class="text-center mt-3"> 

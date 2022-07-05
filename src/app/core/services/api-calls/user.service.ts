@@ -48,7 +48,7 @@ export class UserService {
 * @callback ICallback function that returns an error or result
 */
   updateUserAddress(data, callback: ICallback) {
-    this.dataProvider.postData(this.constantValues.UPDATE_ADDRESS, data).subscribe(result => {
+    this.dataProvider.updateData(this.constantValues.UPDATE_ADDRESS, data).subscribe(result => {
       callback(null, result)
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
         this.toast.success(result.message, '')
