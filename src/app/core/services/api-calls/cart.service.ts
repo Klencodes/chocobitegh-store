@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { ResponseStatus } from '../../enums/enums';
+import { CartEnums, ResponseStatus } from '../../enums/enums';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CartModelClient, CartModelServer } from '../../models/cart';
 import { ProductModel } from '../../models/product';
@@ -49,7 +49,7 @@ export class CartService {
   cartTotal: number;
   orderId;
   couponVal: any;
-  taxValue: number = 0.05;
+  taxValue: number = CartEnums.TAX;
   // couponDataSaved: CouponModelServer;
   // amountPaid = 0
   // amountSaved = 0

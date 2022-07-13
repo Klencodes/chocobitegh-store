@@ -211,7 +211,7 @@
                                                     </div>
                                                     <div *ngIf="!deliveryAddress" class="text-center">
                                                         <button class="btn btn-primary" type="button"
-                                                            (click)="addUserAddress()">Add address</button>
+                                                            (click)="addOrEditAddress(null, false)">Add address</button>
                                                     </div>
                                                 </article>
                                                 <div *ngIf="!deliveryAddress && submitted" class="error-message">
@@ -494,6 +494,6 @@
 </div>
 <!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-atom" [fullScreen] = "true"><p style="color: white" > Placing Order... </p></ngx-spinner> -->
 
-<ngx-spinner bdColor="rgba(107, 23, 3, 0.8)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true">
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true">
     <p style="font-size: 20px; color: white">Placing Order...</p>
-  </ngx-spinner>
+</ngx-spinner>

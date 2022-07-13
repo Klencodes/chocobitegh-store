@@ -84,10 +84,11 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="error-message" *ngIf="submitted">
-                                        <div *ngIf="userPasswordForm?.get('password')?.hasError('required')">New password is required</div>
-                                        <div *ngIf="userPasswordForm?.get('password')?.hasError('minlength')">New password must be
-                                            6+ characters</div>
+                                    <div class="error-message" *ngIf="userPasswordForm?.invalid && submitted">
+                                        <div *ngIf="userPasswordForm?.get('password')?.hasError('required')">
+                                            New password is required</div>
+                                        <div *ngIf="userPasswordForm?.get('password')?.hasError('minlength')">
+                                            New password must be 6+ characters</div>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +112,7 @@
 
                                     <div class="error-message" *ngIf="userPasswordForm?.invalid && submitted">
                                         <div *ngIf="userPasswordForm?.get('confirm_password')?.hasError('required')">
-                                            Confirm new password is required</div>
+                                            Confirm password is required</div>
                                         <div *ngIf="userPasswordForm?.get('confirm_password')?.hasError('mustMatch')">
                                             Passwords must match</div>
                                     </div>
@@ -127,7 +128,7 @@
                                     Cancel</button>
                                 <button class="btn btn-primary" type="submit" [disabled]="isProcessing">
                                     <span *ngIf="isProcessing" class="spinner-border spinner-border-sm mr-1"></span>
-                                    Change Password</button>
+                                    Save Password</button>
                             </span>
                         </div>
                     </div>

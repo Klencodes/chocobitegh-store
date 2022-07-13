@@ -4,12 +4,14 @@ import { PageTitleComponent } from './pagetitle/pagetitle.component';
 import { RouterModule } from '@angular/router';
 import { ProductsLoadingComponent } from './products-loading/products-loading.component';
 import { PageLoadingComponent } from './page-loading/page-loading.component';
+import { EmptyRecordComponent } from './empty-record/empty-record.component';
 
 @NgModule({
   declarations: [
     PageTitleComponent,
     ProductsLoadingComponent,
     PageLoadingComponent,
+    EmptyRecordComponent,
   ],
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { PageLoadingComponent } from './page-loading/page-loading.component';
     PageTitleComponent,
     ProductsLoadingComponent,
     PageLoadingComponent,
+    EmptyRecordComponent,
   ],
 
 })

@@ -69,7 +69,7 @@ export class AddOrEditAddressComponent implements OnInit {
   onSubmit(data) {
     if (this.userAddressForm.invalid) {
       this.userAddressForm.markAllAsTouched()
-      this.toast.warning('', 'Please enter all required fields')
+      this.toast.error('Please enter all required fields', '')
       return;
     }
     if(this.data.isEdit){

@@ -26,7 +26,7 @@ export class NetworkErrorHandlerService {
       return throwError(() => new Error(err.error.message || err.error.detail ))
     } else if (err.status === 401) {
       localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      localStorage.removeItem('cb_user');
       return throwError(() => new Error(err.error.message || 'Invalid token, Please sign in' ))
     } else if (err.status > 415) {
       return throwError(() => new Error(err.error.message || err.error.detail ))

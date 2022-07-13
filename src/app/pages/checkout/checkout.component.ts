@@ -169,17 +169,20 @@ export class CheckoutComponent implements OnInit {
       }
     })
   }
-  /**
-   * Change delivery address
+   /**
+   * Add or Edit address
+   * @param address 
+   * @param isEdit 
    */
-  addUserAddress() {
-    this.dialog.open(AddOrEditAddressComponent)
-      .afterClosed().subscribe((isSuccess: boolean) => {
-        if (isSuccess) {
-          this.fetchUserAddresses();
-        }
-      })
-  }
+    addOrEditAddress(address, isEdit) {
+      this.dialog.open(AddOrEditAddressComponent, { disableClose: true, data: {dialogData: address, isEdit: isEdit} })
+        .afterClosed().subscribe((isSuccess: boolean) => {
+          if (isSuccess) {
+            this.fetchUserAddresses()
+          }
+        });
+    }
+
 
   /**
    * On customer or guest checkout

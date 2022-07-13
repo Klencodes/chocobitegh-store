@@ -11,18 +11,19 @@
     <div>
         <h5>Don't have an account?</h5>
         <p class="my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-    </div>
-    <div>
+      </div>
+      <div>
         <a class="btn btn-outline-dark" (click)="closeDialog()">Continue as Guest</a>
-    </div>
-
-</article>
-
-<article *ngIf="canLogin">
-  <div class="d-flex justify-content-between">
-    <h5 class="mb-4">Sign In</h5>
-    <span class="cursor-pointer"><i class="fe fe-x"></i></span>
-  </div>
+      </div>
+      
+    </article>
+    
+    <article *ngIf="canLogin">
+      <div class="d-flex justify-content-between">
+        <h5>Sign In</h5>
+        <span class="cursor-pointer" (click)="closeDialog()"><i class="fe fe-x fe-lg"></i></span>
+      </div>
+      <p *ngIf="data?.isReviewData" class="mt-2 mb-4 text-primary">You must sign in to add your review</p>
 
     <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm?.value)">
         <div class="mb-3">
@@ -51,14 +52,14 @@
           <div *ngIf="!password?.valid && password?.touched" class="error-message">
             Password is required</div>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label class="form-check">
             <input class="form-check-input" type="checkbox" value="" checked=""> <span class="form-check-label">
               Remember </span>
           </label>
-        </div>
+        </div> -->
         <div class="float-end">
-          <button class="btn btn-dark mr-3" type="button" (click)="closeDialog()"> Cancel </button>
+          <button class="btn btn-secondary mr-3" type="button" (click)="closeDialog()"> Cancel </button>
           <button class="btn btn-primary" type="submit"> {{btnText}} </button>  
         </div>
       </form>

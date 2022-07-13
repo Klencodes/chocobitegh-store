@@ -12,6 +12,7 @@ import SwiperCore, { FreeMode, Navigation, Thumbs } from "swiper";
 import { ToastrService } from 'ngx-toastr';
 import { LocalAuthService } from 'src/app/core/services/helpers/local-auth.service';
 import { UserModel } from 'src/app/core/models/user';
+import { GuestCustomerConfirmationComponent } from '../guest-customer-confirmation/guest-customer-confirmation.component';
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
 
 @Component({
@@ -110,29 +111,44 @@ export class ProductDetailsComponent implements OnInit {
   writeOrReplyReview(reviewOrProdId, isReply) {
     //check if the user has logged in
     if (!this.user.auth_token) {
-      this.toast.error('Please sign in to add your review');
-      return;
+      this.dialog.open(GuestCustomerConfirmationComponent, { disableClose: true, data: { isReviewData: true } })
+        .afterClosed().subscribe((isSuccess: boolean) => {
+          if (isSuccess) {
+            let currentUrl = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate([currentUrl])
+            })
+          }
+        })
+    } else {
+      this.dialog.open(WriteOrReplyReviewComponent, { data: { reviewData: reviewOrProdId, isReply: isReply } })
+        .afterClosed().subscribe((isSuccess: boolean) => {
+          if (isSuccess) {
+            this.fetchProductDetails();
+            this.productReviews();
+          }
+        });
     }
-    this.dialog.open(WriteOrReplyReviewComponent, { data: { reviewData: reviewOrProdId, isReply: isReply } })
-      .afterClosed().subscribe((isSuccess: boolean) => {
-        if (isSuccess) {
-          this.fetchProductDetails();
-          this.productReviews();
-
-        }
-      });
   }
   likeOrDislikeReview(reviewId, isLike) {
     //check if the user has logged in
     if (!this.user.auth_token) {
-      this.toast.error('Please sign in to like review');
-      return;
+      this.dialog.open(GuestCustomerConfirmationComponent, { disableClose: true, data: { isReviewData: true } })
+        .afterClosed().subscribe((isSuccess: boolean) => {
+          if (isSuccess) {
+            let currentUrl = this.router.url;
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate([currentUrl])
+            })
+          }
+        })
+    } else {
+      this.productService.likeOrDislikeReview({ review_id: reviewId, is_like: isLike }, (error, result) => {
+        if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
+          this.productReviews();
+        }
+      })
     }
-    this.productService.likeOrDislikeReview({ review_id: reviewId, is_like: isLike }, (error, result) => {
-      if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        this.productReviews();
-      }
-    })
   }
   /**
    * Fetch current product reviews

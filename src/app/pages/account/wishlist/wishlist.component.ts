@@ -25,13 +25,16 @@ export class WishlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.isProcessing = true;
+   this.fetchSavedItems()
+  }
+  fetchSavedItems() {
     this.userService.fetchsavedItems(this.page, (error, result) => {
       if (result !== null && result !== undefined) {
         this.listArrayOfProducts = result.results;
         this.displayedList = [...this.listArrayOfProducts];
       }
     })
-  }
+   }
   /**
   * Add to cart
   */
@@ -52,8 +55,7 @@ export class WishlistComponent implements OnInit {
   removeItem(id) {
     this.userService.removeSavedItem(id, (error, result) => {
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        this.listArrayOfProducts = result.results;
-        this.displayedList = [...this.listArrayOfProducts];
+        this.fetchSavedItems()
       }
     })
   }

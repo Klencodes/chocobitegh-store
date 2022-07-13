@@ -35,7 +35,7 @@ export enum OrderStatus {
 }
 
 export enum UserType {
-  TRAINING = 'TRAINING',
+  FACTORY_ADMIN = 'FACTORY_ADMIN',
   SALES = 'SALES',
   MANAGER = 'MANAGER',
   ADMIN = 'ADMIN',
@@ -52,3 +52,7 @@ export const SortData = [
   { name: 'Oldest', value: 'Oldest' },
   { name: 'Rating', value: 'Rating' },
 ];
+
+export enum CartEnums {
+  TAX = 0.05
+}

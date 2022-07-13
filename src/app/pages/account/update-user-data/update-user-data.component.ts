@@ -17,11 +17,11 @@ export class UpdateUserDataComponent implements OnInit {
   userPasswordForm: FormGroup;
   isProcessing: boolean;
   isEdit: boolean;
+  submitted: boolean;
   statesData;
   stateCities;
   hideCurrentPassword = true;
   hidePassword = true;
-  submitted = false;
   dialogTitle = "";
   configData: { suppressScrollX: boolean; wheelSpeed: number; };
 
@@ -61,7 +61,7 @@ export class UpdateUserDataComponent implements OnInit {
       if (this.userPasswordForm.invalid) {
         this.userPasswordForm.markAllAsTouched();
         this.submitted = true;
-        this.toast.error('', 'Please enter all required fields')
+        this.toast.error('Please enter all required fields', '')
         return;
       }
       this.isProcessing = true;

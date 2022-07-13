@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ResponseStatus } from 'src/app/core/enums/enums';
 import { AuthService } from 'src/app/core/services/api-calls/auth.service';
 
@@ -20,6 +21,7 @@ export class GuestCustomerConfirmationComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
+    private toast: ToastrService,
     private dialogRef: MatDialogRef<GuestCustomerConfirmationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
@@ -27,6 +29,9 @@ export class GuestCustomerConfirmationComponent implements OnInit {
 
 
   ngOnInit() {
+    if(this.data.isReviewData){
+      this.canLogin = true;
+    }
     this.signinForm = new FormGroup({
       phone_number: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -44,12 +49,16 @@ export class GuestCustomerConfirmationComponent implements OnInit {
       return;
     }
     this.isProcessing = true;
-    // const returnUrl = this.route.snapshot.queryParams['returnUrl'];
     this.authService.signIn(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        // this.router.navigateByUrl(returnUrl);
-        window.location.href = '/checkout'
+        if(this.data?.isReviewData){ 
+          localStorage.setItem('cb_user', JSON.stringify(result.results));
+          this.dialogRef.close(true)
+          this.toast.success('Login was successful')
+        }else{
+          window.location.href = '/checkout'
+        }
       } 
     });
   }

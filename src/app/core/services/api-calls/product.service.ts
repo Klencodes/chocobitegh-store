@@ -145,6 +145,8 @@ export class ProductService {
       callback(null, result);
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
         this.toast.success(result.message, '');
+      }else{
+        this.toast.error(result.message, '')
       }
     }, error => {
       callback(error, null);

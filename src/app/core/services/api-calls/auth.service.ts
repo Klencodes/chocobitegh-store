@@ -79,9 +79,9 @@ export class AuthService {
     this.dataProvider.postNoToken(this.constantValues.SIGNIN_ENDPOINT, data).subscribe(result => {
       callback(null, result)
       if (result !== null && result.response === ResponseStatus.SUCCESSFUL) {
-        const user = result.results
-        localStorage.setItem('user', JSON.stringify(user));
-        // this.userSubject$.next(user);
+        const cb_user = result.results
+        localStorage.setItem('cb_user', JSON.stringify(cb_user));
+        // this.userSubject$.next(cb_user);
       }
     }, error => {
       callback(error, null)

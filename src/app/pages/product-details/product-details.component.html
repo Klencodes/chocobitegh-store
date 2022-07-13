@@ -56,8 +56,7 @@
                             <i class="dot"></i> <span class="label-rating text-success">Verified</span>
                         </div>
                         <div class="mb-3"> <var class="price h5"> {{productDetails?.currency}}
-                                {{productDetails?.new_price}}</var> <span class="text-muted">/per {{productDetails?.unit
-                                | lowercase}}</span>
+                                {{productDetails?.new_price}}</var> <span class="text-muted">/{{productDetails?.unit | lowercase}}</span>
                             <del><span class="text-muted ml-3">{{productDetails?.currency}}
                                     {{productDetails?.old_price}}</span></del>
                         </div>
@@ -104,9 +103,7 @@
         </div>
         <hr>
         <blockquote class="card" *ngIf="reviewsDisplayed?.length <= 0">
-            <div class="card-body text-center py-5">
-                <div class="h5">There is no review for this product yet.</div>
-            </div>
+           <app-empty-record></app-empty-record>
         </blockquote>
         <blockquote class="card" *ngFor="let review of reviewsDisplayed">
             <div class="card-body">

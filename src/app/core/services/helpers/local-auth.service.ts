@@ -7,7 +7,7 @@ import { UserModel } from '../../models/user';
 })
 export class LocalAuthService {
 
-    private user:any = new UserModel();
+    private cb_user:any = new UserModel();
     private logedInCount = 'logedInCount';
     userType;
     constructor() { }
@@ -73,18 +73,18 @@ export class LocalAuthService {
      * @returns User object
      */
     get userObj() {
-      this.user = <UserModel>JSON.parse(localStorage.getItem('user') || '{}');
-      if (!this.user) {
+      this.cb_user = <UserModel>JSON.parse(localStorage.getItem('cb_user') || '{}');
+      if (!this.cb_user) {
         return null;
       }
-      return this.user;
+      return this.cb_user;
     }
     /**
      * Save user's information locally in localStorage
      * @param user User data in JSON format
      */
-    saveUser(user: any) {
-      localStorage.setItem('user', JSON.stringify(user));
+    saveUser(cb_user: any) {
+      localStorage.setItem('cb_user', JSON.stringify(cb_user));
     }
     /**
      * Save user's token to localStorage
@@ -149,10 +149,10 @@ export class LocalAuthService {
      * @param value Value to update to
      */
     updateUser(key: string, value: any) {
-      const user: any = <UserModel>JSON.parse(localStorage.getItem('user') || '{}');
-      if (user) {
-        user[key] = value;
-        localStorage.setItem('user', JSON.stringify(user));
+      const cb_user: any = <UserModel>JSON.parse(localStorage.getItem('cb_user') || '{}');
+      if (cb_user) {
+        cb_user[key] = value;
+        localStorage.setItem('cb_user', JSON.stringify(cb_user));
       }
     }
     /**
@@ -194,9 +194,8 @@ export class LocalAuthService {
      */
     logout() {
       localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      localStorage.removeItem('cb_user');
       // localStorage.clear();
-      localStorage.setItem(this.logedInCount, this.getLogedInCount.toString());
       window.location.href = '/';
     }
   }
