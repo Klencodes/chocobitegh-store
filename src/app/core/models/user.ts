@@ -20,7 +20,6 @@ export class UserModel {
     total_amount_spent?: string;
     user_type?: string;
     reward_value ?: string;
-    user_type?: string;
     isSelected?: boolean;
     news_letter?: boolean;
     is_new_customer?: boolean;
