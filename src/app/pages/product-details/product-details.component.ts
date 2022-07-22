@@ -162,4 +162,12 @@ export class ProductDetailsComponent implements OnInit {
     })
 
   }
+
+/**
+* View Category details
+* @param category 
+*/
+  viewCatDetails(category) {
+    this.router.navigate(['/categories/category-details', category.name, category.id])
+  }
 }

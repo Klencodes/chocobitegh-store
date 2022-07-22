@@ -28,7 +28,9 @@ export class WishlistComponent implements OnInit {
    this.fetchSavedItems()
   }
   fetchSavedItems() {
+    this.isProcessing = true;
     this.userService.fetchsavedItems(this.page, (error, result) => {
+      this.isProcessing = false;
       if (result !== null && result !== undefined) {
         this.listArrayOfProducts = result.results;
         this.displayedList = [...this.listArrayOfProducts];

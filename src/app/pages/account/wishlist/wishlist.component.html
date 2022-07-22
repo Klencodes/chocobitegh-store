@@ -1,40 +1,54 @@
-<article class="card mb-2" *ngFor="let item of displayedList">
-    <div class="table-responsive">
-        <table class="table" style="margin-bottom: 0px">
-            <tbody style="white-space: no-wrap;">
-                <tr>
-                    <td>
-                        <img style="width: 60px; height: 62px" [src]="item?.product?.image">
-                    </td>
-                    <td>
-                        <dt class="text-dark">{{item?.product?.name}}</dt>
-                        <dd>{{item?.product?.currency}} {{item?.product?.new_price}}</dd>
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary mx-2" (click)="addToCart(item?.product?.id)" [class.disabled]="!item?.product?.stock_availability">
-                            <span>
-                                <i class="fe fe-shopping-cart"></i>
-                                <span class="d-none d-sm-inline-block ml-2">{{ !item?.product?.stock_availability ? "Out of stock": "Add to cart" }}</span>
-                            </span>
-                        </button>
-                        <button class="btn btn-outline-danger" (click)="removeItem(item?.id)">
-                            <span>
-                                <i class="fe fe-trash"></i>
-                                <span class="d-none d-sm-inline-block ml-2">Remove</span>
-                            </span>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</article>
-<div class="text-center" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300"
-    (scrolled)="loadMoreData($event)">
-    <div *ngIf="isProcessingMore">
-        Loading saved items...
-    </div>
-    <div *ngIf="!isProcessingMore && !canLoadMore">
-        <strong> No more Items</strong>
+<div class="bg-cover-centered" *ngIf="displayedList?.length <= 0 && !isProcessing">
+    <div class="bg-cover-centered-box">
+        <div class="d-flex-center">
+            <app-empty-record></app-empty-record>
+        </div>
     </div>
 </div>
+
+<div *ngIf="displayedList?.length > 0">
+    <article class="card mb-2" *ngFor="let item of displayedList">
+        <div class="table-responsive">
+            <table class="table" style="margin-bottom: 0px">
+                <tbody style="white-space: no-wrap;">
+                    <tr>
+                        <td>
+                            <img style="width: 60px; height: 62px" [src]="item?.product?.image">
+                        </td>
+                        <td>
+                            <dt class="text-dark">{{item?.product?.name}}</dt>
+                            <dd>{{item?.product?.currency}} {{item?.product?.new_price}}</dd>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-primary mx-2" (click)="addToCart(item?.product?.id)"
+                                [class.disabled]="!item?.product?.stock_availability">
+                                <span>
+                                    <i class="fe fe-shopping-cart"></i>
+                                    <span class="d-none d-sm-inline-block ml-2">{{ !item?.product?.stock_availability ?
+                                        "Out of stock": "Add to cart" }}</span>
+                                </span>
+                            </button>
+                            <button class="btn btn-outline-danger" (click)="removeItem(item?.id)">
+                                <span>
+                                    <i class="fe fe-trash"></i>
+                                    <span class="d-none d-sm-inline-block ml-2">Remove</span>
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <div class="text-center" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300"
+        (scrolled)="loadMoreData($event)">
+        <div *ngIf="isProcessingMore">
+            Loading saved items...
+        </div>
+        <!-- <div *ngIf="!isProcessingMore && !canLoadMore">
+        <strong> No more Items</strong>
+    </div> -->
+    </div>
+</div>
+
+<app-page-loading *ngIf="isProcessing"></app-page-loading>

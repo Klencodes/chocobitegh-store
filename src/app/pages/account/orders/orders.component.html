@@ -1,66 +1,76 @@
-<article class="card mb-2" *ngFor="let order of displayedList">
-    <div class="table-responsive">
-        <table class="table" style="margin-bottom: 0px">
-            <tbody style="white-space: no-wrap;">
-                <tr>
-                    <td (click)="viewOrderDetails(order)" class="cursor-pointer">
-                        <div class="row orders-align" *ngIf="order?.order_items?.length > 2">
-                            <div class="col-6" *ngFor="let item of order?.order_items.slice(0,4)">
-                                <img style="width: 40px; height: 42px" [src]="item?.product?.image">
-                            </div>
-                        </div>
-                        <div class="row orders-align" *ngIf="order?.order_items?.length == 2">
-                            <div class="col-6" *ngFor="let item of order?.order_items">
-                                <img style="width: 40px; height: 62px" [src]="item?.product?.image">
-                            </div>
-                        </div>
-                        <div class="row orders-align" *ngIf="order?.order_items?.length == 1">
-                            <div class="col-12" *ngFor="let item of order?.order_items">
-                                <img style="width: 80px; height: 82px" [src]="item?.product?.image">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <dt class="text-dark">Order Number</dt>
-                        <dd>{{order?.order_code}}</dd>
-                    </td>
-                    <td>
-                        <dt class="text-dark">Date Placed</dt>
-                        <dd>{{order?.date_created | date: 'medium'}}</dd>
-                    </td>
-                    <td>
-                        <dt class="text-dark">Status</dt>
-                        <dd>
-                            <span *ngIf="order?.order_status === orderStatus?.CANCELLED" class="text-danger">
-                                <strong>{{order?.order_status | titlecase | removeUnderScore}}</strong>
-                            </span>
-                            <span *ngIf="order?.order_status !== orderStatus?.CANCELLED" class="text-success">
-                                <strong>{{order?.order_status | titlecase | removeUnderScore}}</strong>
-                            </span>
-                        </dd>
-                    </td>
-                    <td>
-                        <dt class="text-dark">Order Amount</dt>
-                        <dd>{{order?.currency}} {{order?.total}}</dd>
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-outline-secondary mx-2" (click)="repeatOrder(order)"><i
-                                class="fe fe-repeat"></i></button>
-                        <button class="btn btn-outline-primary" (click)="viewOrderDetails(order)"><i
-                                class="fe fe-eye"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div class="bg-cover-centered" *ngIf="displayedList?.length <= 0 && !isProcessing">
+    <div class="bg-cover-centered-box">
+        <div class="d-flex-center">
+            <app-empty-record></app-empty-record>
+        </div>
     </div>
-</article>
-<div class="text-center" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300"
-    (scrolled)="loadMoreData($event)">
-    <div *ngIf="isProcessingMore">
-        Loading order...
-    </div>
-    <div *ngIf="!isProcessingMore && !canLoadMore">
-        <strong> No more orders</strong>
+</div>
+
+<div *ngIf="displayedList?.length > 0">
+    <article class="card mb-2" *ngFor="let order of displayedList">
+        <div class="table-responsive">
+            <table class="table" style="margin-bottom: 0px">
+                <tbody style="white-space: no-wrap;">
+                    <tr>
+                        <td (click)="viewOrderDetails(order)" class="cursor-pointer">
+                            <div class="row orders-align" *ngIf="order?.order_items?.length > 2">
+                                <div class="col-6" *ngFor="let item of order?.order_items.slice(0,4)">
+                                    <img style="width: 40px; height: 42px" [src]="item?.product?.image">
+                                </div>
+                            </div>
+                            <div class="row orders-align" *ngIf="order?.order_items?.length == 2">
+                                <div class="col-6" *ngFor="let item of order?.order_items">
+                                    <img style="width: 40px; height: 62px" [src]="item?.product?.image">
+                                </div>
+                            </div>
+                            <div class="row orders-align" *ngIf="order?.order_items?.length == 1">
+                                <div class="col-12" *ngFor="let item of order?.order_items">
+                                    <img style="width: 80px; height: 82px" [src]="item?.product?.image">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <dt class="text-dark">Order Number</dt>
+                            <dd>{{order?.order_code}}</dd>
+                        </td>
+                        <td>
+                            <dt class="text-dark">Date Placed</dt>
+                            <dd>{{order?.date_created | date: 'medium'}}</dd>
+                        </td>
+                        <td>
+                            <dt class="text-dark">Status</dt>
+                            <dd>
+                                <span *ngIf="order?.order_status === orderStatus?.CANCELLED" class="text-danger">
+                                    <strong>{{order?.order_status | titlecase | removeUnderScore}}</strong>
+                                </span>
+                                <span *ngIf="order?.order_status !== orderStatus?.CANCELLED" class="text-success">
+                                    <strong>{{order?.order_status | titlecase | removeUnderScore}}</strong>
+                                </span>
+                            </dd>
+                        </td>
+                        <td>
+                            <dt class="text-dark">Order Amount</dt>
+                            <dd>{{order?.currency}} {{order?.total}}</dd>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-outline-secondary mx-2" (click)="repeatOrder(order)"><i
+                                    class="fe fe-repeat"></i></button>
+                            <button class="btn btn-outline-primary" (click)="viewOrderDetails(order)"><i
+                                    class="fe fe-eye"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <div class="text-center" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300"
+        (scrolled)="loadMoreData($event)">
+        <div *ngIf="isProcessingMore">
+            Loading order...
+        </div>
+        <!-- <div *ngIf="!isProcessingMore && !canLoadMore">
+            <strong> No more orders</strong>
+        </div> -->
     </div>
 </div>
 <app-page-loading *ngIf="isProcessing"></app-page-loading>

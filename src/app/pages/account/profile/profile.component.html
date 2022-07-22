@@ -78,15 +78,15 @@
                 </a>
             </div>
             <div class="col-4 border-start text-center align-self-center">
-                <a [routerLink]="['/account/favorites']">
-                    <p class="title">Saved Items</p>
-                    <p class="count">{{userDetails?.saved_items}}</p>
+                <a [routerLink]="['/account/orders']">
+                    <p class="title">Delivered</p>
+                    <p class="count"> {{userDetails?.delivered_order_count}} </p>
                 </a>
             </div>
             <div class="col-4 border-start text-center align-self-center">
-                <a [routerLink]="['/account/orders']">
-                    <p class="title">Return Orders</p>
-                    <p class="count"> 4 </p>
+                <a [routerLink]="['/account/favorites']">
+                    <p class="title">Saved Items</p>
+                    <p class="count">{{userDetails?.saved_items}}</p>
                 </a>
             </div>
         </div>

@@ -3,56 +3,80 @@
         <header class="d-md-flex">
             <div class="flex-grow-1">
                 <h6 class="mb-0"> Order ID: {{orderDetails?.order_code}} <i class="dot"></i>
-                    <span class="text-danger" *ngIf="orderDetails?.order_status == orderStatus?.CANCELLED"> {{orderDetails?.order_status}} </span>
-                    <span class="text-success" *ngIf="orderDetails?.order_status !== orderStatus?.CANCELLED"> {{orderDetails?.order_status | removeUnderScore}} </span>
-                 </h6>
+                    <span class="text-danger" *ngIf="orderDetails?.order_status == orderStatus?.CANCELLED">
+                        {{orderDetails?.order_status}} </span>
+                    <span class="text-success" *ngIf="orderDetails?.order_status !== orderStatus?.CANCELLED">
+                        {{orderDetails?.order_status | removeUnderScore}} </span>
+                </h6>
                 <span>Date: {{orderDetails?.date_created | date: 'medium'}}</span>
             </div>
-            <div> 
-                <span *ngIf="orderDetails?.order_status  === orderStatus?.PLACED || orderDetails?.order_status  === orderStatus?.CANCELLED">
-                    <a *ngIf="orderDetails?.order_status === orderStatus?.PLACED" class="btn btn-outline-danger" (click)="cancelOrReOrder(orderDetails?.id, orderStatus?.CANCELLED)">Cancel order</a> 
-                    <a *ngIf="orderDetails?.order_status === orderStatus?.CANCELLED"  class="btn btn-primary ml-3" (click)="cancelOrReOrder(orderDetails?.id, orderStatus?.PLACED)">Re-order</a> 
+            <div>
+                <span
+                    *ngIf="orderDetails?.order_status  === orderStatus?.PLACED || orderDetails?.order_status  === orderStatus?.CANCELLED">
+                    <a *ngIf="orderDetails?.order_status === orderStatus?.PLACED" class="btn btn-outline-danger"
+                        (click)="cancelOrReOrder(orderDetails?.id, orderStatus?.CANCELLED)">Cancel order</a>
+                    <a *ngIf="orderDetails?.order_status === orderStatus?.CANCELLED" class="btn btn-primary ml-3"
+                        (click)="cancelOrReOrder(orderDetails?.id, orderStatus?.PLACED)">Re-order</a>
                 </span>
-                <a *ngIf="orderDetails?.order_status  !== orderStatus?.PLACED && orderDetails?.order_status  !== orderStatus?.CANCELLED" class="btn btn-primary" (click)="repeatOrder(orderDetails)">Repeat order</a> 
+                <a *ngIf="orderDetails?.order_status  !== orderStatus?.PLACED && orderDetails?.order_status  !== orderStatus?.CANCELLED"
+                    class="btn btn-primary" (click)="repeatOrder(orderDetails)">Repeat order</a>
             </div>
         </header>
         <hr>
         <div class="row">
             <div class="col-md-4">
                 <p class="order-label-bold">Contact</p>
-                <p class="m-0"> {{orderDetails?.customer?.full_name}} <br> Phone: {{orderDetails?.customer?.phone_number}} <br> Email: {{orderDetails?.customer?.email}} </p>
-            </div> 
+                <p class="m-0"> {{orderDetails?.customer?.full_name}} <br> Phone:
+                    {{orderDetails?.customer?.phone_number}} <br> Email: {{orderDetails?.customer?.email}} </p>
+            </div>
             <hr class="place-order-show-sm mt-3">
             <div class="col-md-4 border-start">
                 <p class="order-label-bold">Shipping address</p>
-                <p class="m-0"> {{orderDetails?.shipping_address?.country}} <br>  {{orderDetails?.shipping_address?.address}}, 
-                     <span *ngIf="orderDetails?.shipping_address?.apartnemt_number">{{orderDetails?.shipping_address?.apartnemt_number}},</span>
-                      {{orderDetails?.shipping_address?.city}}, {{orderDetails?.shipping_address?.state}} </p>
-            </div> 
+                <p class="m-0" *ngIf="orderDetails?.delivery_method == 'DELIVERY'">
+                    {{orderDetails?.shipping_address?.country}} <br> {{orderDetails?.shipping_address?.address}},
+                    <span
+                        *ngIf="orderDetails?.shipping_address?.apartnemt_number">{{orderDetails?.shipping_address?.apartnemt_number}},</span>
+                    {{orderDetails?.shipping_address?.city}}, {{orderDetails?.shipping_address?.state}}
+                </p>
+                <p class="m-0" *ngIf="orderDetails?.delivery_method == 'PICK_UP'">
+                    In Stock Pick Up
+                </p>
+            </div>
             <hr class="place-order-show-sm mt-3">
             <div class="col-md-4 border-start">
                 <p class="order-label-bold">Payment</p>
-                <p class="m-0"><span class="text-success"> MoMo **** {{orderDetails?.payment?.phone_number.slice(6,10)}} </span> </p>
-                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.delivery_fee > 0">Delivery fee: {{orderDetails?.currency}} {{orderDetails?.delivery_fee}} </span> </p>
-                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.discount > 0">Discount: {{orderDetails?.currency}} {{orderDetails?.discount}}</span> </p>
-                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.tax > 0">Tax: {{orderDetails?.currency}} {{orderDetails?.tax}}</span> </p>
-                <p class="mb-0"> Total <span *ngIf="orderDetails?.is_paid">paid</span>: {{orderDetails?.currency}} {{orderDetails?.payment?.amount_paid}} </p>
-            </div> 
-        </div> 
+                <p *ngIf="orderDetails?.payment?.payment_method == 'Mobile Money'" class="m-0"><span
+                        class="text-success"> MoMo **** {{orderDetails?.payment?.phone_number.slice(6,10)}} </span> </p>
+                <p *ngIf="orderDetails?.payment?.payment_method == 'Card Payment'" class="m-0"><span
+                        class="text-success"> VISA **** {{orderDetails?.payment?.card_number.slice(6,10)}} </span> </p>
+                <p *ngIf="orderDetails?.payment?.payment_method == 'Cash Payment'" class="m-0"><span
+                        class="text-success"> CASH </span> </p>
+                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.delivery_fee > 0">Delivery fee:
+                        {{orderDetails?.currency}} {{orderDetails?.delivery_fee}} </span> </p>
+                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.discount > 0">Discount:
+                        {{orderDetails?.currency}} {{orderDetails?.discount}}</span> </p>
+                <p class="mb-0"><span class="font-size-13" *ngIf="orderDetails?.tax > 0">Tax: {{orderDetails?.currency}}
+                        {{orderDetails?.tax}}</span> </p>
+                <p class="mb-0"> Total <span *ngIf="orderDetails?.is_paid">paid</span>: {{orderDetails?.currency}}
+                    {{orderDetails?.payment?.amount_paid}} </p>
+            </div>
+        </div>
         <hr>
         <ul class="row">
             <li class="col-lg-4 col-md-6" *ngFor="let item of orderDetails?.order_items">
                 <div class="itemside mb-3">
-                    <div class="aside"> 
-                        <img width="72" height="72" [src]="item?.product?.image" class="img-sm rounded border"> 
-                        </div>
+                    <div class="aside">
+                        <img width="72" height="72" [src]="item?.product?.image" class="img-sm rounded border">
+                    </div>
                     <div class="info">
-                        <p class="title">{{item?.product?.name}}</p> 
-                        <div><strong> {{item?.quantity}} x {{item?.product?.currency}} {{item?.product?.new_price}} </strong></div>
-                        <strong class="text-dark">{{item?.product?.currency}} {{item?.quantity * item?.product?.new_price | priceDecimal}} </strong>
+                        <p class="title">{{item?.product?.name}}</p>
+                        <div><strong> {{item?.quantity}} x {{item?.product?.currency}} {{item?.product?.new_price}}
+                            </strong></div>
+                        <strong class="text-dark">{{item?.product?.currency}} {{item?.quantity *
+                            item?.product?.new_price | priceDecimal}} </strong>
                     </div>
                 </div>
             </li>
         </ul>
-    </div> 
+    </div>
 </article>
