@@ -99,6 +99,7 @@ export class CheckoutComponent implements OnInit {
     })
     //Breadcrumb items
     this.breadCrumbItems = [{ label: 'Home', link: '/' }, { label: 'Checkout', active: true }];
+    
     // Check if the user is loggedin
     // if (this.user.auth_token !== null && this.user.auth_token !== undefined) {
     //   this.isGuestCheckout = false;

@@ -86,8 +86,10 @@
     </div>
 
     <div class="row my-5">
-        <h4 class="card-title">Related Products</h4>
-        <app-related-products [productId]="productId"></app-related-products>
+        <h4 class="card-title">Related Chocolates</h4>
+        <div class="card pt-3 px-3">
+            <app-related-products [productId]="productId"></app-related-products>
+        </div>
     </div>
 
     <!-- Product Reviews Section -->
@@ -113,12 +115,12 @@
                             <span class="mr-2">{{review?.likes}}</span>
                             <a (click)="likeOrDislikeReview(review?.id, true)" class="float-end mr-3" data-bs-toggle="tooltip"
                                 data-bs-title="Like">
-                                <i [ngClass]="{'fe-bold': review?.likes > 0}" class="fe fe-thumbs-up align-middle"></i>
+                                <i class="fe fe-thumbs-up align-middle"></i>
                             </a>
                             <span class="mr-2">{{review?.dislikes}}</span>
                             <a (click)="likeOrDislikeReview(review?.id, false)" class="mr-3 float-end" data-bs-toggle="tooltip"
                                 data-bs-title="Dislike">
-                                <i [ngClass]="{'fe-bold': review?.dislikes > 0}" class="fe fe-thumbs-down align-middle"></i>
+                                <i class="fe fe-thumbs-down align-middle"></i>
                             </a>
                         </div>
                         <button class="float-end btn-sm btn btn-outline-primary" (click)="writeOrReplyReview(review?.id, true)"> 

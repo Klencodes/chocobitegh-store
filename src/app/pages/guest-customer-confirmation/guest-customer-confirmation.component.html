@@ -23,7 +23,7 @@
         <h5>Sign In</h5>
         <span class="cursor-pointer" (click)="closeDialog()"><i class="fe fe-x fe-lg"></i></span>
       </div>
-      <p *ngIf="data?.isReviewData" class="mt-2 mb-4 text-primary">You must sign in to add your review</p>
+      <p *ngIf="data?.isReviewData" class="mt-2 mb-4 text-primary">You must sign in to add or like review</p>
 
     <form [formGroup]="signinForm" (ngSubmit)="onSubmit(signinForm?.value)">
         <div class="mb-3">
