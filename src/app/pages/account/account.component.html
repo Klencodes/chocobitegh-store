@@ -2,13 +2,13 @@
     <app-pagetitle [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
     <div class="row">
-        <aside class="col-md-3 mb-4">
+        <aside class="col-md-3 mb-4 d-none d-md-block">
             <div class="card p-3">
                 <nav class="nav flex-column nav-pills"> 
                     <a class="nav-link" (click)="account()" routerLinkActive="active">Account Info</a> 
                     <a class="nav-link" (click)="order()" routerLinkActive="active">My orders</a> 
                     <a class="nav-link" (click)="wishlist()" routerLinkActive="active">My Favorites</a>
-                    <a class="nav-link" (click)="transaction()" routerLinkActive="active">Transactions</a> 
+                    <!-- <a class="nav-link" (click)="transaction()" routerLinkActive="active">Transactions</a>  -->
                     <a class="nav-link" (click)="logout()">Log out</a> 
                 </nav>
             </div> 

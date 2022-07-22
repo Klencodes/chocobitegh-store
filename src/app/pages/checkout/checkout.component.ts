@@ -190,6 +190,7 @@ export class CheckoutComponent implements OnInit {
    * @param data checkout data to submit to server
    */
   onCheckout(data) {
+    console.log(data, 'DATA')
     if (this.userCheckoutData.invalid) {
       this.submitted = true;
       this.userCheckoutData.markAllAsTouched();

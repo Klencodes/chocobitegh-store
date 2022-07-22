@@ -661,10 +661,10 @@ a:hover>.img-thumbnail {
     padding-bottom: 1rem
 }
 
-.brand-wrap,
-.navbar-brand {
-    opacity: .75
-}
+// .brand-wrap,
+// .navbar-brand {
+//     opacity: .75
+// }
 
 .brand-wrap .logo,
 .navbar-brand .logo {
@@ -1133,10 +1133,8 @@ a[class*=card]:hover .title {
 }
 
 .card-product-grid .info-wrap {
-    padding: 1rem 1.2rem;
+    padding: 0.5rem 0.7rem;
     overflow: hidden;
-
-
 }
 
 .tags-icon {
@@ -1149,7 +1147,7 @@ a[class*=card]:hover .title {
 }
 
 .card-product-grid .bottom-wrap {
-    padding: 1rem 1.2rem;
+    padding: 0.5rem 0.7rem;
     border-top: 1px solid $light-gray;
 }
 
@@ -1403,7 +1401,8 @@ b.price,
     margin-left: 5px;
     margin-right: 5px;
     display: inline-block;
-    vertical-align: middle
+    vertical-align: initial;
+    color: $primary;
 }
 
 .rating-stars {
@@ -2550,4 +2549,7 @@ table tr td {
 }
 .active-address {
     background-color: rgba($primary, .1);
+}
+.empty-record {
+    width: 90px;
 }

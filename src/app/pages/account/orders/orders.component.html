@@ -63,4 +63,4 @@
         <strong> No more orders</strong>
     </div>
 </div>
-<app-page-loading></app-page-loading>
+<app-page-loading *ngIf="isProcessing"></app-page-loading>
