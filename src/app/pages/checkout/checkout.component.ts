@@ -47,15 +47,12 @@ export class CheckoutComponent implements OnInit {
       // this.tax?.setValue(this.cartData.tax.toFixed(2))
       // this.delivery_fee?.setValue(this.cartData.delivery_fee)
     })
-    this.dataProvider.getLocalData('assets/json/gh-states.json').subscribe(result => {
-      if (result !== null) {
-        this.statesData = result;
-      }
-    })
+   
    
   }
 
   ngOnInit(): void {
+    this.fetchDeliveryLocations();
     this.fetchUserAddresses();
     // this.guestCheckoutForm = new FormGroup({
     //   is_guest_checkout: new FormControl(true, [Validators.required]),
@@ -127,9 +124,10 @@ export class CheckoutComponent implements OnInit {
       this.userService.fetchUserAddresses((error, result) => {
         this.isProcessing = false;
         if (result !== null && result.results) {
-          result.results.find(x => {
-            if (x.primary === true) {
-              this.deliveryAddress = x;
+          this.fetchDeliveryLocations();
+          result.results.find(address => {
+            if (address.primary === true) {
+              this.deliveryAddress = address;
               this.calculateDeliveryFee(this.deliveryAddress)
               if (this.deliveryAddress !== null) {
                 this.userCheckoutData.get('address_id').setValue(this.deliveryAddress?.id)
@@ -157,9 +155,10 @@ export class CheckoutComponent implements OnInit {
    * @param address 
    */
   calculateDeliveryFee(address) {
-    this.statesData.find(x => {
-      if (x.name === address.state) {
-        x.cities.filter(x => {
+    this.fetchDeliveryLocations();
+    this.statesData.find(state => {
+      if (state.name === address.state) {
+        state.cities.filter(x => {
           if (x.name === address.city) {
             this.cartService.cartDataServer.delivery_fee = parseFloat(x.price);
             this.cartService.cartDataClient.delivery_fee = this.cartService.cartDataServer.delivery_fee;
@@ -169,6 +168,7 @@ export class CheckoutComponent implements OnInit {
         })
       }
     })
+    
   }
    /**
    * Add or Edit address
@@ -190,7 +190,7 @@ export class CheckoutComponent implements OnInit {
    * @param data checkout data to submit to server
    */
   onCheckout(data) {
-    console.log(data, 'DATA')
+    // console.log(data, 'DATA')
     if (this.userCheckoutData.invalid) {
       this.submitted = true;
       this.userCheckoutData.markAllAsTouched();
@@ -239,6 +239,16 @@ export class CheckoutComponent implements OnInit {
         this.network_provider.updateValueAndValidity()
       }
     }
+  }
+  /**
+   * Fetch delivery locations
+   */
+  fetchDeliveryLocations(){
+    this.dataProvider.getLocalData('assets/json/gh-states.json').subscribe(result => {
+      if (result !== null) {
+        this.statesData = result;
+      }
+    })
   }
   get address_id() { return this.userCheckoutData.get('addres_id') }
   get delivery_method() { return this.userCheckoutData.get('delivery_method') }

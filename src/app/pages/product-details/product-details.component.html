@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <aside class="col-md-6 col-lg-5">
+                <aside class="col-md-6 col-lg-5 px-0">
                     <article class="gallery-wrap mb-3">
                         <div class="img-big-wrap img-thumbnail">
                             <!-- Swiper Main Image -->
@@ -57,7 +57,7 @@
                         </div>
                         <div class="mb-3"> <var class="price h5"> {{productDetails?.currency}}
                                 {{productDetails?.new_price}}</var> <span class="text-muted">/{{productDetails?.unit | lowercase}}</span>
-                            <del><span class="text-muted ml-3">{{productDetails?.currency}}
+                            <del *ngIf="productDetails?.old_price"><span class="text-muted ml-3">{{productDetails?.currency}}
                                     {{productDetails?.old_price}}</span></del>
                         </div>
                         <p [innerHTML]="productDetails?.description"></p>

@@ -24,7 +24,7 @@
     <!-- <app-promo-products></app-promo-products> -->
 
     <div class="page-padding-top">
-        <h4 class="card-title">Suggested Products</h4>
+        <h4 class="card-title">Best Chocolates</h4>
         <div class="row">
             <div class="col-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let item of displayedList">
                 <div class="card card-product-grid">
@@ -67,7 +67,7 @@
                         </a>
                         <div class="price-wrap lh-sm">
                             <strong class="price">{{item?.currency}} {{item?.new_price}} </strong> <br>
-                            <del class="price-old"> {{item?.currency}} {{item?.old_price}}</del>
+                            <del class="price-old" *ngIf="item?.old_price"> {{item?.currency}} {{item?.old_price}}</del>
                         </div>
                     </div>
                 </div>
@@ -82,8 +82,8 @@
         <div *ngIf="isProcessingMore">
             Loading products...
         </div>
-        <div *ngIf="!isProcessingMore && !canLoadMore">
+        <!-- <div *ngIf="!isProcessingMore && !canLoadMore">
             <strong> No more products</strong>
-        </div>
+        </div> -->
     </div>
 </div>

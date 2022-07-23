@@ -41,7 +41,7 @@
                     </a>
                     <div class="price-wrap lh-sm">
                         <strong class="price">{{item?.currency}} {{item?.new_price}} </strong> <br>
-                        <del class="price-old"> {{item?.currency}} {{item?.old_price}}</del>
+                        <del class="price-old" *ngIf="item?.old_price"> {{item?.currency}} {{item?.old_price}}</del>
                     </div>
                 </div>
             </div>
